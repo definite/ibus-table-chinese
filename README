@@ -1,0 +1,20 @@
+Requirements:
+
+    You need to install ibus-table first.
+
+Introduction:
+    
+    ibus-table-cangjie provide the following input method tables for IBus-Table,
+    one of input method engines on IBus framework:
+
+    - Cang Jie 5       - 倉頡輸入法第五代
+    - Cang Jie 3       - 倉頡輸入法第三代
+    - Cang Jie (big)   - 倉頡輸入法大字集
+    - Smart Cang Jie 6 - 快速倉頡輸入法六代
+    - Quick 5          - 速成輪入法第五代
+    - Quick 3          - 速成輪入法第三代
+    - Quick (classic)  - 速成輪入法古典版
+    - Easy (big)       - 輕鬆輸入法大字集
+
+    The soft copy of above tables and icons are released under GPLv3, certain contents
+    were derived from SCIM project.

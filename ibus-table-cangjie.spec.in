@@ -1,0 +1,81 @@
+Name:       @PACKAGE_NAME@
+Version:    @PACKAGE_VERSION@
+Release:    3%{?dist}
+Summary:    CangJie tables for IBus-Table.
+License:    GPLv3
+Group:      System Environment/Libraries
+URL:        http://code.google.com/p/ibus/
+Source0:    http://ibus.googlecode.com/files/%{name}-%{version}.tar.gz
+
+BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch:  noarch
+
+BuildRequires:  ibus-table >= 1.2
+Requires:   ibus-table >= 1.2
+
+%description
+The package contains CangJie tables for IBus-Table.
+
+%prep
+%setup -q
+
+%build
+%configure \
+  --disable-static \
+  --enable-cangjie3 \
+  --enable-cangjie5 \
+  --enable-canejiebig \
+  --enable-quick3 \
+  --enable-quick5 \
+  --enable-quickclassic \
+  --enable-easybig
+
+%__make %{?_smp_mflags}
+
+%install
+%__rm -rf $RPM_BUILD_ROOT
+%__make DESTDIR=${RPM_BUILD_ROOT} NO_INDEX=true INSTALL='install -p' install
+
+# %find_lang %{name}
+
+%post
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/cangjie3.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/cangjie5.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/cangjie-big.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/quick3.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/quick5.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/quick-classic.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/easy-big.db
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%doc AUTHORS COPYING README
+%{_datadir}/ibus-table/tables/cangjie3.db
+%{_datadir}/ibus-table/tables/cangjie5.db
+%{_datadir}/ibus-table/tables/cangjie-big.db
+%{_datadir}/ibus-table/tables/quick3.db
+%{_datadir}/ibus-table/tables/quick5.db
+%{_datadir}/ibus-table/tables/quick-classic.db
+%{_datadir}/ibus-table/tables/easy-big.db
+%{_datadir}/ibus-table/icons/cangjie3.svg
+%{_datadir}/ibus-table/icons/cangjie5.svg
+%{_datadir}/ibus-table/icons/cangjie-big.png
+%{_datadir}/ibus-table/icons/quick3.png
+%{_datadir}/ibus-table/icons/quick5.png
+%{_datadir}/ibus-table/icons/quick-classic.png
+%{_datadir}/ibus-table/icons/easy-big.png
+
+%changelog
+* Wed Jan 06 2010 Caius 'kaio' Chance <k at kaio.me> - @VERSION@-3
+- Added Quick 3, 5, Classic tables and icons.
+- Added Easy (big) table and icon.
+- Updated AUTHORS, COPYING, license and its declarations.
+
+* Mon Aug 31 2009 Caius 'kaio' Chance <k at kaio.me> - @VERSION@-2
+- Added CangJie (big) table.
+
+* Wed Aug 19 2008 Yu Yuwei <acevery@gmail.com> - @VERSION@-1
+- The first version.
