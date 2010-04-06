@@ -1,6 +1,6 @@
 # vim:set ts=4
 #
-# ibus-table-cangjie - The Cang Jie and derived tables for IBus-Table
+# ibus-table-cangcan - The Cang Jie and Cantonese tables for IBus-Table
 #
 # Copyright (c) 2008-2010 Yu Yuwei <acevery@gmail.com>
 #
@@ -58,6 +58,12 @@ if IBUS_TABLE_BUILD_EASYBIG
 tables_DATA += easy-big.db
 endif
 
+if IBUS_TABLE_BUILD_CANTONESE
+tables_DATA += cantonese.db
+tables_DATA += cantonhk.db
+tables_DATA += jyutping.db
+endif
+
 tables_DATA += $(NULL)
 
 tablesdir = $(datadir)/ibus-table/tables
@@ -71,6 +77,9 @@ EXTRA_DIST = \
 	quick5.txt \
 	quick-classic.txt \
 	easy-big.txt \
+        cantonese.txt \
+        cantonhk.txt \
+        jyutping.txt \
 	$(NULL)
 
 DISTCLEANFILES = \

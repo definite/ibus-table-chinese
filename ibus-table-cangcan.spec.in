@@ -28,8 +28,10 @@ The package contains CangJie tables for IBus-Table.
   --enable-quick3 \
   --enable-quick5 \
   --enable-quickclassic \
-  --enable-easybig
-
+  --enable-easybig \
+  --enable-cantonese \
+  --enable-cantonhk \
+  --enable-jyutping
 %__make %{?_smp_mflags}
 
 %install
@@ -46,6 +48,9 @@ ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/quick3.db
 ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/quick5.db
 ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/quick-classic.db
 ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/easy-big.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/cantonese.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/cantonhk.db
+ibus-table-createdb -i -n %{_datadir}/ibus-table/tables/jyutping.db
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,6 +72,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/ibus-table/icons/quick5.png
 %{_datadir}/ibus-table/icons/quick-classic.png
 %{_datadir}/ibus-table/icons/easy-big.png
+%{_datadir}/ibus-table/icons/cantonese.png
+%{_datadir}/ibus-table/icons/cantonhk.png
+%{_datadir}/ibus-table/icons/jyutping.png
+%{_datadir}/ibus-table/tables/cantonese.db
+%{_datadir}/ibus-table/tables/cantonhk.db
+%{_datadir}/ibus-table/tables/jyutping.db
 
 %changelog
 * Wed Jan 06 2010 Caius 'kaio' Chance <k at kaio.me> - @VERSION@-3

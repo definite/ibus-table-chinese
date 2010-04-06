@@ -1,6 +1,6 @@
 # vim:set ts=4
 #
-# ibus-tables-cangjie - The Cang Jie and derived tables for IBus-Table
+# ibus-tables-cangcan- The Cang Jie and Cantonese tables for IBus-Table
 #
 # Copyright (c) 2008-2010 Yu Yuwei <acevery@gmail.com>
 #

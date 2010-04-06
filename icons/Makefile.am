@@ -1,6 +1,6 @@
 # vim:set ts=4
 #
-# ibus-table-cangjie - The Cang Jie and derived tables for IBus Table
+# ibus-table-cangcan - The Cang Jie and Cantonese tables for IBus Table
 #
 # Copyright (c) 2008-2010 Yu Yuwei <acevery@gmail.com>
 #
@@ -52,6 +52,18 @@ if IBUS_TABLE_BUILD_EASYBIG
 icons_DATA += easy-big.png
 endif
 
+if IBUS_TABLE_BUILD_CANTONESE
+icons_DATA += cantonese.png
+endif
+
+if IBUS_TABLE_BUILD_CANTONHK
+icons_DATA += cantonhk.png
+endif
+
+if IBUS_TABLE_BUILD_JYUTPING
+icons_DATA += jyutping.png
+endif
+
 icons_DATA += $(NULL)
 
 EXTRA_DIST = \
@@ -63,6 +75,9 @@ EXTRA_DIST = \
 	quick5.png \
 	quick-classic.png \
 	easy-big.png \
+        cantonese.png \
+        cantonhk.png \
+        jyutping.png \
 	$(NULL)
 
 iconsdir = $(datadir)/ibus-table/icons

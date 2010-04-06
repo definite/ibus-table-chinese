@@ -1,6 +1,6 @@
 # vim:set ts=4
 #
-# ibus-table-cangjie - The Cang Jie and derived tables for IBus-Table
+# ibus-table-cangcan - The Cang Jie and Cantonese tables for IBus-Table
 #
 # Copyright (c) 2008-2010 Yu Yuwei <acevery@gmail.com>
 #
@@ -19,10 +19,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 # if not 1, append datestamp to the version number.
-m4_define([package_name], [ibus-table-cangjie])
+m4_define([package_name], [ibus-table-cangcan])
 m4_define([ibus_released], [0])
 m4_define([ibus_major_version], [1])
-m4_define([ibus_minor_version], [2])
+m4_define([ibus_minor_version], [3])
 m4_define([ibus_micro_version], [0])
 m4_define(ibus_maybe_datestamp,
     m4_esyscmd([if test x]ibus_released[ != x1; then date +.%Y%m%d | tr -d '\n\r'; fi]))
@@ -104,12 +104,35 @@ AC_ARG_ENABLE([easybig],
 
 AM_CONDITIONAL([IBUS_TABLE_BUILD_EASYBIG],[test x"$enable_easybig" != x"no"])
 
+AC_ARG_ENABLE([cantonese],
+    [AC_HELP_STRING([--enable-cantonese],
+        [Generate Cantonese Engine])], ,
+    [enable_cantonese=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_CANTONESE],[test x"$enable_cantonese" != x"no"])
+
+AC_ARG_ENABLE([cantonhk],
+    [AC_HELP_STRING([--enable-cantonhk],
+        [Generate Cantonese HK Engine])], ,
+    [enable_cantonhk=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_CANTONHK],[test x"$enable_cantonhk" != x"no"])
+
+AC_ARG_ENABLE([jyutping],
+    [AC_HELP_STRING([--enable-jyutping],
+        [Generate Jyut Ping Engine])], ,
+    [enable_jyutping=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_JYUTPING],[test x"$enable_jyutping" != x"no"])
+
+
 # OUTPUT files
-AC_CONFIG_FILES(Makefile
+AC_CONFIG_FILES(
+Makefile
 icons/Makefile
 tables/Makefile
 m4/Makefile
-ibus-table-cangjie.spec
+ibus-table-cangcan.spec
 )
 
 AC_OUTPUT
@@ -118,6 +141,8 @@ AC_MSG_RESULT([
 Build options:
   Version                   $VERSION
   Install prefix            $prefix
+
+Build Cang Jie and derived tables:
   Build CangJie3            $enable_cangjie3
   Build CangJie5            $enable_cangjie5
   Build CangJie (big)       $enable_cangjiebig
@@ -126,5 +151,10 @@ Build options:
   Build Quick5              $enable_quick5
   Build Quick Classic       $enable_quickclassic
   Build Easy (big)          $enable_easybig
+
+Build Cantonese and derived tables:
+  Build Cantonese           $enable_cantonese
+  Build Cantonese HK        $enable_cantonhk
+  Build JyutPing            $enable_jyutping
 ])
 
