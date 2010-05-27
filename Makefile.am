@@ -1,8 +1,8 @@
 # vim:set ts=4
 #
-# ibus-table-cangcan - The Cang Jie and Cantonese tables for IBus-Table
+# ibus-table-chinese - Chinese tables for IBus-Table
 #
-# Copyright (c) 2008-2010 Yu Yuwei <acevery@gmail.com>
+# Copyright (c) 2008 Yu Yuwei <acevery at gmail.com>, Caius 'kaio' Chance <me at kaio.net>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

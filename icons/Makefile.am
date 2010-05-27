@@ -1,6 +1,6 @@
 # vim:set ts=4
 #
-# ibus-table-cangcan - The Cang Jie and Cantonese tables for IBus Table
+# ibus-table-chinese - Chinese tables for IBus-Table
 #
 # Copyright (c) 2008-2010 Yu Yuwei <acevery@gmail.com>
 #
@@ -64,6 +64,50 @@ if IBUS_TABLE_BUILD_JYUTPING
 icons_DATA += jyutping.png
 endif
 
+if IBUS_TABLE_BUILD_STROKE5
+icons_DATA += stroke5.png
+endif
+
+if IBUS_TABLE_BUILD_WUBI86
+icons_DATA += wubi86.svg
+endif
+
+if IBUS_TABLE_BUILD_XINHUA
+icons_DATA += xinhua.png
+endif
+
+if IBUS_TABLE_BUILD_ZHENGMA
+icons_DATA += zhengma.svg
+endif
+
+if IBUS_TABLE_BUILD_ERBI
+icons_DATA += erbi.png
+endif
+
+if IBUS_TABLE_BUILD_ERBIQS
+icons_DATA += erbi-qs.svg
+endif
+
+if IBUS_TABLE_BUILD_WU
+icons_DATA += wu.png
+endif
+
+if IBUS_TABLE_BUILD_YONG
+icons_DATA += yong.png
+endif
+
+if IBUS_TABLE_BUILD_ZHUYIN
+icons_DATA += zhuyin.png
+endif
+
+if IBUS_TABLE_BUILD_ZHUYINBIG
+icons_DATA += zhuyin-big.png
+endif
+
+if IBUS_TABLE_BUILD_ZIRANMA
+icons_DATA += ziranma.png
+endif
+
 icons_DATA += $(NULL)
 
 EXTRA_DIST = \
@@ -78,6 +122,17 @@ EXTRA_DIST = \
         cantonese.png \
         cantonhk.png \
         jyutping.png \
+	stroke5.png \
+	wubi86.svg \
+	xinhua.png \
+	zhengma.svg \
+        erbi.png \
+        erbi-qs.svg \
+        wu.png \
+        yong.png \
+        zhuyin.png \
+        zhuyin-big.png \
+        ziranma.png \
 	$(NULL)
 
 iconsdir = $(datadir)/ibus-table/icons
