@@ -1,12 +1,12 @@
 # vim:set ts=4
 #
-# ibus-table-cangcan - The Cang Jie and Cantonese tables for IBus-Table
+# ibus-table-chinese - Chinese tables for IBus-Table
 #
-# Copyright (c) 2008-2010 Yu Yuwei <acevery@gmail.com>
+# Copyright (c) 2008 Yu Yuwei <acevery at gmail.com>, Caius 'kaio' Chance <me at kaio.net>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
+# the Free Software Foundation; either version 3, or (at your option)
 # any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -19,7 +19,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 # if not 1, append datestamp to the version number.
-m4_define([package_name], [ibus-table-cangcan])
+m4_define([package_name], [ibus-table-chinese])
 m4_define([ibus_released], [0])
 m4_define([ibus_major_version], [1])
 m4_define([ibus_minor_version], [3])
@@ -125,6 +125,95 @@ AC_ARG_ENABLE([jyutping],
 
 AM_CONDITIONAL([IBUS_TABLE_BUILD_JYUTPING],[test x"$enable_jyutping" != x"no"])
 
+AC_ARG_ENABLE([stroke5],
+    [AC_HELP_STRING([--enable-stroke5],
+        [Generate Stroke5 Engine])], ,
+    [enable_stroke5=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_STROKE5],[test x"$enable_stroke5" != x"no"])
+
+AC_ARG_ENABLE([wubi86],
+    [AC_HELP_STRING([--enable-wubi86],
+        [Generate WuBi86 Engine])], ,
+    [enable_wubi86=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_WUBI86],[test x"$enable_wubi86" != x"no"])
+
+AC_ARG_ENABLE([xinhua],
+    [AC_HELP_STRING([--enable-xinhua],
+        [Generate XinHua Engine])], ,
+    [enable_xinhua=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_XINHUA],[test x"$enable_xinhua" != x"no"])
+
+AC_ARG_ENABLE([zhengma],
+    [AC_HELP_STRING([--enable-zhengma],
+        [Generate ZhengMa Engine])], ,
+    [enable_zhengma=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_ZHENGMA],[test x"$enable_zhengma" != x"no"])
+
+AC_ARG_ENABLE([erbi],
+    [AC_HELP_STRING([--enable-erbi],
+        [Generate ErBi Engine])], ,
+    [enable_erbi=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_ERBI],[test x"$enable_erbi" != x"no"])
+
+AC_ARG_ENABLE([erbiqs],
+    [AC_HELP_STRING([--enable-erbiqs],
+        [Generate ErBi QS Engine])], ,
+    [enable_erbiqs=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_ERBIQS],[test x"$enable_erbiqs" != x"no"])
+
+AC_ARG_ENABLE([wu],
+    [AC_HELP_STRING([--enable-wu],
+        [Generate Wu Engine])], ,
+    [enable_wu=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_WU],[test x"$enable_wu" != x"no"])
+
+AC_ARG_ENABLE([yong],
+    [AC_HELP_STRING([--enable-yong],
+        [Generate Yong Engine])], ,
+    [enable_yong=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_YONG],[test x"$enable_yong" != x"no"])
+
+AC_ARG_ENABLE([zhuyin],
+    [AC_HELP_STRING([--enable-zhuyin],
+        [Generate ZhuYin Engine])], ,
+    [enable_zhuyin=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_ZHUYIN],[test x"$enable_zhuyin" != x"no"])
+
+AC_ARG_ENABLE([zhuyinbig],
+    [AC_HELP_STRING([--enable-zhuyinbig],
+        [Generate ZhuYin (big) Engine])], ,
+    [enable_zhuyinbig=yes])
+
+AM_CONDITIONAL([IBUS_TABLE_BUILD_ZHUYINBIG],[test x"$enable_zhuyinbig" != x"no"])
+
+AC_ARG_ENABLE([ziranma],
+    [AC_HELP_STRING([--enable-ziranma],
+        [Generate ZiRanMa Engine])], ,
+    [enable_ziranma=yes])
+
+# the option for extra phrases
+AC_ARG_ENABLE([extra-phrases],
+    [AC_HELP_STRING([--enable-extra-phrases],
+        [Add extra phrases into built Engine])], ,
+    [enable_extra_phrases=no])
+
+AM_CONDITIONAL([IBUS_TABLE_EXTRA_PHRASES],[test x"$enable_extra_phrases" == x"yes"])
+
+# check for ibus-table-extraphrase, if we need it.
+if test x"$enable_extra_phrases" == x"yes"; then
+    PKG_CHECK_MODULES([EXTRA_PHRASE],[ibus-table-extraphrase >= 1.1.0])
+    IBUS_TABLE_EXTRAPHRASE=`$PKG_CONFIG --variable=extraphrasepath ibus-table-extraphrase`
+    AC_SUBST(IBUS_TABLE_EXTRAPHRASE)
+fi
 
 # OUTPUT files
 AC_CONFIG_FILES(
@@ -132,7 +221,7 @@ Makefile
 icons/Makefile
 tables/Makefile
 m4/Makefile
-ibus-table-cangcan.spec
+#ibus-table-chinese.spec
 )
 
 AC_OUTPUT
@@ -142,19 +231,31 @@ Build options:
   Version                   $VERSION
   Install prefix            $prefix
 
-Build Cang Jie and derived tables:
-  Build CangJie3            $enable_cangjie3
-  Build CangJie5            $enable_cangjie5
-  Build CangJie (big)       $enable_cangjiebig
-  Build Speed CangJie 6     $enable_scj6
-  Build Quick3              $enable_quick3
-  Build Quick5              $enable_quick5
-  Build Quick Classic       $enable_quickclassic
-  Build Easy (big)          $enable_easybig
-
-Build Cantonese and derived tables:
+Build tables:
+  Build Cang Jie 3          $enable_cangjie3
+  Build Cang Jie 5          $enable_cangjie5
+  Build Cang Jie Big        $enable_cangjiebig
   Build Cantonese           $enable_cantonese
   Build Cantonese HK        $enable_cantonhk
+  Build Easy Big            $enable_easybig
+  Build Er Bi               $enable_erbi
+  Build Er Bi QS            $enable_erbiqs
   Build JyutPing            $enable_jyutping
+  Build Quick 3             $enable_quick3
+  Build Quick 5             $enable_quick5
+  Build Quick Classic       $enable_quickclassic
+  Build Speed Cang Jie 6    $enable_scj6
+  Build Stroke 5            $enable_stroke5
+  Build Wu                  $enable_wu
+  Build Wu Bi 86            $enable_wubi86
+  Build Xin Hua             $enable_xinhua
+  Build Yong                $enable_yong
+  Build ZhengMa             $enable_zhengma
+  Build Zhu Yin             $enable_zhuyin
+  Build Zhu Yin Big         $enable_zhuyinbig
+  Build ZiRanMa             $enable_ziranma
+
+Extra phrases table:
+  Integrate Extra Phrases   $enable_extra_phrases
 ])
 

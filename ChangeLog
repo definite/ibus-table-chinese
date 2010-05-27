@@ -1,6 +1,36 @@
-1[tip]   9c8125c0861f   2010-04-06 12:00 +1000   k
-  Modified configure.ac, Makefile.am for including Cantonese input methods when building.
+commit ff187d2a9d26880ccb217ad0041d3d3e38ebfbfc
+Author: Caius 'kaio' Chance <me@kaio.net>
+Date:   Thu May 27 12:59:01 2010 +1000
 
-0   89f3167b3aa6   2010-04-06 11:41 +1000   k
-  First commit.
+    Updated Makefile.am(s) for merge of ibus-table-xingyin.
 
+commit e04cb4f275bffbb5b3da7bd864014837847a0902
+Author: Caius 'kaio' Chance <me@kaio.net>
+Date:   Thu May 27 12:26:26 2010 +1000
+
+    Renamed from ibus-table-cangcan to ibus-table-chinese for merging.
+    Merged tables and icons from ibus-table-xingyin.
+
+commit 4eee709ab83a63f82c3f0f1033cf0b149c55af8f
+Author: Caius 'kaio' Chance <k@kaio.me>
+Date:   Tue Apr 6 12:13:06 2010 +1000
+
+    Updated AUTHORS and README to reflect Cang Jie, Cantonese, and derived tables.
+    Updated ChangeLog.
+
+commit b4c65075b5a9ecc42f7bb457f8c77251338fa864
+Author: Caius 'kaio' Chance <k@kaio.me>
+Date:   Tue Apr 6 12:00:02 2010 +1000
+
+    Modified configure.ac, Makefile.am for including Cantonese input methods when building.
+    
+    --HG--
+    rename : ibus-table-cangjie.spec.in => ibus-table-cangcan.spec.in
+
+commit fa2654a88f25a682f43d29067107f2255d393296
+Author: Caius 'kaio' Chance <k@kaio.me>
+Date:   Tue Apr 6 11:41:54 2010 +1000
+
+    First commit.
+    Cloned from ibus-table-cangjie project: http://github.com/kaio/ibus-table-cangjie.
+    Cloned from ibus-table-cantonese project: http://github.com/kaio/ibus-table-cantonese.
