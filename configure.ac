@@ -200,6 +200,8 @@ AC_ARG_ENABLE([ziranma],
         [Generate ZiRanMa Engine])], ,
     [enable_ziranma=yes])
 
+AM_CONDITIONAL([IBUS_TABLE_BUILD_ZIRANMA],[test x"$enable_ziranma" != x"no"])
+
 # the option for extra phrases
 AC_ARG_ENABLE([extra-phrases],
     [AC_HELP_STRING([--enable-extra-phrases],
@@ -216,12 +218,12 @@ if test x"$enable_extra_phrases" == x"yes"; then
 fi
 
 # OUTPUT files
+#ibus-table-chinese.spec
 AC_CONFIG_FILES(
 Makefile
 icons/Makefile
 tables/Makefile
 m4/Makefile
-#ibus-table-chinese.spec
 )
 
 AC_OUTPUT
