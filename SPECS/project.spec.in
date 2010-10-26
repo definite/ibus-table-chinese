@@ -1,0 +1,308 @@
+%define ibus_table_dir %{_datadir}/ibus-table/tables
+%define createdb ibus-table-createdb
+Name:       @PROJECT_NAME@
+Version:    @PRJ_VER@
+Release:    1%{?dist}
+Summary:    @PRJ_SUMMARY@
+Summary(zh_TW): ibus-table 中文碼表輸入法
+License:    @LICENSE@
+Group:      System Environment/Libraries
+URL:        http://code.google.com/p/ibus/
+Source0:    http://ibus.googlecode.com/files/%{name}-%{version}-Source.tar.gz
+
+BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  cmake >= 2.4
+BuildRequires:  ibus-table-devel >= 1.2
+
+BuildArch:  noarch
+Requires:   ibus-table >= 1.2
+Requires(post):   ibus-table >= 1.2
+
+%description
+ibus-table-chinese is provides the infrastructure for Chinese input methods.
+Input tables themselves are in subpackages.
+
+%description -l zh_TW
+ibus-table-chinese 提供了中文碼表輸入法的基礎架構。
+輸入法本身則在子套件裡。
+
+%package array
+Summary:       Array input methods
+Summary(zh_TW): 行列輸入法
+Summary(zh_CN): 行列输入法
+Group:         System Environment/Libraries
+License:       Freely redistributable without restriction
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description array
+Array input method is a free, open-minded character-structured
+input method. Array30 is include in this package.
+
+%description -l zh_TW array
+行列輸入法是一套免費授權、具有開放理念的字根式
+中文輸入法，發明人是行列科技負責人廖明德。
+
+行列輸入法除了可以輸入繁體中文和簡體中文之外，
+亦可輸入Unicode當中的中日韓統一表意文字。
+
+
+%package cangjie
+Summary:       Cangjie based input methods
+Summary(zh_TW): 倉頡輸入法
+Summary(zh_CN): 仓颉输入法
+Group:         System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description cangjie
+Cangjie based input methods, includes:
+Cangjie3, Canjie5, Cangjie big tables,
+Quick3, Quick5, Quick-Classic,
+and Smart Cangjie 6.
+
+%description -l zh_TW cangjie
+倉頡以及其衍生輸入法，包含：
+倉頡三代、倉頡五代、倉頡大字集、
+速成三代、速成五代、速成古典版、
+以及快速倉頡第六代。
+
+%package canton
+Summary:        Cantonese input methods
+Summary(zh_TW): 粵語輸入法
+Group:            System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description canton
+Cantonese input methods, includes:
+Cantonese, Hong-Kong version of Cantonese,
+and Jyuping.
+
+%description -l zh_TW canton
+廣東話輸入法。包含：
+廣東拼音、港式廣東話、
+以及粵語拼音。
+
+%package easy
+Summary:        Easy input method
+Summary(zh_CN): 轻松输入法
+Summary(zh_TW): 輕鬆輸入法
+Group:            System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description easy
+Easy phrase-wise input method.
+
+%description -l zh_CN  easy
+轻松大词库
+
+%description -l zh_TW  easy
+輕鬆大詞庫
+
+%package erbi
+Summary: Erbi input method
+Summary(zh_CN): 二笔
+Summary(zh_TW): 二筆
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description erbi
+Erbi input method.
+
+%description -l zh_CN erbi
+二笔输入法
+
+%description -l zh_TW erbi
+二筆輸入法
+
+%package stroke5
+Summary: Stroke 5 input method
+Summary(zh_CN): 笔顺五码
+Summary(zh_TW): 筆順五碼
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description stroke5
+Erbi input method.
+
+%description -l zh_CN stroke5
+笔顺五码
+
+%description -l zh_TW stroke5
+筆順五碼
+
+%package wu
+Summary: Wu pronunciation input method
+Summary(zh_CN): 吳語注音法
+Summary(zh_TW): 吳語注音法
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description wubi
+Wu pronunciation input method.
+
+%description -l zh_CN wu
+吳語注音法。
+
+%description -l zh_TW wu
+吳語注音法。
+
+%package wubi
+Summary: Wubi input method
+Summary(zh_CN): 五笔输入法
+Summary(zh_TW): 五筆輸入法
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description wubi
+Wubi input methods. Current includes:
+Wubi 86.
+
+%description -l zh_CN wubi
+五笔输入法。包含：
+五笔86。
+
+%description -l zh_TW wubi
+五筆輸入法。包含：
+五筆86。
+
+%package xinhua
+Summary: XinHua input method
+Summary(zh_CN): 新华输入法
+Summary(zh_TW): 新華輸入法
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description xinhua
+XingHua input method.
+
+%description -l zh_CN xinhua
+新华输入法。
+
+%description -l zh_TW xinhua
+新華輸入法。
+
+%package yongma
+Summary: YongMa input method
+Summary(zh_CN): 永码输入法
+Summary(zh_TW): 永碼輸入法
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description yongma
+YongMa input method.
+
+%description -l zh_CN yongma
+永码输入法。
+
+%description -l zh_TW yongma
+永碼輸入法。
+
+%package zhengma
+Summary: ZhengMa input method
+Summary(zh_CN): 郑码输入法
+Summary(zh_TW): 鄭碼輸入法
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description zhengma
+After proposed Wubi, Prof. Yili Zheng founded
+ZhengMa input method. And engineer Long Zhen
+finished the encoding tasks.
+
+%description -l zh_CN zhengma
+郑码是郑易里教授一生不懈于汉字电子输入研究工作的结晶
+并由郑珑工程师完成后续的编码工作。是在郑易里教授提出
+五笔输入法思想后进一步深入研究后的成果。
+
+郑码非常特别但更成熟，因为它用的是双码的宏字根，字根
+更自然、更科学，上手后不易遗忘。
+
+如果你用过多种中文形码输入法的话，相信郑码会是你最后
+不二的选择。
+
+%description -l zh_TW zhengma
+鄭碼是鄭易里教授一生不懈對漢字輸入研究工作的結晶。
+
+
+%prep
+%setup -q -n %{name}-%{version}-Source
+
+%build
+# $RPM_OPT_FLAGS should be  loaded from cmake macro.
+%cmake -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo .
+%__make VERBOSE=1  %{?_smp_mflags}
+
+%install
+%__rm -rf $RPM_BUILD_ROOT
+%__make install DESTDIR=$RPM_BUILD_ROOT
+# We install document using %doc
+(cd $RPM_BUILD_ROOT/@PRJ_DOC_DIR@
+    %__rm -rf @PRJ_DOC_LIST@
+)
+
+%clean
+%__rm -rf $RPM_BUILD_ROOT
+
+%post cangjie
+%{createdb} -i -n %{ibus_table_dir}/cangjie3.db
+%{createdb} -i -n %{ibus_table_dir}/cangjie5.db
+%{createdb} -i -n %{ibus_table_dir}/cangjie-big.db
+%{createdb} -i -n %{ibus_table_dir}/quick3.db
+%{createdb} -i -n %{ibus_table_dir}/quick5.db
+%{createdb} -i -n %{ibus_table_dir}/quick-classic.db
+%{createdb} -i -n %{ibus_table_dir}/scj6.db
+
+%post canton
+%{createdb} -i -n %{ibus_table_dir}/cantonese.db
+%{createdb} -i -n %{ibus_table_dir}/cantonhk.db
+%{createdb} -i -n %{ibus_table_dir}/jyutping.db
+
+%post easy
+%{createdb} -i -n %{ibus_table_dir}/easy-big.db
+
+%post erbi
+%{createdb} -i -n %{ibus_table_dir}/erbi.db
+%{createdb} -i -n %{ibus_table_dir}/erbi_qs.db
+
+%post stroke5
+%{createdb} -i -n %{ibus_table_dir}/stroke5.db
+
+%post wu
+%{createdb} -i -n %{ibus_table_dir}/wu.db
+
+%post wubi
+%{createdb} -i -n %{ibus_table_dir}/wubi86.db
+
+%post xinhua
+%{createdb} -i -n %{ibus_table_dir}/xinhua-ibus.db
+
+%post yonghua
+%{createdb} -i -n %{ibus_table_dir}/yonghua-ibus.db
+
+%post zhengma
+%{createdb} -i -n %{ibus_table_dir}/zhengma.db
+
+
+%files
+%defattr(-,root,root,-)
+%doc @PRJ_DOC_LIST@
+
+%{_datadir}/%{name}
+
+%changelog
+* @TODAY_CHANGELOG@ @MAINTAINER@ - @PRJ_VER@-@PRJ_RELEASE_NO@
+@CHANGELOG_ITEMS@
+
+@RPM_CHANGELOG_PREV@
+
