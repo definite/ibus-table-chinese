@@ -29,6 +29,7 @@ MACRO(CONVERT_DB targetName pattern)
 	GET_FILENAME_COMPONENT(_tabName "${_tabFile}" NAME_WE)
 	ADD_CUSTOM_COMMAND(OUTPUT ${_tabName}.db
 	    COMMAND ${CREATE_DB} -n ${_tabName}.db -s ${_tabFile}
+	    DEPENDS ${_tabFile}
 	    COMMENT "Building ${_tabName} table..."
 	    )
 	LIST(APPEND _dependDb "${_tabName}.db")
@@ -63,7 +64,36 @@ MACRO(CONVERT_DB targetName pattern)
 	DESTINATION ${ICON_INSTALL_DIRECTORY})
 ENDMACRO(CONVERT_DB dbs targetName pattern)
 
+ADD_CUSTOM_COMMAND(OUTPUT array30_27489.utf8
+    COMMAND iconv -f UTF16 -t UTF8 array30_27489.txt > array30_27489.utf8
+    DEPENDS array30_27489.txt
+    VERBATIM
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
 
+ADD_CUSTOM_COMMAND(OUTPUT array30_big.utf8
+    COMMAND iconv -f UTF16 -t UTF8 array30_ExtB.txt > array30_ExtB.utf8
+    COMMAND cat array30_27489.utf8 array30_ExtB.utf8 | sort > array30_big.utf8
+    DEPENDS array30_27489.utf8 array30_ExtB.txt
+    VERBATIM
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+ADD_CUSTOM_COMMAND(OUTPUT array30.txt
+    COMMAND cat array.head array30_27489.utf8 array.tail > array30.txt
+    DEPENDS array.head array30_27489.utf8 array.tail
+    VERBATIM
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+ADD_CUSTOM_COMMAND(OUTPUT array30-big.txt
+    COMMAND cat array.head array30_big.utf8 array.tail > array30-big.txt
+    DEPENDS array.head array30_big.utf8 array.tail
+    VERBATIM
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+CONVERT_DB(array "array30" "array30-big")
 CONVERT_DB(cangjie "cangjie*" "quick*" "scj*")
 CONVERT_DB(canton "canton*" "jyutping*")
 CONVERT_DB(easy "easy*")

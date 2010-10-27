@@ -234,6 +234,25 @@ finished the encoding tasks.
 %description -l zh_TW zhengma
 鄭碼是鄭易里教授一生不懈對漢字輸入研究工作的結晶。
 
+%package ziranma
+Summary: ZiRanMa input method
+Summary(zh_CN): 自然码输入法
+Summary(zh_TW): 自然碼輸入法
+Group:          System Environment/Libraries
+BuildRequires:  %{name} = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+
+%description ziranma
+Zi ran ma input method.
+After proposed Wubi, Prof. Yili Zheng founded
+ZhengMa input method. And engineer Long Zhen
+finished the encoding tasks.
+
+%description -l zh_CN ziranma
+自然码输入法。
+
+%description -l zh_TW ziranma
+自然碼輸入法。
 
 %prep
 %setup -q -n %{name}-%{version}-Source
@@ -290,8 +309,8 @@ finished the encoding tasks.
 %post yonghua
 %{createdb} -i -n %{ibus_table_dir}/yonghua-ibus.db
 
-%post zhengma
-%{createdb} -i -n %{ibus_table_dir}/zhengma.db
+%post ziranma
+%{createdb} -i -n %{ibus_table_dir}/ziranma.db
 
 
 %files
