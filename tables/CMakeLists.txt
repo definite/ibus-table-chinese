@@ -11,8 +11,35 @@ IF(NOT DEFINED ICON_INSTALL_DIRECTORY)
     SET(ICON_INSTALL_DIRECTORY "${DATA_DIR}/ibus-table/icons")
 ENDIF(NOT DEFINED ICON_INSTALL_DIRECTORY)
 
-ADD_CUSTOM_TARGET(convert_all ALL)
+EXECUTE_PROCESS(COMMAND iconv -f UTF16 -t UTF8 array30_27489.txt 
+	COMMAND sort
+	OUTPUT_FILE array30_27489.utf8
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+EXECUTE_PROCESS(COMMAND cat array.head array30_27489.utf8 array.tail
+	OUTPUT_FILE array30.txt
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
+EXECUTE_PROCESS(COMMAND iconv -f UTF16 -t UTF8 array30_ExtB.txt
+	COMMAND sort
+	OUTPUT_FILE array30_ExtB.utf8
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+EXECUTE_PROCESS(COMMAND cat array30_27489.utf8 array30_ExtB.utf8
+	OUTPUT_FILE array30-big.utf8
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+EXECUTE_PROCESS(COMMAND cat array-big.head array30-big.utf8 array.tail
+	OUTPUT_FILE array30-big.txt
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+SET_SOURCE_FILES_PROPERTIES(array30_27489.utf8 array30_ExtB.utf8 array30-big.utf8 array30.txt array30.txt
+   PROPERTIES GENERATED true) 
+
+
+ADD_CUSTOM_TARGET(convert_all ALL)
 
 MACRO(CONVERT_DB targetName pattern)
     FILE(GLOB_RECURSE _tableList RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${pattern}.txt")
@@ -23,6 +50,7 @@ MACRO(CONVERT_DB targetName pattern)
 
     # CMakeLists.txt is not a table.
     LIST(REMOVE_ITEM _tableList "CMakeLists.txt")
+    MESSAGE("_tableList=${_tableList}")
     SET(_dependDb "")
     SET(_dependIcon "")
     FOREACH(_tabFile ${_tableList})
@@ -63,35 +91,6 @@ MACRO(CONVERT_DB targetName pattern)
     INSTALL(FILES ${_dependIcon}
 	DESTINATION ${ICON_INSTALL_DIRECTORY})
 ENDMACRO(CONVERT_DB dbs targetName pattern)
-
-ADD_CUSTOM_COMMAND(OUTPUT array30_27489.utf8
-    COMMAND iconv -f UTF16 -t UTF8 array30_27489.txt > array30_27489.utf8
-    DEPENDS array30_27489.txt
-    VERBATIM
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-
-ADD_CUSTOM_COMMAND(OUTPUT array30_big.utf8
-    COMMAND iconv -f UTF16 -t UTF8 array30_ExtB.txt > array30_ExtB.utf8
-    COMMAND cat array30_27489.utf8 array30_ExtB.utf8 | sort > array30_big.utf8
-    DEPENDS array30_27489.utf8 array30_ExtB.txt
-    VERBATIM
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-
-ADD_CUSTOM_COMMAND(OUTPUT array30.txt
-    COMMAND cat array.head array30_27489.utf8 array.tail > array30.txt
-    DEPENDS array.head array30_27489.utf8 array.tail
-    VERBATIM
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
-
-ADD_CUSTOM_COMMAND(OUTPUT array30-big.txt
-    COMMAND cat array.head array30_big.utf8 array.tail > array30-big.txt
-    DEPENDS array.head array30_big.utf8 array.tail
-    VERBATIM
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    )
 
 CONVERT_DB(array "array30" "array30-big")
 CONVERT_DB(cangjie "cangjie*" "quick*" "scj*")

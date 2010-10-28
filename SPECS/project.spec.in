@@ -38,7 +38,9 @@ Requires:       %{name} = %{version}-%{release}
 
 %description array
 Array input method is a free, open-minded character-structured
-input method. Array30 is include in this package.
+input method. Includes:
+array30: 27489 characters.
+array30-big: 27489 characters + Unicode ExtB.
 
 %description -l zh_TW array
 行列輸入法是一套免費授權、具有開放理念的字根式
@@ -47,6 +49,9 @@ input method. Array30 is include in this package.
 行列輸入法除了可以輸入繁體中文和簡體中文之外，
 亦可輸入Unicode當中的中日韓統一表意文字。
 
+包含了：
+行列30: 27489 字
+行列30大字集: 27489 字 + Unicode ExtB.
 
 %package cangjie
 Summary:       Cangjie based input methods
@@ -272,6 +277,11 @@ finished the encoding tasks.
 
 %clean
 %__rm -rf $RPM_BUILD_ROOT
+
+%post array
+%{createdb} -i -n %{ibus_table_dir}/array30.db
+%{createdb} -i -n %{ibus_table_dir}/array30-big.db
+
 
 %post cangjie
 %{createdb} -i -n %{ibus_table_dir}/cangjie3.db

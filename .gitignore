@@ -30,4 +30,7 @@ tags
 debug*s.list
 FedPkg
 tables/*.db
+tables/*.utf8
+tables/array30.txt
+tables/array30-big.txt
 
