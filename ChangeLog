@@ -1,4 +1,4 @@
-* Thu Oct 28 2010 Ding-Yi Chen <dchen@redhat.com> - 1.3.0.20101026
+* Thu Oct 28 2010 Ding-Yi Chen <dchen@redhat.com> - 1.3.0.20101028
 - Split into subpackage
 - Use cmake instead of autotool
 

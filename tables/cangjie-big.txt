@@ -22,7 +22,7 @@ ICON = cangjie-big.png
 ### The default name of this table
 NAME = CangJie
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 仓颉大字集
 NAME.zh_TW = 倉頡大字集
 NAME.zh_HK = 倉頡大字集
@@ -52,7 +52,7 @@ AUTO_COMMIT = FALSE
 AUTO_SPLIT = TRUE
 
 ### If true then the phrases' frequencies will be adjusted dynamically.
-DYNAMIC_ADJUST = FALSE 
+DYNAMIC_ADJUST = FALSE
 
 ### If true then the preedit area will be filled up by the current candidate phrase automatically.
 AUTO_FILL = FALSE
@@ -96,6 +96,8 @@ PAGE_UP_KEYS = Page_Up,comma,minus
 
 ### The key strokes to page down.
 PAGE_DOWN_KEYS = Page_Down,period,equal
+
+LAYOUT = us
 
 ### Define the prompts of each valid input char.
 BEGIN_CHAR_PROMPTS_DEFINITION

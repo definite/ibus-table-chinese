@@ -25,7 +25,7 @@ SERIAL_NUMBER = 2008A
 
 ### ICON can be any format as long as your pygtk can recognized
 ### the most widely ones are "png" and "svg", letter one is recommended
-ICON = array30.png
+ICON = array30-big.png
 
 ### The default name of this table, this is needed
 NAME = Array30 Big Table
@@ -52,7 +52,7 @@ AUTHOR = 葉光哲, 廖明德
 STATUS_PROMPT = CN
 
 ### Valid input chars.
-VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz./;,###############
+VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz./;,
 
 ### Layout
 LAYOUT = us

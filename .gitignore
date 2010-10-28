@@ -25,12 +25,16 @@ SPECS/*.spec
 RPMS/
 SRPMS/
 BUILD/
+BUILDROOT/
 SOURCES/
 tags
 debug*s.list
 FedPkg
 tables/*.db
 tables/*.utf8
+tables/*.tmp
 tables/array30.txt
 tables/array30-big.txt
+tables/xinhua.txt
+tables/yong.txt
 

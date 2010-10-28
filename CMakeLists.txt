@@ -64,7 +64,9 @@ INCLUDE(PackRPM)
 INCLUDE(UseFedpkg)
 
 SET(PRJ_IGNORE_FILES_COMMON
-    "\\\\.spec$" "messages.po$" "\\\\.orig$"
+    "\\\\.spec$" "messages.po$" "\\\\.orig$" "\\\\.db$"
+    "\\\\.utf8$" "\\\\.tmp$"
+    "array30.txt" "array30-big.txt" "xinhua.txt" "yong.txt"
 )
 
 SET(PACK_SOURCE_IGNORE_FILES ${PACK_SOURCE_IGNORE_FILES}

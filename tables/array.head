@@ -52,7 +52,7 @@ AUTHOR = 葉光哲, 廖明德
 STATUS_PROMPT = CN
 
 ### Valid input chars.
-VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz./;,###############
+VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz./;,
 
 ### Layout
 LAYOUT = us
