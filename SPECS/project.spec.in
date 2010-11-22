@@ -113,27 +113,36 @@ Easy phrase-wise input method.
 
 %package erbi
 Summary: Erbi input method
-Summary(zh_CN): 二笔
-Summary(zh_TW): 二筆
+Summary(zh_CN): 二笔输入法
+Summary(zh_TW): 二筆輸入法
 Group:          System Environment/Libraries
+License:       Freely redistributable without restriction
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-erbi = %{version}-%{release}
 Obsoletes:      ibus-table-erbi < 1.3
 
 %description erbi
-Erbi input method.
+Erbi input methods. Includes:
+Super Erbi (as erbi)
+and  Erbi Qin-Song (erbi-qs)
 
 %description -l zh_CN erbi
-二笔输入法
+包含：
+超強二笔 (erbi)
+以及青松二笔 (erbi-qs)
 
 %description -l zh_TW erbi
-二筆輸入法
+包含：
+超強二筆 (erbi)
+以及青松二筆 (erbi-qs)
+
 
 %package quick
 Summary:       Quick-to-learn input methods
 Summary(zh_CN): 速成输入法
 Summary(zh_TW): 速成輸入法
 Group:         System Environment/Libraries
+License:       Freely redistributable without restriction
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-quick = %{version}-%{release}
 Obsoletes:      ibus-table-quick < 1.3
@@ -165,7 +174,6 @@ Obsoletes:      ibus-table-stroke5 < 1.3
 
 %description stroke5
 Erbi input method.
-
 %description -l zh_CN stroke5
 笔顺五码。
 
@@ -174,8 +182,8 @@ Erbi input method.
 
 %package wu
 Summary: Wu pronunciation input method
-Summary(zh_CN): 吳語注音法
-Summary(zh_TW): 吳語注音法
+Summary(zh_CN): 上海吳语注音输入法
+Summary(zh_TW): 上海吳語注音輸入法
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-wu = %{version}-%{release}
@@ -183,12 +191,16 @@ Obsoletes:      ibus-table-wu < 1.3
 
 %description wu
 Wu pronunciation input method.
+URL: http://input.foruto.com/wu/
 
 %description -l zh_CN wu
-吳語注音法。
+上海吳语注音输入法。
+URL: http://input.foruto.com/wu/
 
 %description -l zh_TW wu
-吳語注音法。
+上海吳語注音輸入法以現代吳語中有代表性的上海吳語（又稱上海話、滬語）的讀音、詞語為基礎。
+本輸入法適用於母語為上海話的用戶，也能作為學習上海話的輔助工具。
+URL: http://input.foruto.com/wu/
 
 %package wubi
 Summary: Wubi input method
