@@ -173,10 +173,10 @@ CONVERT_DB(erbi "erbi*")
 CONVERT_DB(quick "quick*")
 CONVERT_DB(stroke5 "stroke5")
 CONVERT_DB(wu "wu")
-CONVERT_DB(wubi "wubi*")
-CONVERT_DB(xinhua "xinhua")
+CONVERT_DB(wubi-jidian "wubi*")
+CONVERT_DB(wubi-heifeng "wubi*")
+CONVERT_DB(cangjie "cangjie*" "scj*")
 CONVERT_DB(yong "yong")
-CONVERT_DB(zhengma "zhengma*")
 CONVERT_DB(ziranma "ziranma*")
 
 
