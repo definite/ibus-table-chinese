@@ -202,44 +202,45 @@ URL: http://input.foruto.com/wu/
 本輸入法適用於母語為上海話的用戶，也能作為學習上海話的輔助工具。
 URL: http://input.foruto.com/wu/
 
-%package wubi
-Summary: Wubi input method
-Summary(zh_CN): 五笔输入法
-Summary(zh_TW): 五筆輸入法
+%package wubi-haifeng
+Summary: Haifeng Wubi input method
+Summary(zh_CN): 海峰五笔输入法
+Summary(zh_TW): 海峰五筆輸入法
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-wubi = %{version}-%{release}
 Obsoletes:      ibus-table-wubi < 1.3
 
-%description wubi
-Wubi input methods. Current includes:
+%description wubi-haifeng
+Haifeng Wubi input methods. Current includes:
 Wubi 86.
 
-%description -l zh_CN wubi
-五笔输入法。包含：
-五笔86。
+%description -l zh_CN wubi-haifeng
+海峰五笔输入法。包含：极点五笔86。
 
-%description -l zh_TW wubi
-五筆輸入法。包含：
-五筆86。
+%description -l zh_TW wubi-haifeng
+海峰五筆輸入法。包含：五筆86。
 
-%package xinhua
-Summary: XinHua input method
-Summary(zh_CN): 新华输入法
-Summary(zh_TW): 新華輸入法
+
+%package wubi-jidian
+Summary: Jidian Wubi input method
+Summary(zh_CN): 极点五笔输入法
+Summary(zh_TW): 極點五筆輸入法
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
-Provides:       ibus-table-xinhua = %{version}-%{release}
-Obsoletes:      ibus-table-xinhua < 1.3
+Provides:       ibus-table-wubi = %{version}-%{release}
+Obsoletes:      ibus-table-wubi < 1.3
 
-%description xinhua
-XingHua input method.
+%description wubi-jidian
+Jidian Wubi input methods. Current includes:
+Wubi 86.
 
-%description -l zh_CN xinhua
-新华输入法。
+%description -l zh_CN wubi-jidian
+极点五笔输入法。包含：极点五笔86。
 
-%description -l zh_TW xinhua
-新華輸入法。
+%description -l zh_TW wubi-jidian
+極點五筆輸入法。包含：五筆86。
+
 
 %package yong
 Summary: YongMa input method
@@ -259,50 +260,6 @@ YongMa input method.
 %description -l zh_TW yong
 永碼輸入法。
 
-%package zhengma
-Summary: ZhengMa input method
-Summary(zh_CN): 郑码输入法
-Summary(zh_TW): 鄭碼輸入法
-Group:          System Environment/Libraries
-Requires:       %{name} = %{version}-%{release}
-
-%description zhengma
-After proposed Wubi, Prof. Yili Zheng founded
-ZhengMa input method. And engineer Long Zhen
-finished the encoding tasks.
-
-%description -l zh_CN zhengma
-郑码是郑易里教授一生不懈于汉字电子输入研究工作的结晶
-并由郑珑工程师完成后续的编码工作。是在郑易里教授提出
-五笔输入法思想后进一步深入研究后的成果。
-
-郑码非常特别但更成熟，因为它用的是双码的宏字根，字根
-更自然、更科学，上手后不易遗忘。
-
-如果你用过多种中文形码输入法的话，相信郑码会是你最后
-不二的选择。
-
-%description -l zh_TW zhengma
-鄭碼是鄭易里教授一生不懈對漢字輸入研究工作的結晶。
-
-%package ziranma
-Summary: ZiRanMa input method
-Summary(zh_CN): 自然码输入法
-Summary(zh_TW): 自然碼輸入法
-Group:          System Environment/Libraries
-Requires:       %{name} = %{version}-%{release}
-
-%description ziranma
-Zi ran ma input method.
-After proposed Wubi, Prof. Yili Zheng founded
-ZhengMa input method. And engineer Long Zhen
-finished the encoding tasks.
-
-%description -l zh_CN ziranma
-自然码输入法。
-
-%description -l zh_TW ziranma
-自然碼輸入法。
 
 %package all
 Summary:        Meta-package to pull in all Chinese input tables
@@ -316,7 +273,8 @@ Requires:       %{name}-erbi= %{version}-%{release}
 Requires:       %{name}-quick= %{version}-%{release}
 Requires:       %{name}-stroke5= %{version}-%{release}
 Requires:       %{name}-wu= %{version}-%{release}
-Requires:       %{name}-wubi= %{version}-%{release}
+Requires:       %{name}-wubi-jidian= %{version}-%{release}
+Requires:       %{name}-wubi-heifeng= %{version}-%{release}
 Requires:       %{name}-xinhua= %{version}-%{release}
 Requires:       %{name}-yong= %{version}-%{release}
 Requires:       %{name}-zhengma= %{version}-%{release}

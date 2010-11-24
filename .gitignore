@@ -30,11 +30,10 @@ SOURCES/
 tags
 debug*s.list
 FedPkg
-tables/*.db
-tables/*.utf8
-tables/*.tmp
-tables/array30.txt
-tables/array30-big.txt
-tables/xinhua.txt
-tables/yong.txt
+*.db
+*.utf8
+*.tmp
+tables/array/array30.txt
+tables/array/array30-big.txt
+tables/wubi-heifeng/wubi-heifeng86.txt
 

@@ -1,0 +1,70 @@
+### Wubi86 table
+### This file must be encoded into UTF-8.
+###
+### Changelog
+### Ding-Yi Chen <dchen at redhat.com>
+###     - Initial ibus-table-chinese packaging.
+### SUN Haifeng <okuc at 163.com>
+###     - Original Heifeng Wubi author
+###
+
+### Begin Table definition.
+BEGIN_DEFINITION
+### Original table author
+AUTHOR = SUN Haifeng <okuc at 163.com>
+
+### An unique id to distinguish this table among others.
+### Use uuidgen to generate this kind of id.
+UUID = b9ecb257-6d22-46db-9ad2-7e0cebb69df3
+
+### A unique number indicates the version of this file.
+### For example the last modified date of this file.
+### This number must be less than 2^32.
+SERIAL_NUMBER = 20101124
+
+ICON = wubi86-heifeng.svg
+
+### The default name of this table
+NAME = WuBiHeifeng86
+
+### The local names of this table
+NAME.zh_CN = 海峰五笔86
+NAME.zh_TW = 海峰五筆86
+NAME.zh_HK = 海峰五筆86
+
+### Supported languages of this table
+LANGUAGES = zh_CN,zh_SG,zh_TW,zh_HK
+
+### Prompt string to be displayed in the status area.
+STATUS_PROMPT = CN
+
+### Use full width punctuation by default
+DEF_FULL_WIDTH_PUNCT = TRUE
+
+### Use full width letter by default
+DEF_FULL_WIDTH_LETTER = FALSE
+
+### The maxmium length of a key.
+MAX_KEY_LENGTH = 4
+
+### Valid input chars.
+VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz
+
+### Whether user are allow to define their own phrase, default is true
+USER_CAN_DEFINE_PHRASE = TRUE
+
+### Whether support PinYin Mode, default is true
+PINYIN_MODE = TRUE
+
+### If true then the phrases' frequencies will be adjusted dynamically.
+DYNAMIC_ADJUST = TRUE
+
+### Rules for user define phrase construct:
+RULES = ce2:p11+p12+p21+p22;ce3:p11+p21+p31+p32;ca4:p11+p21+p31+p-11
+
+END_DEFINITION
+
+
+### Begin Table data.
+BEGIN_TABLE
+

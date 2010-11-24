@@ -31,13 +31,13 @@ IF(AWK_CMD STREQUAL "AWK_CMD-NOTFOUND")
 ENDIF(AWK_CMD STREQUAL "AWK_CMD-NOTFOUND")
 
 
-MACRO(CONVERT_ENCODING outputFile fromEncoding inputFile )
+MACRO(CONVERT_ENCODING workDir outputFile fromEncoding inputFile )
     SET(_GENERATE_FREQ 0)
-    MESSAGE("Converting ${outputFile}")
-    MESSAGE("  Appending ${inputFile}")
+    MESSAGE("Converting ${workDir}/${outputFile}")
+    MESSAGE("  Appending ${workDir}/${inputFile}")
     EXECUTE_PROCESS(COMMAND ${SED_CMD} -e "s/^[\\xff][\\xfe]//" ${inputFile}
 	OUTPUT_FILE "${outputFile}.tmp"
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
 	)
 
     FOREACH(_arg ${ARGN})
@@ -49,19 +49,19 @@ MACRO(CONVERT_ENCODING outputFile fromEncoding inputFile )
 	    # Need to strip Unicode BOM (0xfeff)
 	    EXECUTE_PROCESS(COMMAND ${SED_CMD} -e "s/^[\\xff][\\xfe]//" ${_arg}
 		OUTPUT_FILE "${_arg}.tmp"
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
 		)
 
 	    EXECUTE_PROCESS(COMMAND cat "${outputFile}.tmp" "${_arg}.tmp"
 		OUTPUT_FILE "${outputFile}"
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
 		)
 
 	    EXECUTE_PROCESS(COMMAND cmake -E copy "${outputFile}" "${outputFile}.tmp"
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
 		)
 
-	    FILE(REMOVE "${_arg}.tmp")
+	    FILE(REMOVE "${CMAKE_CURRENT_SOURCE_DIR}/${workDir}/${_arg}.tmp")
 
 	ENDIF(_arg STREQUAL "GENERATE_FREQ")
     ENDFOREACH(_arg ${ARGN})
@@ -71,68 +71,86 @@ MACRO(CONVERT_ENCODING outputFile fromEncoding inputFile )
 	COMMAND ${AWK_CMD} "{print tolower($0)}"
 	COMMAND sort
 	OUTPUT_FILE "${outputFile}"
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
 	)
 
     IF(_GENERATE_FREQ)
 	EXECUTE_PROCESS(COMMAND cmake -E copy "${outputFile}" "${outputFile}.tmp"
-	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
 	    )
 	EXECUTE_PROCESS(COMMAND ${AWK_CMD} -F "\\t"  "{ if (lastLine != $1) {lastLine=$1; freq=1000} else{ freq--}; printf(\"%s\\t%s\\t%d\\n\",$1,$2,freq)}" "${outputFile}.tmp"
 	    OUTPUT_FILE "${outputFile}"
-	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
 	    )
     ENDIF(_GENERATE_FREQ)
-    FILE(REMOVE "${outputFile}.tmp")
-ENDMACRO(CONVERT_ENCODING CONVERT_ENCODING outputFile fromEncoding inputFile)
+    FILE(REMOVE "${CMAKE_CURRENT_SOURCE_DIR}/${workDir}/${outputFile}.tmp")
+ENDMACRO(CONVERT_ENCODING CONVERT_ENCODING workDir outputFile fromEncoding inputFile)
 
-CONVERT_ENCODING(array30_27489.utf8 UTF16 array30_27489.txt GENERATE_FREQ)
+#######################################################################
+# Preprocessing tables
+#
+
+# Array
+CONVERT_ENCODING(array array30_27489.utf8 UTF16 array30_27489.txt GENERATE_FREQ)
 EXECUTE_PROCESS(COMMAND cat array.head array30_27489.utf8 array.tail
     OUTPUT_FILE array30.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/array
     )
 
-CONVERT_ENCODING(array30-big.utf8 UTF16 array30_27489.txt array30_ExtB.txt GENERATE_FREQ)
+CONVERT_ENCODING(array array30-big.utf8 UTF16 array30_27489.txt array30_ExtB.txt GENERATE_FREQ)
 
 EXECUTE_PROCESS(COMMAND cat array-big.head array30-big.utf8 array.tail
     OUTPUT_FILE array30-big.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/array
     )
 
-EXECUTE_PROCESS(COMMAND ln -fs xinhua-ibus.txt xinhua.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+# wubi-heifeng
+# Generate the table tooks a long time
+ADD_CUSTOM_COMMAND(OUTPUT
+    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/wubi-heifeng86.utf8
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/convertTable.sh
+    COMMENT "Building wubi-heifeng86.utf8"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng
     )
 
-EXECUTE_PROCESS(COMMAND ln -fs yong-ibus.txt yong.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+ADD_CUSTOM_COMMAND(OUTPUT
+    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/wubi-heifeng86.txt
+    COMMAND cat wubi-heifeng86.head wubi-heifeng86.utf8 wubi-heifeng86.tail > wubi-heifeng86.txt
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/wubi-heifeng86.utf8
+    COMMENT "Building wubi-heifeng86.txt"
+    VERBATIM
     )
 
 SET_SOURCE_FILES_PROPERTIES(array30_27489.utf8 array30-big.tmp array30-big.utf8
-    array30.txt array30-big.txt xinhua.txt yong.txt
-   PROPERTIES GENERATED true)
+    array30.txt array30-big.txt
+    PROPERTIES GENERATED true)
 
 ADD_CUSTOM_TARGET(convert_all ALL)
 
 MACRO(CONVERT_DB targetName pattern)
-    FILE(GLOB_RECURSE _tableList RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${pattern}.txt")
+    FILE(GLOB_RECURSE _tableList RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${pattern}")
     FOREACH(_arg ${ARGN})
-	FILE(GLOB_RECURSE _tableAppend RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${_arg}.txt")
-	LIST(APPEND _tableList ${_tableAppend})
+	FILE(GLOB_RECURSE _tableAppend RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${_arg}")
+	GET_FILENAME_COMPONENT(_tabAppPath "${_tableAppend}" PATH)
+	GET_FILENAME_COMPONENT(_tabAppWe "${_tableAppend}" NAME_WE)
+	LIST(APPEND _tableList ${_tableAppend} )
     ENDFOREACH(_arg ${ARGN})
 
-    # CMakeLists.txt is not a table.
-    LIST(REMOVE_ITEM _tableList "CMakeLists.txt")
-    #MESSAGE("_tableList=${_tableList}")
+    MESSAGE("_tableList=${_tableList}")
     SET(_dependDb "")
     SET(_dependIcon "")
     FOREACH(_tabFile ${_tableList})
 	GET_FILENAME_COMPONENT(_tabName "${_tabFile}" NAME_WE)
-	ADD_CUSTOM_COMMAND(OUTPUT ${_tabName}.db
-	    COMMAND ${CREATE_DB} -n ${_tabName}.db -s ${_tabFile}
-	    DEPENDS ${_tabFile}
+	GET_FILENAME_COMPONENT(_tabPath "${_tabFile}" PATH)
+	SET(_tabF "${_tabPath}/${_tabName}.txt")
+	SET(_dbF "${_tabPath}/${_tabName}.db")
+	ADD_CUSTOM_COMMAND(OUTPUT ${_dbF}
+	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabFile}
+	    DEPENDS "${_tabF}"
 	    COMMENT "Building ${_tabName} table..."
 	    )
-	LIST(APPEND _dependDb "${_tabName}.db")
+	LIST(APPEND _dependDb "${_dbF}")
 	IF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.png")
 	    LIST(APPEND _dependIcon "../icons/${_tabName}.png")
 	ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.svg")
@@ -165,18 +183,17 @@ MACRO(CONVERT_DB targetName pattern)
 	DESTINATION ${ICON_INSTALL_DIRECTORY})
 ENDMACRO(CONVERT_DB dbs targetName pattern)
 
-CONVERT_DB(array "array30" "array30-big")
-CONVERT_DB(cangjie "cangjie*" "scj*")
-CONVERT_DB(cantonese "canton*" "jyutping*")
-CONVERT_DB(easy "easy*")
-CONVERT_DB(erbi "erbi*")
-CONVERT_DB(quick "quick*")
-CONVERT_DB(stroke5 "stroke5")
-CONVERT_DB(wu "wu")
-CONVERT_DB(wubi-jidian "wubi*")
-CONVERT_DB(wubi-heifeng "wubi*")
-CONVERT_DB(cangjie "cangjie*" "scj*")
-CONVERT_DB(yong "yong")
-CONVERT_DB(ziranma "ziranma*")
+CONVERT_DB(array "array/array30.txt" "array/array30-big.txt")
+CONVERT_DB(cangjie "cangjie/cangjie*.txt")
+CONVERT_DB(cantonese "cantonese/canton*.txt" "cantonese/jyutping*.txt")
+CONVERT_DB(easy "easy/easy*.txt")
+CONVERT_DB(erbi "erbi/erbi*.txt")
+CONVERT_DB(quick "quick/quick*.txt")
+CONVERT_DB(stroke5 "stroke5/stroke*.txt")
+CONVERT_DB(scj "scj/scj*.txt")
+CONVERT_DB(wu "wu/wu*.txt")
+CONVERT_DB(wubi-heifeng "wubi-heifeng/wubi-heifeng86.head")
+CONVERT_DB(wubi-jidian "wubi-jidian/wubi*.txt")
+CONVERT_DB(yong "yong/yong.txt")
 
 

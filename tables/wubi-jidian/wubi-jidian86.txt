@@ -1,9 +1,9 @@
 ### Wubi86 table
 ### This file must be encoded into UTF-8.
-### 
+###
 ### Changelog
-### Yu Yuwei <acevery@gmail.com>
-###     - Use original level 1 and 2 JianMa.
+### Ding-Yi Chen <dchen at redhat.com>
+###     - Move wubi86.svg to wubi-jidian86.svg
 ### Yu Yuwei <acevery@gmail.com>
 ###     - Update to Jidian 6, provided by Chen Xing
 ### Yu Yuwei <acevery@gmail.com>
@@ -27,12 +27,12 @@ UUID = 3a799bf4-b978-4282-826f-2339ea468c27
 ### This number must be less than 2^32.
 SERIAL_NUMBER = 20081205
 
-ICON = wubi86.svg
+ICON = wubi-jidian86.svg
 
 ### The default name of this table
-NAME = WuBi86
+NAME = WuBiJidian86
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 五笔86
 NAME.zh_TW = 五筆86
 NAME.zh_HK = 五筆86
@@ -56,13 +56,13 @@ MAX_KEY_LENGTH = 4
 VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz
 
 ### Whether user are allow to define their own phrase, default is true
-USER_CAN_DEFINE_PHRASE = TRUE 
+USER_CAN_DEFINE_PHRASE = TRUE
 
 ### Whether support PinYin Mode, default is true
 PINYIN_MODE = TRUE
 
 ### If true then the phrases' frequencies will be adjusted dynamically.
-DYNAMIC_ADJUST = TRUE 
+DYNAMIC_ADJUST = TRUE
 
 ### Rules for user define phrase construct:
 RULES = ce2:p11+p12+p21+p22;ce3:p11+p21+p31+p32;ca4:p11+p21+p31+p-11
