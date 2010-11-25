@@ -22,7 +22,7 @@ UUID = b9ecb257-6d22-46db-9ad2-7e0cebb69df3
 ### This number must be less than 2^32.
 SERIAL_NUMBER = 20101124
 
-ICON = wubi86-heifeng.svg
+ICON = wubi-heifeng86.svg
 
 ### The default name of this table
 NAME = WuBiHeifeng86

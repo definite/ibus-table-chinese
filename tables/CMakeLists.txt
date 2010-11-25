@@ -104,21 +104,21 @@ EXECUTE_PROCESS(COMMAND cat array-big.head array30-big.utf8 array.tail
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/array
     )
 
-# wubi-heifeng
+# wubi-haifeng
 # Generate the table tooks a long time
-ADD_CUSTOM_COMMAND(OUTPUT
-    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/wubi-heifeng86.utf8
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/convertTable.sh
-    COMMENT "Building wubi-heifeng86.utf8"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng
-    )
+#ADD_CUSTOM_COMMAND(OUTPUT
+#    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.UTF-8
+#    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/convertTable.sh
+#    COMMENT "Building wubi-haifeng86.UTF-8"
+#    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng
+#    )
 
 ADD_CUSTOM_COMMAND(OUTPUT
-    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/wubi-heifeng86.txt
-    COMMAND cat wubi-heifeng86.head wubi-heifeng86.utf8 wubi-heifeng86.tail > wubi-heifeng86.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/wubi-heifeng/wubi-heifeng86.utf8
-    COMMENT "Building wubi-heifeng86.txt"
+    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.txt
+    COMMAND cat wubi-haifeng86.head wubi-haifeng86.UTF-8 wubi-haifeng86.tail > wubi-haifeng86.txt
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.UTF-8
+    COMMENT "Building wubi-haifeng86.txt"
     VERBATIM
     )
 
@@ -192,7 +192,7 @@ CONVERT_DB(quick "quick/quick*.txt")
 CONVERT_DB(stroke5 "stroke5/stroke*.txt")
 CONVERT_DB(scj "scj/scj*.txt")
 CONVERT_DB(wu "wu/wu*.txt")
-CONVERT_DB(wubi-heifeng "wubi-heifeng/wubi-heifeng86.head")
+CONVERT_DB(wubi-haifeng "wubi-haifeng/wubi-haifeng86.head")
 CONVERT_DB(wubi-jidian "wubi-jidian/wubi*.txt")
 CONVERT_DB(yong "yong/yong.txt")
 

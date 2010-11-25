@@ -104,7 +104,5 @@ for i in 4 5; do
     catList="$catList Symbol-$i.tmp"
 done
 
-sort -s -k 3,3 -m $catList | sort -s -k 1,1 | append_freq >> ${TABLE_NAME}.utf8
-
-#cat ${WUBI_HEIFENG_TMP} |  sort -u   >> wubi-heifeng86.utf8
+sort -s -k 3,3 -m $catList | sort -s -k 1,1 | append_freq >> ${TABLE_NAME}.UTF-8
 

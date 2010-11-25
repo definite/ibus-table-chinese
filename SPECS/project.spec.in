@@ -5,7 +5,7 @@ Name:       @PROJECT_NAME@
 Version:    @PRJ_VER@
 Release:    1%{?dist}
 Summary:    @PRJ_SUMMARY@
-Summary(zh_TW): ibus-table 中文碼表輸入法
+Summary(zh_TW): 中文碼表輸入法
 License:    @LICENSE@
 Group:      System Environment/Libraries
 URL:        http://code.google.com/p/ibus/
@@ -22,7 +22,7 @@ Requires(post):   ibus-table >= 1.2
 
 %description
 ibus-table-chinese is provides the infrastructure for Chinese input methods.
-Input tables themselves are in subpackages.
+Input tables themselves are in sub-packages.
 
 %description -l zh_TW
 ibus-table-chinese 提供了中文碼表輸入法的基礎架構。
@@ -67,13 +67,11 @@ Obsoletes:      ibus-table-cangjie < 1.3
 
 %description cangjie
 Cangjie based input methods, includes:
-Cangjie3, Canjie5, Cangjie big tables,
-and Smart Cangjie 6.
+Cangjie3, Canjie5, and Cangjie big tables.
 
 %description -l zh_TW cangjie
 倉頡以及其衍生輸入法，包含：
-倉頡三代、倉頡五代、倉頡大字集、
-以及快速倉頡第六代。
+倉頡三代、倉頡五代以及倉頡大字集。
 
 %package cantonese
 Summary:        Cantonese input methods
@@ -163,6 +161,45 @@ and Smart Cangjie 6.
 包含：
 速成三代、速成五代以及速成古典版。
 
+%package scj
+Summary: Smart Cangjie
+Summary(zh_CN): 快速仓颉输入法
+Summary(zh_TW): 快速倉頡輸入法
+Group:         System Environment/Libraries
+Requires:       %{name} = %{version}-%{release}
+Provides:       ibus-table-cangjie = %{version}-%{release}
+Obsoletes:      ibus-table-cangjie < 1.3
+
+%description scj
+Smart Cangjie is an improved Cangjie base input method
+which handles Cangjie, Quick, Cantonese, Chinese punctuation,
+Japanese, 3000 frequent words by Hong Kong government,
+both Traditional and Simplified Chinese.
+
+This package includes the Smart Cangjie 6.
+
+%description -l zh_CN scj
+快速仓颉输入法第六代（快仓六）是一个多功能和多任务的
+输入法系统。在功能方面，它不但拥有多种不同版本的仓颉
+输入法、速成输入法、广东话输入法、高效率的标点、特殊
+符号和数字编码、日文编码、香港政府三千常用字编码、简
+码和容错码，而且还能够处理繁体和简体文字。在任务方面
+，它不但承袭了传统仓颉的「中文输入、输出、辨识和释义
+」等功能，而且还能肩负起促进「资讯科技教育、母语教育
+和特殊教育」等多重任务。
+
+%description -l zh_TW scj
+快速倉頡輸入法第六代（快倉六）是一個多功能和多任務的
+輸入法系統。在功能方面，它不但擁有多種不同版本的倉頡
+輸入法、速成輸入法、廣東話輸入法、高效率的標點、特殊
+符號和數字編碼、日文編碼、香港政府三千常用字編碼、簡
+碼和容錯碼，而且還能夠處理繁體和簡體文字。在任務方面
+，它不但承襲了傳統倉頡的「中文輸入、輸出、辨識和釋義
+」等功能，而且還能肩負起促進「資訊科技教育、母語教育
+和特殊教育」等多重任務。
+
+
+
 %package stroke5
 Summary: Stroke 5 input method
 Summary(zh_CN): 笔顺五码输入法
@@ -206,6 +243,7 @@ URL: http://input.foruto.com/wu/
 Summary: Haifeng Wubi input method
 Summary(zh_CN): 海峰五笔输入法
 Summary(zh_TW): 海峰五筆輸入法
+License:        BSD
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-wubi = %{version}-%{release}
@@ -213,13 +251,13 @@ Obsoletes:      ibus-table-wubi < 1.3
 
 %description wubi-haifeng
 Haifeng Wubi input methods. Current includes:
-Wubi 86.
+Haifeng Wubi 86.
 
 %description -l zh_CN wubi-haifeng
-海峰五笔输入法。包含：极点五笔86。
+海峰五笔输入法。包含：海峰五笔86。
 
 %description -l zh_TW wubi-haifeng
-海峰五筆輸入法。包含：五筆86。
+海峰五筆輸入法。包含：海峰五筆86。
 
 
 %package wubi-jidian
@@ -227,6 +265,7 @@ Summary: Jidian Wubi input method
 Summary(zh_CN): 极点五笔输入法
 Summary(zh_TW): 極點五筆輸入法
 Group:          System Environment/Libraries
+License:       Freely redistributable without restriction
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-wubi = %{version}-%{release}
 Obsoletes:      ibus-table-wubi < 1.3
@@ -266,19 +305,16 @@ Summary:        Meta-package to pull in all Chinese input tables
 Summary(zh_TW): 安裝全部中文輸入法
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-array= %{version}-%{release}
-Requires:       %{name}-cangjie= %{version}-%{release}
-Requires:       %{name}-cantonese= %{version}-%{release}
-Requires:       %{name}-erbi= %{version}-%{release}
-Requires:       %{name}-quick= %{version}-%{release}
-Requires:       %{name}-stroke5= %{version}-%{release}
-Requires:       %{name}-wu= %{version}-%{release}
-Requires:       %{name}-wubi-jidian= %{version}-%{release}
-Requires:       %{name}-wubi-heifeng= %{version}-%{release}
-Requires:       %{name}-xinhua= %{version}-%{release}
-Requires:       %{name}-yong= %{version}-%{release}
-Requires:       %{name}-zhengma= %{version}-%{release}
-Requires:       %{name}-ziranma= %{version}-%{release}
+Requires:       %{name}-array = %{version}-%{release}
+Requires:       %{name}-cangjie = %{version}-%{release}
+Requires:       %{name}-cantonese = %{version}-%{release}
+Requires:       %{name}-erbi = %{version}-%{release}
+Requires:       %{name}-quick = %{version}-%{release}
+Requires:       %{name}-stroke5 = %{version}-%{release}
+Requires:       %{name}-wu = %{version}-%{release}
+Requires:       %{name}-wubi-jidian = %{version}-%{release}
+Requires:       %{name}-wubi-haifeng = %{version}-%{release}
+Requires:       %{name}-yong = %{version}-%{release}
 Provides:       ibus-table-xingma = %{version}-%{release}
 Obsoletes:      ibus-table-xingma < 1.3
 Provides:       ibus-table-yinma = %{version}-%{release}
@@ -289,6 +325,7 @@ This sub-package pulls all Chinese input tables.
 
 %prep
 %setup -q -n %{name}-%{version}-Source
+%{__sed} -i 's/\r//' tables/wubi-haifeng/COPYING
 
 %build
 # $RPM_OPT_FLAGS should be  loaded from cmake macro.
@@ -314,7 +351,6 @@ This sub-package pulls all Chinese input tables.
 %{createdb} -i -n %{ibus_tables_dir}/cangjie3.db
 %{createdb} -i -n %{ibus_tables_dir}/cangjie5.db
 %{createdb} -i -n %{ibus_tables_dir}/cangjie-big.db
-%{createdb} -i -n %{ibus_tables_dir}/scj6.db
 
 %post cantonese
 %{createdb} -i -n %{ibus_tables_dir}/cantonese.db
@@ -326,12 +362,15 @@ This sub-package pulls all Chinese input tables.
 
 %post erbi
 %{createdb} -i -n %{ibus_tables_dir}/erbi.db
-%{createdb} -i -n %{ibus_tables_dir}/erbi_qs.db
+%{createdb} -i -n %{ibus_tables_dir}/erbi-qs.db
 
 %post quick
 %{createdb} -i -n %{ibus_tables_dir}/quick3.db
 %{createdb} -i -n %{ibus_tables_dir}/quick5.db
 %{createdb} -i -n %{ibus_tables_dir}/quick-classic.db
+
+%post scj
+%{createdb} -i -n %{ibus_tables_dir}/scj6.db
 
 %post stroke5
 %{createdb} -i -n %{ibus_tables_dir}/stroke5.db
@@ -339,39 +378,38 @@ This sub-package pulls all Chinese input tables.
 %post wu
 %{createdb} -i -n %{ibus_tables_dir}/wu.db
 
-%post wubi
-%{createdb} -i -n %{ibus_tables_dir}/wubi86.db
+%post wubi-haifeng
+%{createdb} -i -n %{ibus_tables_dir}/wubi-haifeng86.db
 
-%post xinhua
-%{createdb} -i -n %{ibus_tables_dir}/xinhua.db
+%post wubi-jidian
+%{createdb} -i -n %{ibus_tables_dir}/wubi-jidian86.db
 
 %post yong
 %{createdb} -i -n %{ibus_tables_dir}/yong.db
 
-%post ziranma
-%{createdb} -i -n %{ibus_tables_dir}/ziranma.db
 
 %files
 %defattr(-,root,root,-)
 %doc @PRJ_DOC_LIST@
 
 %files array
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/array30.*
 %{ibus_tables_dir}/array30.db
 %{ibus_icons_dir}/array30-big.*
 %{ibus_tables_dir}/array30-big.db
 
 %files cangjie
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/cangjie3.*
 %{ibus_tables_dir}/cangjie3.db
 %{ibus_icons_dir}/cangjie5.*
 %{ibus_tables_dir}/cangjie5.db
 %{ibus_icons_dir}/cangjie-big.*
 %{ibus_tables_dir}/cangjie-big.db
-%{ibus_icons_dir}/scj6.*
-%{ibus_tables_dir}/scj6.db
 
 %files cantonese
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/cantonese.*
 %{ibus_tables_dir}/cantonese.db
 %{ibus_icons_dir}/cantonhk.*
@@ -380,16 +418,19 @@ This sub-package pulls all Chinese input tables.
 %{ibus_tables_dir}/jyutping.db
 
 %files easy
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/easy-big.*
 %{ibus_tables_dir}/easy-big.db
 
 %files erbi
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/erbi.*
 %{ibus_tables_dir}/erbi.db
-%{ibus_icons_dir}/erbi_qs.*
-%{ibus_tables_dir}/erbi_qs.db
+%{ibus_icons_dir}/erbi-qs.*
+%{ibus_tables_dir}/erbi-qs.db
 
 %files quick
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/quick3.*
 %{ibus_tables_dir}/quick3.db
 %{ibus_icons_dir}/quick5.*
@@ -397,29 +438,37 @@ This sub-package pulls all Chinese input tables.
 %{ibus_icons_dir}/quick-classic.*
 %{ibus_tables_dir}/quick-classic.db
 
+%files scj
+%defattr(-,root,root,-)
+%{ibus_icons_dir}/scj6.*
+%{ibus_tables_dir}/scj6.db
+
+
 %files stroke5
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/stroke5.*
 %{ibus_tables_dir}/stroke5.db
 
 %files wu
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/wu.*
 %{ibus_tables_dir}/wu.db
 
-%files wubi
-%{ibus_icons_dir}/wubi86.*
-%{ibus_tables_dir}/wubi86.db
+%files wubi-haifeng
+%defattr(-,root,root,-)
+%doc tables/wubi-haifeng/COPYING tables/wubi-haifeng/README
+%{ibus_icons_dir}/wubi-haifeng86.*
+%{ibus_tables_dir}/wubi-haifeng86.db
 
-%files xinhua
-%{ibus_icons_dir}/xinhua.*
-%{ibus_tables_dir}/xinhua.db
+%files wubi-jidian
+%defattr(-,root,root,-)
+%{ibus_icons_dir}/wubi-jidian86.*
+%{ibus_tables_dir}/wubi-jidian86.db
 
 %files yong
+%defattr(-,root,root,-)
 %{ibus_icons_dir}/yong.*
 %{ibus_tables_dir}/yong.db
-
-%files ziranma
-%{ibus_icons_dir}/ziranma.*
-%{ibus_tables_dir}/ziranma.db
 
 
 %changelog

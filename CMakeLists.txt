@@ -66,7 +66,7 @@ INCLUDE(UseFedpkg)
 SET(PRJ_IGNORE_FILES_COMMON
     "\\\\.spec$" "messages.po$" "\\\\.orig$" "\\\\.db$"
     "\\\\.utf8$" "\\\\.tmp$"
-    "array30.txt" "array30-big.txt" "xinhua.txt" "yong.txt"
+    "array30.txt" "array30-big.txt" "wubi-haifeng86.txt"
 )
 
 SET(PACK_SOURCE_IGNORE_FILES ${PACK_SOURCE_IGNORE_FILES}
