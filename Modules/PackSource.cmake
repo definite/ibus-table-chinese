@@ -26,6 +26,7 @@
 #       the files to be excluded. Note that cmake generated file
 #       (PACK_SOURCE_IGNORE_FILE_CMAKE) is already in this list.
 #     Define following variables:
+#     + PACK_SOURCE_FILE_LIST: List of files to be packed to tarball.
 #     + PACK_SOURCE_FILE_EXTENSION: File extension of the source package
 #       files.
 #     Target:
@@ -34,12 +35,7 @@
 #     + clean_pack_src: Remove all source packages.
 #     + clean_old_pack_src: Remove all old source package.
 #       This target depends on version_check.
-#
-#   PACK_SOURCE_FILES(var)
-#   - Return all source file to be packed.
-#     Arguments:
-#     + var: A list of relative filenames that will be in the tarball.
-#
+##
 IF(NOT DEFINED _PACK_SOURCE_CMAKE_)
     SET (_PACK_SOURCE_CMAKE_ "DEFINED")
     SET(PACK_SOURCE_IGNORE_FILES_DEFAULT
@@ -61,6 +57,12 @@ IF(NOT DEFINED _PACK_SOURCE_CMAKE_)
 
     INCLUDE(ManageVersion)
 
+    # Internal:  PACK_SOURCE_FILES(var)
+    #   - Return all source file to be packed.
+    #     This is called by PACK_SOURCE(),
+    #     So no need to call it again.
+    #     Arguments:
+    #     + var: A list of relative filenames that will be in the tarball.
     MACRO(PACK_SOURCE_FILES var)
 	SET(_filelist "")
 	FILE(GLOB_RECURSE _ls "*")
