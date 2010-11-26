@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 2.4)
-CMAKE_POLICY(VERSION 2.4)
-CMAKE_POLICY(SET CMP0005 OLD)
+cmake_minimum_required(VERSION 2.6)
+#CMAKE_POLICY(VERSION 2.4)
+#CMAKE_POLICY(SET CMP0005 OLD)
 ####################################################################
 # Project specific information
 #

@@ -5,6 +5,7 @@ Name:       @PROJECT_NAME@
 Version:    @PRJ_VER@
 Release:    1%{?dist}
 Summary:    @PRJ_SUMMARY@
+Summary(zh_CN): 中文码表输入法
 Summary(zh_TW): 中文碼表輸入法
 License:    @LICENSE@
 Group:      System Environment/Libraries
@@ -329,7 +330,7 @@ This sub-package pulls all Chinese input tables.
 
 %build
 # $RPM_OPT_FLAGS should be  loaded from cmake macro.
-%cmake -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo .
+%cmake .
 %__make VERBOSE=1  %{?_smp_mflags}
 
 %install

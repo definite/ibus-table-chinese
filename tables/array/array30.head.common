@@ -13,30 +13,11 @@ BEGIN_DEFINITION
 ### License
 LICENSE =  Freely redistributable without restriction
 
-### An unique id to distinguish this table among others.
-### Use uuidgen to generate this kind of id.
-UUID = 3c28e5f1-0885-486e-8d15-b13680b9a44c
-
 ### A unique number indicates the version of this file.
 ### For example the last modified date of this file.
 ### This number must be less than 2^32.
 ### Just make your table version-able
 SERIAL_NUMBER = 2008A
-
-### ICON can be any format as long as your pygtk can recognized
-### the most widely ones are "png" and "svg", letter one is recommended
-ICON = array30-big.png
-
-### The default name of this table, this is needed
-NAME = Array30 Big Table
-
-### The local names of this table, this is optional
-NAME.zh_CN = 行列30大字集
-NAME.zh_HK = 行列30大字集
-NAME.zh_TW = 行列30大字集
-
-### Description
-DESCRIPTION = Array 30 Chinese input method that include unicode Ext B.
 
 ### Supported languages of this table
 ### sigle "zh_CN" just be recognized as zh_CN,
@@ -62,6 +43,7 @@ MAX_KEY_LENGTH = 5
 
 ### Use full width punctuation by default
 DEF_FULL_WIDTH_PUNCT = TRUE
+
 ### Not use full width letter by default
 DEF_FULL_WIDTH_LETTER = FALSE
 
@@ -93,16 +75,39 @@ DYNAMIC_ADJUST = FALSE
 ### becuase [2,2] ∩ [3,3] ∩ [4,+∞] = [2,+∞], which is the range of length
 ### of phrase. This have to be satisfied if you need ibus-table to build up
 ### your own inputed phrase via your daily using.
-RULES =
+### RULES =
 
-END_DEFINITION
+### Define the prompts of each valid input char.
+BEGIN_CHAR_PROMPTS_DEFINITION
+q 1^
+w 2^
+e 3^
+r 4^
+t 5^
+y 6^
+u 7^
+i 8^
+o 9^
+p 0^
+a 1-
+s 2-
+d 3-
+f 4-
+g 5-
+h 6-
+j 7-
+k 8-
+l 9-
+; 0-
+z 1v
+x 2v
+c 3v
+v 4v
+b 5v
+n 6v
+m 7v
+, 8v
+. 9v
+/ 0v
+END_CHAR_PROMPTS_DEFINITION
 
-### Begin Table data.
-### Format of every line whose formated in "input_keys\tphrase\tfreq\n" is an
-### entry.
-### From left to right, the 1st column are the input key combination that you
-### entered via keyboard; the 2nd column are presented character or phrase of
-### the key combination you want; the 3rd column are frequency of the character
-
-### Begin Table data.
-BEGIN_TABLE

@@ -92,16 +92,17 @@ ENDMACRO(CONVERT_ENCODING CONVERT_ENCODING workDir outputFile fromEncoding input
 
 # Array
 CONVERT_ENCODING(array array30_27489.utf8 UTF16 array30_27489.txt GENERATE_FREQ)
-EXECUTE_PROCESS(COMMAND cat array.head array30_27489.utf8 array.tail
-    OUTPUT_FILE array30.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/array
+ADD_CUSTOM_COMMAND(OUTPUT array/array30.txt
+    COMMAND cat array30.head.common array30.head array30_27489.utf8 array30.tail > array30.txt
+    WORKING_DIRECTORY array
+    VERBATIM
     )
 
 CONVERT_ENCODING(array array30-big.utf8 UTF16 array30_27489.txt array30_ExtB.txt GENERATE_FREQ)
-
-EXECUTE_PROCESS(COMMAND cat array-big.head array30-big.utf8 array.tail
-    OUTPUT_FILE array30-big.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/array
+ADD_CUSTOM_COMMAND(OUTPUT array/array30-big.txt
+    COMMAND cat array30.head.common array30-big.head array30-big.utf8 array30.tail > array30-big.txt
+    WORKING_DIRECTORY array
+    VERBATIM
     )
 
 # wubi-haifeng
@@ -114,10 +115,10 @@ EXECUTE_PROCESS(COMMAND cat array-big.head array30-big.utf8 array.tail
 #    )
 
 ADD_CUSTOM_COMMAND(OUTPUT
-    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.txt
+    wubi-haifeng/wubi-haifeng86.txt
     COMMAND cat wubi-haifeng86.head wubi-haifeng86.UTF-8 wubi-haifeng86.tail > wubi-haifeng86.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.UTF-8
+    WORKING_DIRECTORY wubi-haifeng
+    DEPENDS wubi-haifeng/wubi-haifeng86.UTF-8
     COMMENT "Building wubi-haifeng86.txt"
     VERBATIM
     )
@@ -148,7 +149,7 @@ MACRO(CONVERT_DB targetName pattern)
 	ADD_CUSTOM_COMMAND(OUTPUT ${_dbF}
 	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabFile}
 	    DEPENDS "${_tabF}"
-	    COMMENT "Building ${_tabName} table..."
+	    COMMENT "Building ${_tabName} table (${_tabFile} => ${_dbF}) "
 	    )
 	LIST(APPEND _dependDb "${_dbF}")
 	IF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.png")
@@ -183,7 +184,7 @@ MACRO(CONVERT_DB targetName pattern)
 	DESTINATION ${ICON_INSTALL_DIRECTORY})
 ENDMACRO(CONVERT_DB dbs targetName pattern)
 
-CONVERT_DB(array "array/array30.txt" "array/array30-big.txt")
+CONVERT_DB(array "array/array30.head" "array/array30-big.head")
 CONVERT_DB(cangjie "cangjie/cangjie*.txt")
 CONVERT_DB(cantonese "cantonese/canton*.txt" "cantonese/jyutping*.txt")
 CONVERT_DB(easy "easy/easy*.txt")

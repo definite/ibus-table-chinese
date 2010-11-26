@@ -33,9 +33,9 @@ ICON = wubi-jidian86.svg
 NAME = WuBiJidian86
 
 ### The local names of this table
-NAME.zh_CN = 五笔86
-NAME.zh_TW = 五筆86
-NAME.zh_HK = 五筆86
+NAME.zh_CN = 极点五笔86
+NAME.zh_TW = 極點五筆86
+NAME.zh_HK = 極點五筆86
 
 ### Supported languages of this table
 LANGUAGES = zh_CN,zh_SG,zh_TW,zh_HK

@@ -30,21 +30,6 @@ IF(NOT DEFINED _MANAGE_VERSION_CMAKE_)
     MESSAGE("CMAKE_HOST_SYSTEM_VERSION=${CMAKE_HOST_SYSTEM_VERSION}")
     INCLUDE(ManageVariable)
 
-    ADD_CUSTOM_TARGET(changelog ALL
-	DEPENDS ChangeLog
-	)
-
-    ADD_CUSTOM_COMMAND(OUTPUT ChangeLog
-	COMMAND ${CMAKE_COMMAND} -E echo "* ${TODAY_CHANGELOG} ${MAINTAINER} - ${PRJ_VER}" > ChangeLog
-	COMMAND cat ${releaseFile}_NO_PACK_CHANGELOG_ITEM  >> ChangeLog
-	COMMAND echo -e "\\n" >> ChangeLog
-	COMMAND cat ChangeLog.prev >> ChangeLog
-	COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}
-	DEPENDS ${releaseFile} ChangeLog.prev
-	COMMENT "ChangeLog is older than ${releaseFile}. Rebuilding"
-	VERBATIM
-	)
-
     MACRO(LOAD_RELEASE_FILE releaseFile)
 	COMMAND_OUTPUT_TO_VARIABLE(_grep_line grep -F "[Changes]" -n -m 1 ${releaseFile})
 	SET(RELEASE_FILE ${releaseFile})
@@ -71,6 +56,21 @@ IF(NOT DEFINED _MANAGE_VERSION_CMAKE_)
 	#CONFIGURE_FILE(ChangeLog.in ChangeLog)
 
 	SET_SOURCE_FILES_PROPERTIES(ChangeLog PROPERTIES GENERATED TRUE)
+
+	ADD_CUSTOM_TARGET(changelog ALL
+	    DEPENDS ChangeLog
+	    )
+
+	ADD_CUSTOM_COMMAND(OUTPUT ChangeLog
+	    COMMAND ${CMAKE_COMMAND} -E echo "* ${TODAY_CHANGELOG} ${MAINTAINER} - ${PRJ_VER}" > ChangeLog
+	    COMMAND cat ${releaseFile}_NO_PACK_CHANGELOG_ITEM  >> ChangeLog
+	    COMMAND echo -e "\\n" >> ChangeLog
+	    COMMAND cat ChangeLog.prev >> ChangeLog
+	    COMMAND ${CMAKE_COMMAND} ${CMAKE_SOURCE_DIR}
+	    DEPENDS ${releaseFile} ChangeLog.prev
+	    COMMENT "ChangeLog is older than ${releaseFile}. Rebuilding"
+	    VERBATIM
+	    )
 
 	# PRJ_VER won't be updated until the execution of cmake .
 	SET(_version_check_cmd grep -e 'PRJ_VER=' ${RELEASE_FILE} |  tr -d '\\r\\n' | sed -e s/PRJ_VER=//)

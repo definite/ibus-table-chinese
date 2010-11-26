@@ -13,6 +13,7 @@
 #
 #   STRING_UNQUOTE(var str)
 #   - Remove double quote marks and quote marks around a string.
+#     If the string is not quoted, then it returns an empty string.
 #     * Parameters:
 #       + var: A variable that stores the result.
 #       + str: A string.
@@ -56,16 +57,73 @@ IF(NOT DEFINED _MANAGE_STRING_CMAKE_)
 	ENDIF(${var} STREQUAL "")
     ENDMACRO(STRING_TRIM var str)
 
-    MACRO(STRING_UNQUOTE var str)
-
+    # Internal macro
+    # Variable cannot be escaped here, as variable is already substituted
+    # at the time it passes to this macro.
+    MACRO(STRING_ESCAPE var str)
 	# ';' and '\' are tricky, need to be encoded.
-	# '\' => '#B'
 	# '#' => '#H'
+	# '\' => '#B'
 	# ';' => '#S'
+	SET(_ESCAPE_VARIABLE "")
+	SET(_NOESCAPE_SEMICOLON "")
+	SET(_ret "${str}")
 	STRING(REGEX REPLACE "#" "#H" _ret "${str}")
+	FOREACH(_arg ${ARGN})
+	    IF(${_arg} STREQUAL "NOESCAPE_SEMICOLON")
+		SET(_NOESCAPE_SEMICOLON "NOESCAPE_SEMICOLON")
+	    ELSEIF(${_arg} STREQUAL "ESCAPE_VARIABLE")
+		SET(_ESCAPE_VARIABLE "ESCAPE_VARIABLE")
+		STRING(REGEX REPLACE "[$]" "#D" _ret "${_ret}")
+	    ENDIF(${_arg} STREQUAL "NOESCAPE_SEMICOLON")
+	ENDFOREACH(_arg)
 	STRING(REGEX REPLACE "\\\\" "#B" _ret "${_ret}")
-	STRING(REGEX REPLACE ";" "#S" _ret "${_ret}")
+	IF(_NOESCAPE_SEMICOLON STREQUAL "")
+	    STRING(REGEX REPLACE ";" "#S" _ret "${_ret}")
+	ENDIF(_NOESCAPE_SEMICOLON STREQUAL "")
+	#MESSAGE("STRING_ESCAPE:_ret=${_ret}")
+	SET(${var} "${_ret}")
+    ENDMACRO(STRING_ESCAPE var str)
 
+    MACRO(STRING_UNESCAPE var str)
+	# '#B' => '\'
+	# '#H' => '#'
+	# '#D' => '$'
+	# '#S' => ';'
+	SET(_ESCAPE_VARIABLE "")
+	SET(_NOESCAPE_SEMICOLON "")
+	SET(_ret "${str}")
+	FOREACH(_arg ${ARGN})
+	    IF(${_arg} STREQUAL "NOESCAPE_SEMICOLON")
+		SET(_NOESCAPE_SEMICOLON "NOESCAPE_SEMICOLON")
+	    ELSEIF(${_arg} STREQUAL "ESCAPE_VARIABLE")
+		SET(_ESCAPE_VARIABLE "ESCAPE_VARIABLE")
+		STRING(REGEX REPLACE "#D" "$" _ret "${_ret}")
+	    ENDIF(${_arg} STREQUAL "NOESCAPE_SEMICOLON")
+	ENDFOREACH(_arg)
+	#MESSAGE("var=${var} _ret=${_ret} _NOESCAPE_SEMICOLON=${_NOESCAPE_SEMICOLON}	ESCAPE_VARIABLE=${_ESCAPE_VARIABLE}")
+
+	STRING(REGEX REPLACE "#B" "\\\\" _ret "${_ret}")
+	IF(_NOESCAPE_SEMICOLON STREQUAL "")
+	    # ';' => '#S'
+	    STRING(REGEX REPLACE "#S" "\\\\;" _ret "${_ret}")
+	ELSE(_NOESCAPE_SEMICOLON STREQUAL "")
+	    STRING(REGEX REPLACE "#S" ";" _ret "${_ret}")
+	ENDIF(_NOESCAPE_SEMICOLON STREQUAL "")
+	#MESSAGE("STRING_UNESCAPE:var=${var} _ret=${_ret}")
+
+	IF(NOT _ESCAPE_VARIABLE STREQUAL "")
+	    # '#D' => '$'
+	    STRING(REGEX REPLACE "#D" "$" _ret "${_ret}")
+	ENDIF(NOT _ESCAPE_VARIABLE STREQUAL "")
+	STRING(REGEX REPLACE "#H" "#" _ret "${_ret}")
+	#MESSAGE("STRING_UNESCAPE:_ret=${_ret}")
+	SET(${var} "${_ret}")
+    ENDMACRO(STRING_UNESCAPE var str)
+
+
+    MACRO(STRING_UNQUOTE var str)
+	STRING_ESCAPE(_ret "${str}" ${ARGN})
 	IF(_ret MATCHES "^[ \t\r\n]+")
 	    STRING(REGEX REPLACE "^[ \t\r\n]+" "" _ret "${_ret}")
 	ENDIF(_ret MATCHES "^[ \t\r\n]+")
@@ -80,9 +138,11 @@ IF(NOT DEFINED _MANAGE_STRING_CMAKE_)
 	ENDIF(_ret MATCHES "^\"")
 
 	# Unencoding
-	STRING(REGEX REPLACE "#B" "\\\\" _ret "${_ret}")
-	STRING(REGEX REPLACE "#H" "#" _ret "${_ret}")
-	STRING(REGEX REPLACE "#S" "\\\\;" ${var} "${_ret}")
+	STRING_UNESCAPE(${var} "${_ret}" ${ARGN})
+
+	#	STRING(REGEX REPLACE "#B" "\\\\" _ret "${_ret}")
+	#STRING(REGEX REPLACE "#S" "\\\\;" ${var} "${_ret}")
+	#STRING(REGEX REPLACE "#H" "#" _ret "${_ret}")
     ENDMACRO(STRING_UNQUOTE var str)
 
     #    MACRO(STRING_ESCAPE_SEMICOLON var str)
@@ -111,9 +171,13 @@ IF(NOT DEFINED _MANAGE_STRING_CMAKE_)
 
     MACRO(STRING_SPLIT var delimiter str)
 	SET(_max_tokens "")
+	SET(_NOESCAPE_SEMICOLON "")
+	SET(_ESCAPE_VARIABLE "")
 	FOREACH(_arg ${ARGN})
 	    IF(${_arg} STREQUAL "NOESCAPE_SEMICOLON")
 		SET(_NOESCAPE_SEMICOLON "NOESCAPE_SEMICOLON")
+	    ELSEIF(${_arg} STREQUAL "ESCAPE_VARIABLE")
+		SET(_ESCAPE_VARIABLE "ESCAPE_VARIABLE")
 	    ELSE(${_arg} STREQUAL "NOESCAPE_SEMICOLON")
 		SET(_max_tokens ${_arg})
 	    ENDIF(${_arg} STREQUAL "NOESCAPE_SEMICOLON")
@@ -123,19 +187,9 @@ IF(NOT DEFINED _MANAGE_STRING_CMAKE_)
 	    SET(_max_tokens -1)
 	ENDIF(NOT _max_tokens)
 
-	# ';' and '\' are tricky, need to be encoded.
-	# '\' => '#B'
-	# '#' => '#H'
-	STRING(REGEX REPLACE "#" "#H" _str "${str}")
-	STRING(REGEX REPLACE "#" "#H" _delimiter "${delimiter}")
-
-	STRING(REGEX REPLACE "\\\\" "#B" _str "${_str}")
-
-	IF(NOT _NOESCAPE_SEMICOLON STREQUAL "")
-	    # ';' => '#S'
-	    STRING(REGEX REPLACE ";" "#S" _str "${_str}")
-	    STRING(REGEX REPLACE ";" "#S" _delimiter "${_delimiter}")
-	ENDIF(NOT _NOESCAPE_SEMICOLON STREQUAL "")
+	STRING_ESCAPE(_str "${str}" ${_NOESCAPE_SEMICOLON} ${_ESCAPE_VARIABLE})
+	#MESSAGE("_str (escaped)=${_str}")
+	STRING_ESCAPE(_delimiter "${delimiter}" ${_NOESCAPE_SEMICOLON} ${_ESCAPE_VARIABLE})
 
 	SET(_str_list "")
 	SET(_token_count 0)
@@ -176,10 +230,10 @@ IF(NOT DEFINED _MANAGE_STRING_CMAKE_)
 
 		IF(_str_remain STREQUAL "")
 		    # Meaning: end of string
-		    SET(_str_list ${_str_list} "${_str}")
+		    LIST(APPEND _str_list "${_str}")
 		    SET(_max_tokens ${_token_count})
 		ELSE(_str_remain STREQUAL "")
-		    SET(_str_list ${_str_list} "${_token}")
+		    LIST(APPEND _str_list "${_token}")
 		    SET(_str "${_str_remain}")
 		ENDIF(_str_remain STREQUAL "")
 	    ENDIF(_token_count EQUAL _max_tokens)
@@ -188,16 +242,7 @@ IF(NOT DEFINED _MANAGE_STRING_CMAKE_)
 
 
 	# Unencoding
-	STRING(REGEX REPLACE "#B" "\\\\" _str_list "${_str_list}")
-	STRING(REGEX REPLACE "#H" "#" _str_list "${_str_list}")
-
-	IF(NOT _NOESCAPE_SEMICOLON STREQUAL "")
-	    # ';' => '#S'
-	    STRING(REGEX REPLACE "#S" "\\\\;" ${var} "${_str_list}")
-	ELSE(NOT _NOESCAPE_SEMICOLON STREQUAL "")
-	    SET(${var} ${_str_list})
-	ENDIF(NOT _NOESCAPE_SEMICOLON STREQUAL "")
-
+	STRING_UNESCAPE(${var} "${_str_list}" ${_NOESCAPE_SEMICOLON} ${_ESCAPE_VARIABLE})
     ENDMACRO(STRING_SPLIT var delimiter str)
 
 ENDIF(NOT DEFINED _MANAGE_STRING_CMAKE_)

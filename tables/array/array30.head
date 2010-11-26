@@ -1,0 +1,36 @@
+### An unique id to distinguish this table among others.
+### Use uuidgen to generate this kind of id.
+UUID = fe1125da-3bff-47b8-9aa7-d7586633ae4a
+
+### A unique number indicates the version of this file.
+### For example the last modified date of this file.
+### This number must be less than 2^32.
+### Just make your table version-able
+SERIAL_NUMBER = 2008A
+
+### ICON can be any format as long as your pygtk can recognized
+### the most widely ones are "png" and "svg", letter one is recommended
+ICON = array30.png
+
+### The default name of this table, this is needed
+NAME = Array30
+
+### The local names of this table, this is optional
+NAME.zh_CN = 行列30
+NAME.zh_HK = 行列30
+NAME.zh_TW = 行列30
+
+### Description
+DESCRIPTION = Array 30 Chinese input method.
+
+END_DEFINITION
+
+### Begin Table data.
+### Format of every line whose formated in "input_keys\tphrase\tfreq\n" is an
+### entry.
+### From left to right, the 1st column are the input key combination that you
+### entered via keyboard; the 2nd column are presented character or phrase of
+### the key combination you want; the 3rd column are frequency of the character
+
+### Begin Table data.
+BEGIN_TABLE

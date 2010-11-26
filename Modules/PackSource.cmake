@@ -25,6 +25,9 @@
 #     + PACK_SOURCE_IGNORE_FILES: A list of regex filename pattern to indicate
 #       the files to be excluded. Note that cmake generated file
 #       (PACK_SOURCE_IGNORE_FILE_CMAKE) is already in this list.
+#     Define following variables:
+#     + PACK_SOURCE_FILE_EXTENSION: File extension of the source package
+#       files.
 #     Target:
 #     + pack_src: Pack source files like package_source.
 #       This target depends on version_check.
@@ -32,6 +35,10 @@
 #     + clean_old_pack_src: Remove all old source package.
 #       This target depends on version_check.
 #
+#   PACK_SOURCE_FILES(var)
+#   - Return all source file to be packed.
+#     Arguments:
+#     + var: A list of relative filenames that will be in the tarball.
 #
 IF(NOT DEFINED _PACK_SOURCE_CMAKE_)
     SET (_PACK_SOURCE_CMAKE_ "DEFINED")
@@ -91,11 +98,11 @@ IF(NOT DEFINED _PACK_SOURCE_CMAKE_)
 	ENDIF(${ARGV3})
 	SET(CPACK_SOURCE_GENERATOR ${CPACK_GENERATOR})
 	IF(${CPACK_GENERATOR} STREQUAL "TGZ")
-	    SET(_pack_source_ext "tar.gz")
+	    SET(PACK_SOURCE_FILE_EXTENSION "tar.gz")
 	ELSEIF(${CPACK_GENERATOR} STREQUAL "TBZ2")
-	    SET(_pack_source_ext "tar.bz2")
+	    SET(PACK_SOURCE_FILE_EXTENSION "tar.bz2")
 	ELSEIF(${CPACK_GENERATOR} STREQUAL "ZIP")
-	    SET(_pack_source_ext "zip")
+	    SET(PACK_SOURCE_FILE_EXTENSION "zip")
 	ENDIF(${CPACK_GENERATOR} STREQUAL "TGZ")
 
 	SET(CPACK_SOURCE_IGNORE_FILES ${PACK_SOURCE_IGNORE_FILES})
@@ -118,7 +125,7 @@ IF(NOT DEFINED _PACK_SOURCE_CMAKE_)
 	ENDIF(DEFINED PRJ_SUMMARY)
 
 	SET(CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PRJ_VER}-Source")
-	SET(${var} "${CPACK_SOURCE_PACKAGE_FILE_NAME}.${_pack_source_ext}")
+	SET(${var} "${CPACK_SOURCE_PACKAGE_FILE_NAME}.${PACK_SOURCE_FILE_EXTENSION}")
 
 	SET(CPACK_PACKAGE_VENDOR "${VENDOR}")
 	PACK_SOURCE_FILES(PACK_SOURCE_FILE_LIST)
@@ -153,7 +160,7 @@ IF(NOT DEFINED _PACK_SOURCE_CMAKE_)
 
 	ADD_CUSTOM_TARGET(clean_old_pack_src
 	    COMMAND find .
-	    -name '${PROJECT_NAME}*.${_pack_source_ext}' ! -name '${PROJECT_NAME}-${PRJ_VER}-*.${_pack_source_ext}'
+	    -name '${PROJECT_NAME}*.${PACK_SOURCE_FILE_EXTENSION}' ! -name '${PROJECT_NAME}-${PRJ_VER}-*.${PACK_SOURCE_FILE_EXTENSION}'
 	    -print -delete
 	    COMMENT "Cleaning old source packages"
 	    )
@@ -162,7 +169,7 @@ IF(NOT DEFINED _PACK_SOURCE_CMAKE_)
 
 	ADD_CUSTOM_TARGET(clean_pack_src
 	    COMMAND find .
-	    -name '${PROJECT_NAME}*.${_pack_source_ext}'
+	    -name '${PROJECT_NAME}*.${PACK_SOURCE_FILE_EXTENSION}'
 	    -print -delete
 	    COMMENT "Cleaning all source packages"
 	    )
