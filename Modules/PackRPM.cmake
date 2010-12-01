@@ -8,7 +8,11 @@
 #   RPM_BUILD_TOPDIR: (optional) Directory of  the rpm topdir.
 #     Default: ${CMAKE_BINARY_DIR}
 #
-#   RPM_BUILD_SPECS: (optional) Directory of  spec files.
+#   RPM_BUILD_SPECS: (optional) Directory of generated spec files
+#     and RPM-ChangeLog.
+#     Note this variable is not for locating
+#     SPEC template (project.spec.in), RPM-ChangeLog source files.
+#     These are located through the path of spec_in.
 #     Default: ${RPM_BUILD_TOPDIR}/SPECS
 #
 #   RPM_BUILD_SOURCES: (optional) Directory of source (tar.gz or zip) files.
@@ -129,10 +133,12 @@ IF(NOT DEFINED _PACK_RPM_CMAKE_)
 	IF(NOT EXISTS ${spec_in})
 	    MESSAGE(FATAL_ERROR "File ${spec_in} not found!")
 	ENDIF(NOT EXISTS ${spec_in})
-	FIND_PROGRAM(RPMBUILD NAMES "rpmbuild-md5" "rpmbuild")
+
+	FIND_PROGRAM(RPMBUILD NAMES "rpmbuild")
 	IF(${RPMBUILD} STREQUAL "RPMBUILD-NOTFOUND")
-	    MESSAGE("rpmbuild-md5 or rpmbuild is not found in PATH, rpm build support is disabled.")
+	    MESSAGE("rpmbuild is not found in PATH, rpm build support is disabled.")
 	ELSE(${RPMBUILD} STREQUAL "RPMBUILD-NOTFOUND")
+	    GET_FILENAME_COMPONENT(_specInDir "${spec_in}" PATH)
 	    # Get release number from spec_in
 	    SET(fileDependencies ${ARGN})
 	    INCLUDE(ManageVariable)
@@ -142,17 +148,17 @@ IF(NOT DEFINED _PACK_RPM_CMAKE_)
 	    #MESSAGE("_releaseTag=${_releaseTag} _releaseStr=${_releaseStr}")
 
 	    # Update RPM_ChangeLog
-	    FILE(READ "${RPM_BUILD_SPECS}/RPM-ChangeLog.prev" RPM_CHANGELOG_PREV)
+	    FILE(READ "${_specInDir}/RPM-ChangeLog.prev" RPM_CHANGELOG_PREV)
 	    STRING_TRIM(RPM_CHANGELOG_PREV "${RPM_CHANGELOG_PREV}")
-	    CONFIGURE_FILE(${RPM_BUILD_SPECS}/RPM-ChangeLog.in ${RPM_BUILD_SPECS}/RPM-ChangeLog)
+	    CONFIGURE_FILE(${_specInDir}/RPM-ChangeLog.in ${RPM_BUILD_SPECS}/RPM-ChangeLog)
 
 	    # Generate spec
 	    SET(SOURCE_PACKAGE ${sourcePackage})
 	    CONFIGURE_FILE(${spec_in} ${RPM_BUILD_SPECS}/${PROJECT_NAME}.spec)
-	    SET_SOURCE_FILES_PROPERTIES(${RPM_BUILD_SPECS}/${PROJECT_NAME}.spec
-		${RPM_BUILD_SPECS}/RPM-ChangeLog
-		PROPERTIES GENERATED TRUE
-		)
+	    #SET_SOURCE_FILES_PROPERTIES(${RPM_BUILD_SPECS}/${PROJECT_NAME}.spec
+	    #	${RPM_BUILD_SPECS}/RPM-ChangeLog
+	    #	PROPERTIES GENERATED TRUE
+	    #	)
 
 	    SET(${var} "${PROJECT_NAME}-${PRJ_VER}-${PRJ_RELEASE}.src.rpm")
 	    SET(_prj_srpm_path "${RPM_BUILD_SRPMS}/${${var}}")

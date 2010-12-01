@@ -149,8 +149,8 @@ MACRO(CONVERT_DB targetName pattern)
 	GET_FILENAME_COMPONENT(_tabPath "${_tabFile}" PATH)
 	SET(_tabF "${_tabPath}/${_tabName}.txt")
 	SET(_dbF "${_tabPath}/${_tabName}.db")
-	ADD_CUSTOM_COMMAND(OUTPUT ${_dbF}
-	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabF}
+	ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${_dbF}
+	    COMMAND ${CREATE_DB} -n ${CMAKE_CURRENT_SOURCE_DIR}/${_dbF} -s ${CMAKE_CURRENT_SOURCE_DIR}/${_tabF}
 	    DEPENDS "${_tabF}"
 	    COMMENT "Building ${_tabName} table"
 	    )

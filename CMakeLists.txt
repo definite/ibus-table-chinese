@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 ####################################################################
 # Project specific information
 #
-PROJECT(ibus-table-chinese)
+PROJECT(ibus-table-chinese NONE)
 SET(PRJ_SUMMARY "Chinese input tables for IBus")
 
 SET(PRJ_DESCRIPTION
@@ -23,7 +23,7 @@ SET(LICENSE "GPLv3+")
 SET(CMAKE_MODULE_PATH "/usr/share/cmake/Modules" ${CMAKE_SOURCE_DIR}/Modules)
 
 INCLUDE(ManageVersion)
-LOAD_RELEASE_FILE("RELEASE-NOTES.txt")
+LOAD_RELEASE_FILE("${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt")
 INCLUDE(UseUninstall)
 
 INCLUDE(CompileEnv)
@@ -49,7 +49,12 @@ ADD_SUBDIRECTORY(tables)
 # Installing
 #
 
-SET(INSTALL_DOCS ${RELEASE_FILE} AUTHORS ChangeLog COPYING README)
+# Install docs
+# Note: Need to use filename only, otherwise
+# ${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt will be deleted in spec
+#
+GET_FILENAME_COMPONENT(_releaseFileName "${RELEASE_FILE}" NAME)
+SET(INSTALL_DOCS ${_releaseFileName} AUTHORS ChangeLog COPYING README)
 STRING_JOIN(PRJ_DOC_LIST " " ${INSTALL_DOCS})
 
 INSTALL(FILES ${INSTALL_DOCS}
@@ -73,12 +78,12 @@ SET(PACK_SOURCE_IGNORE_FILES ${PACK_SOURCE_IGNORE_FILES}
     ${PRJ_IGNORE_FILES_COMMON} "/bin/")
 
 PACK_SOURCE(PACK_SOURCE_FILE_NAME "${RPM_BUILD_SOURCES}")
-PACK_RPM(PRJ_SRPM_FILE_NAME "${RPM_BUILD_SPECS}/project.spec.in" "${PACK_SOURCE_FILE_NAME}")
+PACK_RPM(PRJ_SRPM_FILE_NAME "${CMAKE_SOURCE_DIR}/SPECS/project.spec.in" "${PACK_SOURCE_FILE_NAME}")
 
 # If mock exists, then add mock related targets.
 FIND_PROGRAM(MOCK_CMD mock)
 IF(NOT MOCK_CMD STREQUAL "MOCK_CMD-NOTFOUND")
-    USE_MOCK("${RPM_BUILD_SPECS}/project.spec.in")
+    USE_MOCK("${CMAKE_SOURCE_DIR}/SPECS/project.spec.in")
 ENDIF(NOT MOCK_CMD STREQUAL "MOCK_CMD-NOTFOUND")
 
 IF(EXISTS ${MAINTAINER_SETTING})

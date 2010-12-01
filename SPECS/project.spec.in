@@ -300,30 +300,6 @@ YongMa input method.
 %description -l zh_TW yong
 永碼輸入法。
 
-
-%package all
-Summary:        Meta-package to pull in all Chinese input tables
-Summary(zh_TW): 安裝全部中文輸入法
-Group:          System Environment/Libraries
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-array = %{version}-%{release}
-Requires:       %{name}-cangjie = %{version}-%{release}
-Requires:       %{name}-cantonese = %{version}-%{release}
-Requires:       %{name}-erbi = %{version}-%{release}
-Requires:       %{name}-quick = %{version}-%{release}
-Requires:       %{name}-stroke5 = %{version}-%{release}
-Requires:       %{name}-wu = %{version}-%{release}
-Requires:       %{name}-wubi-jidian = %{version}-%{release}
-Requires:       %{name}-wubi-haifeng = %{version}-%{release}
-Requires:       %{name}-yong = %{version}-%{release}
-Provides:       ibus-table-xingma = %{version}-%{release}
-Obsoletes:      ibus-table-xingma < 1.3
-Provides:       ibus-table-yinma = %{version}-%{release}
-Obsoletes:      ibus-table-yinma < 1.3
-
-%description all
-This sub-package pulls all Chinese input tables.
-
 %prep
 %setup -q -n %{name}-%{version}-Source
 %{__sed} -i 's/\r//' tables/wubi-haifeng/COPYING
