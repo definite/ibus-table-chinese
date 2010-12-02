@@ -150,8 +150,9 @@ MACRO(CONVERT_DB targetName pattern)
 	SET(_tabF "${_tabPath}/${_tabName}.txt")
 	SET(_dbF "${_tabPath}/${_tabName}.db")
 	ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${_dbF}
-	    COMMAND ${CREATE_DB} -n ${CMAKE_CURRENT_SOURCE_DIR}/${_dbF} -s ${CMAKE_CURRENT_SOURCE_DIR}/${_tabF}
-	    DEPENDS "${_tabF}"
+	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabF}
+	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${_tabF}
 	    COMMENT "Building ${_tabName} table"
 	    )
 	LIST(APPEND _dependDb "${_dbF}")
