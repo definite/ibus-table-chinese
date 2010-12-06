@@ -1,3 +1,15 @@
+* Mon Dec 06 2010 Ding-Yi Chen <dchen@redhat.com> - 1.3.0.20101206-1
+- New tables which was not include in original:
+  + array30, array30-big, wubi-haifeng
+- Table removed from original version because of license issues:
+  + zhengma, ziranma
+- Add package review ID
+- Add build tag for el6
+
+* Fri Dec 03 2010 Ding-Yi Chen <dchen@redhat.com> - 1.3.0.20101201-1
+- Support out-of-source build
+- Remove ibus-table-chinese-all
+
 * Wed Jan 06 2010 Caius 'kaio' Chance <k at kaio.me> - 1.3.0.20100527-3
 - Added Quick 3, 5, Classic tables and icons.
 - Added Easy (big) table and icon.
