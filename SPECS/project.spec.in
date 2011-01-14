@@ -15,11 +15,14 @@ Source0:    http://ibus.googlecode.com/files/%{name}-%{version}-Source.tar.gz
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake >= 2.4
+BuildRequires:  cmake-fedora >= 0.4.0
 BuildRequires:  ibus-table-devel >= 1.2
 
 BuildArch:  noarch
 Requires:   ibus-table >= 1.2
 Requires(post):   ibus-table >= 1.2
+Obsoletes:      ibus-table-yinma < 1.3
+Obsoletes:      ibus-table-xingma < 1.3
 
 %description
 ibus-table-chinese is provides the infrastructure for Chinese input methods.
@@ -209,6 +212,7 @@ Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-stroke5 = %{version}-%{release}
 Obsoletes:      ibus-table-stroke5 < 1.3
+Obsoletes:      ibus-table-yinma < 1.3
 
 %description stroke5
 Erbi input method.

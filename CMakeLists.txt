@@ -22,6 +22,18 @@ SET(LICENSE "GPLv3+")
 #
 SET(CMAKE_MODULE_PATH "/usr/share/cmake/Modules" ${CMAKE_SOURCE_DIR}/Modules)
 
+INCLUDE(ManageVariable RESULT_VARIABLE MANAGE_VARIABLE)
+IF(MANAGE_VARIABLE STREQUAL "NOTFOUND")
+    MESSAGE(FATAL_ERROR "ManageVariable is not found in CMAKE_MODULE_PATH,
+    please:
+    1) install cmake-fedora, or;
+    2) Download the latest cmake-fedora from
+       https://fedorahosted.org/cmake-fedora/wiki/Download/
+       and extract the Modules directory by
+    tar zxvf cmake-fedora-<ver>-Source.tar.gz cmake-fedora-<ver>-Source/Modules --strip-components=1")
+ENDIF()
+
+
 INCLUDE(ManageVersion)
 LOAD_RELEASE_FILE("${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt")
 INCLUDE(UseUninstall)
@@ -95,8 +107,8 @@ ENDIF(EXISTS ${MAINTAINER_SETTING})
 ####################################################################
 # Hosting
 #
-INCLUDE(UseHostingService)
-USE_HOSTING_SERVICE_READ_SETTING_FILE("${MAINTAINER_SETTING}"
+INCLUDE(ManageMaintainerTargets)
+MAINTAINER_SETTING_READ_FILE("${MAINTAINER_SETTING}"
     "${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME}")
 
 
