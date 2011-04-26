@@ -21,9 +21,9 @@ SERIAL_NUMBER = 20070429
 ICON = cantonese.png
 
 ### The default name of this table
-NAME = Cantonese Pinyin
+NAME = CantonesePinyin
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 广东拼音
 NAME.zh_TW = 廣東拼音
 NAME.zh_HK = 廣東拼音

@@ -25,12 +25,12 @@ UUID = c0de40f8-2861-433e-8b68-a80802415335
 ### This number must be less than 2^32.
 SERIAL_NUMBER = 2004112201
 
-ICON = cantonhk.png 
+ICON = cantonhk.png
 
 ### The default name of this table
-NAME = Canton HK
+NAME = CantonHK
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 港式广东话
 NAME.zh_TW = 港式廣東話
 NAME.zh_HK = 港式廣東話

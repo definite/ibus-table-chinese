@@ -31,7 +31,7 @@
 ### ===============================================================
 ### 輸入法發明人：朱邦復先生 http://www.cbflabs.com
 ### 碼表統一維護：倉頡之友.馬來西亞  http://www.chinesecj.com
-### 倉頡輸入版權：本輸入法無版權，歡迎大家復制使用及推廣倉頡。 
+### 倉頡輸入版權：本輸入法無版權，歡迎大家復制使用及推廣倉頡。
 ###
 ### ===============================================================
 ### 倉頡第三代
@@ -61,9 +61,9 @@ SERIAL_NUMBER = 20090505
 ICON = scj6.svg
 
 ### The default name of this table
-NAME = Smart CangJie 6
+NAME = SmartCangJie6
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 快速仓颉第六代
 NAME.zh_TW = 快速倉頡第六代
 NAME.zh_HK = 快速倉頡第六代
@@ -90,7 +90,7 @@ AUTO_COMMIT = FALSE
 AUTO_SPLIT = TRUE
 
 ### If true then the phrases' frequencies will be adjusted dynamically.
-DYNAMIC_ADJUST = FALSE 
+DYNAMIC_ADJUST = FALSE
 
 ### If true then the preedit area will be filled up by the current candidate phrase automatically.
 AUTO_FILL = FALSE
