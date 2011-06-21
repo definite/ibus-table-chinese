@@ -1,8 +1,8 @@
-PRJ_VER=1.3.0.20110114
-SUMMARY=Fix Bug 667877 - Few ibus-table-* packages conflicts with few other ibus-table-* packages.
+PRJ_VER=1.3.1
+SUMMARY=Corrected README; Support cmake-fedora-0.6.0
 BODHI_UPDATE_TYPE=bugfix
-REDHAT_BUGZILLA=667877
+REDHAT_BUGZILLA=
 [Changes]
-- Fix Bug 667877: ibus-table-yinma and ibus-table-xingma have been obsoleted.
-- Now depends on cmake-fedora
+- Corrected README: so it lists exactly the tables included.
+- Make it compatible with cmake-fedora-0.6.0
 

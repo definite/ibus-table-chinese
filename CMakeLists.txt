@@ -20,19 +20,20 @@ SET(LICENSE "GPLv3+")
 ####################################################################
 # Includes
 #
-SET(CMAKE_MODULE_PATH "/usr/share/cmake/Modules" ${CMAKE_SOURCE_DIR}/Modules)
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/Modules ${CMAKE_ROOT}/Modules )
+MESSAGE("CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}")
 
 INCLUDE(ManageVariable RESULT_VARIABLE MANAGE_VARIABLE)
 IF(MANAGE_VARIABLE STREQUAL "NOTFOUND")
     MESSAGE(FATAL_ERROR "ManageVariable is not found in CMAKE_MODULE_PATH,
     please:
     1) install cmake-fedora, or;
-    2) Download the latest cmake-fedora from
-       https://fedorahosted.org/cmake-fedora/wiki/Download/
-       and extract the Modules directory by
-    tar zxvf cmake-fedora-<ver>-Source.tar.gz cmake-fedora-<ver>-Source/Modules --strip-components=1")
+    2) wget https://fedorahosted.org/releases/c/m/cmake-fedora/cmake-fedora-modules-only-latest.tar.gz; tar zxvf cmake-fedora-modules-only-latest.tar.gz")
 ENDIF()
 
+IF(CMAKE_VERSION)
+    CMAKE_POLICY(SET CMP0005 OLD)
+ENDIF(CMAKE_VERSION)
 
 INCLUDE(ManageVersion)
 LOAD_RELEASE_FILE("${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt")
@@ -43,19 +44,18 @@ SET_USUAL_COMPILE_ENVS()
 
 INCLUDE(CMakeVersion)
 
+
 ####################################################################
 # Required
 #
 FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(IBUS_TABLE REQUIRED ibus-table>=1.2)
 
-
 ####################################################################
 # Building
 #
 
 ADD_SUBDIRECTORY(tables)
-
 
 ####################################################################
 # Installing
@@ -65,8 +65,9 @@ ADD_SUBDIRECTORY(tables)
 # Note: Need to use filename only, otherwise
 # ${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt will be deleted in spec
 #
+
 GET_FILENAME_COMPONENT(_releaseFileName "${RELEASE_FILE}" NAME)
-SET(INSTALL_DOCS ${_releaseFileName} AUTHORS ChangeLog COPYING README)
+SET(INSTALL_DOCS ${_releaseFileName} AUTHORS README ChangeLog COPYING README)
 STRING_JOIN(PRJ_DOC_LIST " " ${INSTALL_DOCS})
 
 INSTALL(FILES ${INSTALL_DOCS}
@@ -78,19 +79,24 @@ INSTALL(FILES ${INSTALL_DOCS}
 SET(MAINTAINER_SETTING "MAINTAINER_SETTING_NO_PACK")
 INCLUDE(PackSource)
 INCLUDE(PackRPM)
-INCLUDE(UseFedpkg)
+INCLUDE(ManageReleaseOnFedora)
 
 SET(PRJ_IGNORE_FILES_COMMON
     "\\\\.spec$" "messages.po$" "\\\\.orig$" "\\\\.db$"
+    "/\\\\.cache/" "/Modules/"
+    )
+
+SET(PRJ_IGNORE_FILES_COMMON
     "\\\\.utf8$" "\\\\.tmp$"
     "array30.txt" "array30-big.txt" "wubi-haifeng86.txt"
-)
+    )
 
 SET(PACK_SOURCE_IGNORE_FILES ${PACK_SOURCE_IGNORE_FILES}
     ${PRJ_IGNORE_FILES_COMMON} "/bin/")
 
 PACK_SOURCE(PACK_SOURCE_FILE_NAME "${RPM_BUILD_SOURCES}")
-PACK_RPM(PRJ_SRPM_FILE_NAME "${CMAKE_SOURCE_DIR}/SPECS/project.spec.in" "${PACK_SOURCE_FILE_NAME}")
+PACK_RPM(PRJ_SRPM_FILE_NAME "${RPM_BUILD_SPECS}/project.spec.in"
+    "${PACK_SOURCE_FILE_NAME}")
 
 # If mock exists, then add mock related targets.
 FIND_PROGRAM(MOCK_CMD mock)
@@ -99,9 +105,8 @@ IF(NOT MOCK_CMD STREQUAL "MOCK_CMD-NOTFOUND")
 ENDIF(NOT MOCK_CMD STREQUAL "MOCK_CMD-NOTFOUND")
 
 IF(EXISTS ${MAINTAINER_SETTING})
-    USE_FEDPKG("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}" TAGS
-	${FEDORA_RAWHIDE_TAG} ${FEDORA_CURRENT_RELEASE_TAGS} el6)
-    USE_BODHI(TAGS ${FEDORA_CURRENT_RELEASE_TAGS} el6)
+    RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
+	${FEDORA_CURRENT_RELEASE_TAGS})
 ENDIF(EXISTS ${MAINTAINER_SETTING})
 
 ####################################################################
