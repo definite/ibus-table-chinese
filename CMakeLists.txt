@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
+SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "Install path prefix")
 #CMAKE_POLICY(VERSION 2.4)
 #CMAKE_POLICY(SET CMP0005 OLD)
 ####################################################################
@@ -79,6 +80,7 @@ INSTALL(FILES ${INSTALL_DOCS}
 SET(MAINTAINER_SETTING "MAINTAINER_SETTING_NO_PACK")
 INCLUDE(PackSource)
 INCLUDE(PackRPM)
+INCLUDE(ManageRelease)
 INCLUDE(ManageReleaseOnFedora)
 
 SET(PRJ_IGNORE_FILES_COMMON
@@ -98,23 +100,17 @@ PACK_SOURCE(PACK_SOURCE_FILE_NAME "${RPM_BUILD_SOURCES}")
 PACK_RPM(PRJ_SRPM_FILE_NAME "${RPM_BUILD_SPECS}/project.spec.in"
     "${PACK_SOURCE_FILE_NAME}")
 
-# If mock exists, then add mock related targets.
-FIND_PROGRAM(MOCK_CMD mock)
-IF(NOT MOCK_CMD STREQUAL "MOCK_CMD-NOTFOUND")
-    USE_MOCK("${CMAKE_SOURCE_DIR}/SPECS/project.spec.in")
-ENDIF(NOT MOCK_CMD STREQUAL "MOCK_CMD-NOTFOUND")
-
-IF(EXISTS ${MAINTAINER_SETTING})
-    RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
-	${FEDORA_CURRENT_RELEASE_TAGS})
-ENDIF(EXISTS ${MAINTAINER_SETTING})
+# "Off" Warning is displayed if mock is not installed.
+USE_MOCK("${RPM_BUILD_SPECS}/project.spec.in")
 
 ####################################################################
-# Hosting
+# Hosting and Release
 #
-INCLUDE(ManageMaintainerTargets)
-MAINTAINER_SETTING_READ_FILE("${MAINTAINER_SETTING}"
-    "${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME}")
+
+# "Off" Warning is displayed if ${MAINTAINER_SETTING} does not exist.
+MANAGE_RELEASE(${MAINTAINER_SETTING} UPLOAD src ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME})
+RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
+    TAGS ${FEDORA_CURRENT_RELEASE_TAGS} ${FEDORA_EPEL_RELEASE_TAGS})
 
 
 ####################################################################

@@ -1,8 +1,9 @@
-PRJ_VER=1.3.1
-SUMMARY=Corrected README; Support cmake-fedora-0.6.0
+PRJ_VER=1.3.2
+SUMMARY=Fixed Bug 715707; Corrected README; Support cmake-fedora-0.7.0
 BODHI_UPDATE_TYPE=bugfix
-REDHAT_BUGZILLA=
+REDHAT_BUGZILLA=715707
 [Changes]
+- Fixed Bug 715707 - FTBFS ibus-table-chinese-1.3.0.20110114-2.fc15
 - Corrected README: so it lists exactly the tables included.
 - Make it compatible with cmake-fedora-0.6.0
 
