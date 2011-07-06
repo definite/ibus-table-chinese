@@ -1,5 +1,5 @@
 ### 版權聲明:
-###  
+###
 ### 本輸入法表格(輕鬆輸入法大型詞庫版) 乃根據《輕鬆資訊「輕鬆輸入法大詞庫」公眾授權書》的規定，
 ### 以 GPL V2.0 或更新的版本的規定所釋出，在遵守該許可證的規定下，
 ### 可以修改、複製及散佈本輸入法表格，唯本輸入法表格卻不包含任何擔保。
@@ -33,9 +33,9 @@ SERIAL_NUMBER = 20051122
 ICON = easy-big.png
 
 ### The default name of this table
-NAME = Easy Big
+NAME = EasyBig
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 轻松大词库
 NAME.zh_HK = 輕鬆大詞庫
 NAME.zh_SG = 轻松大词库
@@ -130162,7 +130162,7 @@ END_TABLE
 ###+ core	Ｃｏｒｅｌ Ｄｒａｗ
 ###- ctrl	Ctrl 鍵
 ###+ ctrl	Ctrl 鍵
-###- c|	x	
+###- c|	x
 ###- d4t	標誌x
 ###+ d4t	標誌着
 ###- da(	
@@ -130368,7 +130368,7 @@ END_TABLE
 ###- kyu)	
 ###+ kyu(	きゅ
 ###+ kyu)	キュ
-###- l-	x	
+###- l-	x
 ###+ lgpl	GNU 較寬鬆公共授權
 ###- lot	LOTUS	1-2-3
 ###+ lot	LOTUS 1-2-3
@@ -130879,16 +130879,16 @@ END_TABLE
 ###- zz	
 ###- zz	
 ###- zz	
-###- zz	
-###- zz	
-###- zz	
-###- zz	
-###- zz	
-###- zz	
-###- zz	
-###- zz	
-###- zz	
-###- zz	
+###- zz
+###- zz
+###- zz
+###- zz
+###- zz
+###- zz
+###- zz
+###- zz
+###- zz
+###- zz
 ###+ zz	ⅰ
 ###+ zz	ⅱ
 ###+ zz	ⅲ
