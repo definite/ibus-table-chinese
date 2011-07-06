@@ -30,7 +30,7 @@ BEGIN_DEFINITION
 
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.
-UUID = 098d34b0-ea59-4957-baf0-c054ffffbf6a 
+UUID = 098d34b0-ea59-4957-baf0-c054ffffbf6a
 
 ### A unique number indicates the version of this file.
 ### For example the last modified date of this file.
@@ -41,9 +41,9 @@ ICON = quick5.png
 ### ICON = /usr/share/scim/icons/CangJie5.png
 
 ### The default name of this table
-NAME = Quick 5
+NAME = Quick5
 
-#### The local names of this table 
+#### The local names of this table
 NAME.zh_CN = 速成第五代
 NAME.zh_TW = 速成第五代
 NAME.zh_HK = 速成第五代
@@ -85,8 +85,8 @@ PINYIN_MODE = TRUE
 
 ### If true then the phrases' frequencies will be adjusted dynamically
 ### according your using frequency.
-DYNAMIC_ADJUST = FALSE 
- 
+DYNAMIC_ADJUST = FALSE
+
 ### Define the prompts of each valid input char.
 BEGIN_CHAR_PROMPTS_DEFINITION
 a 日

@@ -21,9 +21,9 @@ SERIAL_NUMBER = 2004111801
 ICON = quick-classic.png
 
 ### The default name of this table
-NAME = Quick Classic
+NAME = QuickClassic
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 速成古典版
 NAME.zh_TW = 速成古典版
 NAME.zh_HK = 速成古典版
