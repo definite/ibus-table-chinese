@@ -24,8 +24,8 @@ SET(LICENSE "GPLv3+")
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/Modules ${CMAKE_ROOT}/Modules )
 MESSAGE("CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}")
 
-INCLUDE(ManageVariable RESULT_VARIABLE MANAGE_VARIABLE)
-IF(MANAGE_VARIABLE STREQUAL "NOTFOUND")
+INCLUDE(ManageVariable RESULT_VARIABLE MANAGE_VARIABLE_PATH)
+IF(MANAGE_VARIABLE_PATH STREQUAL "NOTFOUND")
     MESSAGE(FATAL_ERROR "ManageVariable is not found in CMAKE_MODULE_PATH,
     please:
     1) install cmake-fedora, or;
@@ -51,6 +51,7 @@ INCLUDE(CMakeVersion)
 #
 FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(IBUS_TABLE REQUIRED ibus-table>=1.2)
+SET(CMAKE_FEDORA_VER 0.7.1)
 
 ####################################################################
 # Building
@@ -106,12 +107,48 @@ USE_MOCK("${RPM_BUILD_SPECS}/project.spec.in")
 ####################################################################
 # Hosting and Release
 #
-
 # "Off" Warning is displayed if ${MAINTAINER_SETTING} does not exist.
 MANAGE_RELEASE(${MAINTAINER_SETTING} UPLOAD src ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME})
 RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
     TAGS ${FEDORA_CURRENT_RELEASE_TAGS} ${FEDORA_EPEL_RELEASE_TAGS})
 
+####################################################################
+# Stand-alone package (cmake-fedora modules included)
+#
+
+SET(CMAKE_FEDORA_MODULE_ONLY_TARBALL
+    cmake-fedora-${CMAKE_FEDORA_VER}-modules-only.tar.gz)
+SET(CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL
+    ${RPM_BUILD_SOURCES}/${CMAKE_FEDORA_MODULE_ONLY_TARBALL})
+
+SET(PACK_SOURCE_STANDALONE ${PROJECT_NAME}-${PRJ_VER}-Source-Standalone)
+
+SET(PACK_SOURCE_STANDALONE_FULL ${RPM_BUILD_SOURCES}/${PACK_SOURCE_STANDALONE}.${PACK_SOURCE_FILE_EXTENSION})
+
+IF(EXISTS ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL})
+    SET(_tmpDir "NO_PACK")
+    SET(_project_tarball_we ${PROJECT_NAME}-${PRJ_VER}-Source)
+    SET(_tmpProjDir ${_tmpDir}/${_project_tarball_we})
+    MESSAGE("_tmpProjDir=${_tmpProjDir}")
+    ADD_CUSTOM_COMMAND(OUTPUT ${PACK_SOURCE_STANDALONE_FULL}
+	COMMAND ${CMAKE_COMMAND} -E make_directory ${_tmpDir}
+	COMMAND tar -C ${_tmpDir} -xzf ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME}
+	COMMAND tar -C ${_tmpProjDir} -xzf ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL}
+	COMMAND tar -C ${_tmpDir} -czf ${PACK_SOURCE_STANDALONE_FULL} ${_project_tarball_we}
+	COMMAND ${CMAKE_COMMAND} -E remove_directory ${_tmpDir}
+	DEPENDS ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME}
+            ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL}
+	VERBATIM
+	)
+
+    ADD_CUSTOM_TARGET(pack_src_standalone
+	DEPENDS ${PACK_SOURCE_STANDALONE_FULL}
+	)
+
+    MANAGE_MAINTAINER_TARGETS_UPLOAD(
+	${PACK_SOURCE_STANDALONE_FULL}
+	FILE_ALIAS standalone )
+ENDIF(EXISTS ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL})
 
 ####################################################################
 # Test Suites.
