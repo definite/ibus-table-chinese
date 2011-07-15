@@ -133,7 +133,6 @@ IF(EXISTS ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL})
     SET(_tmpDir "NO_PACK")
     SET(_project_tarball_we ${PROJECT_NAME}-${PRJ_VER}-Source)
     SET(_tmpProjDir ${_tmpDir}/${_project_tarball_we})
-    MESSAGE("_tmpProjDir=${_tmpProjDir}")
     ADD_CUSTOM_COMMAND(OUTPUT ${PACK_SOURCE_STANDALONE_FULL}
 	COMMAND ${CMAKE_COMMAND} -E make_directory ${_tmpDir}
 	COMMAND tar -C ${_tmpDir} -xzf ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME}
