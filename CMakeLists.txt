@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "Install path prefix")
-#CMAKE_POLICY(VERSION 2.4)
+CMAKE_POLICY(VERSION 2.6)
 #CMAKE_POLICY(SET CMP0005 OLD)
 ####################################################################
 # Project specific information
@@ -34,6 +34,10 @@ ENDIF()
 
 IF(CMAKE_VERSION)
     CMAKE_POLICY(SET CMP0005 OLD)
+    IF(NOT ${CMAKE_VERSION} VERSION_LESS 2.8.4)
+	CMAKE_POLICY(SET CMP0017 OLD)
+    ENDIF(NOT ${CMAKE_VERSION} VERSION_LESS 2.8.4)
+
 ENDIF(CMAKE_VERSION)
 
 INCLUDE(ManageVersion)
