@@ -13,7 +13,7 @@ SERIAL_NUMBER = 2008A
 ICON = array30-big.png
 
 ### The default name of this table, this is needed
-NAME = Array30 Big Table
+NAME = Array30BigTable
 
 ### The local names of this table, this is optional
 NAME.zh_CN = 行列30大字集

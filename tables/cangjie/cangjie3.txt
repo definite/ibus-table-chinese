@@ -33,7 +33,7 @@ SERIAL_NUMBER = 2004111801
 ICON = cangjie3.svg
 
 ### The default name of this table
-NAME = CangJie 3
+NAME = CangJie3
 
 ### The local names of this table
 NAME.zh_CN = 仓颉第三代

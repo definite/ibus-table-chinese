@@ -33,9 +33,9 @@ SERIAL_NUMBER = 2009021601
 ICON = quick3.png
 
 ### The default name of this table
-NAME = Quick 3
+NAME = Quick3
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 速成第三代
 NAME.zh_TW = 速成第三代
 NAME.zh_HK = 速成第三代
@@ -50,7 +50,7 @@ LANGUAGES = zh_TW,zh_HK,zh_CN,zh_SG
 STATUS_PROMPT = CN
 
 ### If true then the phrases' frequencies will be adjusted dynamically.
-DYNAMIC_ADJUST = FALSE 
+DYNAMIC_ADJUST = FALSE
 
 ### Use full width punctuation by default
 DEF_FULL_WIDTH_PUNCT = TRUE
@@ -59,7 +59,7 @@ DEF_FULL_WIDTH_PUNCT = TRUE
 DEF_FULL_WIDTH_LETTER = FALSE
 
 ### The maxmium length of a key.
-MAX_KEY_LENGTH = 5
+MAX_KEY_LENGTH = 2
 
 ### Valid input chars.
 VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz

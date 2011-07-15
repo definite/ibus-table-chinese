@@ -43,7 +43,7 @@ ICON = cangjie5.svg
 ### ICON = /usr/share/scim/icons/CangJie5.png
 
 ### The default name of this table
-NAME = CangJie 5
+NAME = CangJie5
 
 #### The local names of this table
 NAME.zh_CN = 仓颉第五代

@@ -35,9 +35,9 @@ SERIAL_NUMBER = 2004112201
 ICON = stroke5.png
 
 ### The default name of this table
-NAME = Stroke 5
+NAME = Stroke5
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 笔顺五码
 NAME.zh_TW = 筆順五碼
 NAME.zh_HK = 筆順五碼
