@@ -59,7 +59,7 @@ DEF_FULL_WIDTH_PUNCT = TRUE
 DEF_FULL_WIDTH_LETTER = FALSE
 
 ### The maxmium length of a key.
-MAX_KEY_LENGTH = 5
+MAX_KEY_LENGTH = 2
 
 ### Valid input chars.
 VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz
