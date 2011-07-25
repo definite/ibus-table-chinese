@@ -114,7 +114,7 @@ USE_MOCK("${RPM_BUILD_SPECS}/project.spec.in")
 # "Off" Warning is displayed if ${MAINTAINER_SETTING} does not exist.
 MANAGE_RELEASE(${MAINTAINER_SETTING} UPLOAD src ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME})
 RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
-    TAGS ${FEDORA_CURRENT_RELEASE_TAGS} ${FEDORA_EPEL_RELEASE_TAGS})
+    TAGS ${FEDORA_CURRENT_RELEASE_TAGS} el6)
 
 ####################################################################
 # Stand-alone package (cmake-fedora modules included)
