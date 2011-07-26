@@ -1,7 +1,23 @@
 cmake_minimum_required(VERSION 2.6)
 SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "Install path prefix")
+####################################################################
+# Recommended policy setting
+#
 CMAKE_POLICY(VERSION 2.6)
-#CMAKE_POLICY(SET CMP0005 OLD)
+# CMP0005: Preprocessor definition values are now escaped automatically.
+# OLD:Preprocessor definition values are not escaped.
+CMAKE_POLICY(SET CMP0005 OLD)
+
+# CMP0009: FILE GLOB_RECURSE calls should not follow symlinks by default.
+# OLD: FILE GLOB_RECURSE calls follow symlinks
+CMAKE_POLICY(SET CMP0009 NEW)
+
+IF(NOT ${CMAKE_VERSION} VERSION_LESS 2.8.4)
+    # CMP0017: Prefer files from the CMake module directory when including from there.
+    # OLD: Prefer files from CMAKE_MODULE_PATH regardless
+    CMAKE_POLICY(SET CMP0017 OLD)
+ENDIF(NOT ${CMAKE_VERSION} VERSION_LESS 2.8.4)
+
 ####################################################################
 # Project specific information
 #
@@ -32,14 +48,6 @@ IF(MANAGE_VARIABLE_PATH STREQUAL "NOTFOUND")
     2) wget https://fedorahosted.org/releases/c/m/cmake-fedora/cmake-fedora-modules-only-latest.tar.gz; tar zxvf cmake-fedora-modules-only-latest.tar.gz")
 ENDIF()
 
-IF(CMAKE_VERSION)
-    CMAKE_POLICY(SET CMP0005 OLD)
-    IF(NOT ${CMAKE_VERSION} VERSION_LESS 2.8.4)
-	CMAKE_POLICY(SET CMP0017 OLD)
-    ENDIF(NOT ${CMAKE_VERSION} VERSION_LESS 2.8.4)
-
-ENDIF(CMAKE_VERSION)
-
 INCLUDE(ManageVersion)
 LOAD_RELEASE_FILE("${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt")
 INCLUDE(UseUninstall)
@@ -48,7 +56,6 @@ INCLUDE(CompileEnv)
 SET_USUAL_COMPILE_ENVS()
 
 INCLUDE(CMakeVersion)
-
 
 ####################################################################
 # Required
