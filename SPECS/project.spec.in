@@ -15,7 +15,7 @@ Source0:    http://ibus.googlecode.com/files/%{name}-%{version}-Source.tar.gz
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake >= 2.4
-BuildRequires:  cmake-fedora >= @CMAKE_FEDORA_VER@
+#BuildRequires:  cmake-fedora >= @CMAKE_FEDORA_VER@
 BuildRequires:  ibus-table-devel >= 1.2
 
 BuildArch:  noarch
