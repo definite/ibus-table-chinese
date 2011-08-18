@@ -99,6 +99,12 @@ USE_MOCK("${RPM_BUILD_SPECS}/project.spec.in")
 #
 # "Off" Warning is displayed if ${MAINTAINER_SETTING} does not exist.
 MANAGE_RELEASE(${MAINTAINER_SETTING} UPLOAD src ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME})
+# Set to "True" to build against updates-candidate if possible.
+
+SET(FEDORA_CANDIDATE_PREFERRED 1 CACHE BOOL FEDORA_CANDIDATE_PREFERRED)
+
+# Set to "True" to build against testing-candidate if possible.
+SET(EPEL_CANDIDATE_PREFERRED 1 CACHE BOOL EPEL_CANDIDATE_PREFERRED)
 RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
     TAGS ${FEDORA_CURRENT_RELEASE_TAGS} el6)
 
