@@ -25,7 +25,7 @@ SET(LICENSE "GPLv3+")
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/Modules ${CMAKE_ROOT}/Modules )
 INCLUDE(ManageEnvironment RESULT_VARIABLE MANAGE_ENVIRONMENT_PATH)
 IF(MANAGE_ENVIRONMENT_PATH STREQUAL "NOTFOUND")
-    MESSAGE(FATAL_ERROR "ManageEnvironment is not found in CMAKE_MODULE_PATH,
+    MESSAGE(FATAL_ERROR "ManageEnvironment is not found in $CMAKE_MODULE_PATH,
     please:
     1) install cmake-fedora, or;
     2) wget -P SOURCES https://fedorahosted.org/releases/c/m/cmake-fedora/cmake-fedora-modules-only-latest.tar.gz
@@ -41,7 +41,7 @@ INCLUDE(UseUninstall)
 #
 FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(IBUS_TABLE REQUIRED ibus-table>=1.2)
-SET(CMAKE_FEDORA_VER 0.8.0)
+SET(CMAKE_FEDORA_VER 0.7.994)
 
 ####################################################################
 # Building

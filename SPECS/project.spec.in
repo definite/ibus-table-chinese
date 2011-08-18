@@ -14,8 +14,8 @@ Source0:    http://ibus.googlecode.com/files/%{name}-%{version}-Source.tar.gz
 
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  cmake >= 2.4
-#BuildRequires:  cmake-fedora >= @CMAKE_FEDORA_VER@
+BuildRequires:  cmake >= 2.6
+BuildRequires:  cmake-fedora >= @CMAKE_FEDORA_VER@
 BuildRequires:  ibus-table-devel >= 1.2
 
 BuildArch:  noarch
@@ -376,75 +376,75 @@ YongMa input method.
 %files array
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/array30.*
-%{ibus_tables_dir}/array30.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/array30.db
 %{ibus_icons_dir}/array30-big.*
-%{ibus_tables_dir}/array30-big.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/array30-big.db
 
 %files cangjie
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/cangjie3.*
-%{ibus_tables_dir}/cangjie3.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/cangjie3.db
 %{ibus_icons_dir}/cangjie5.*
-%{ibus_tables_dir}/cangjie5.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/cangjie5.db
 %{ibus_icons_dir}/cangjie-big.*
-%{ibus_tables_dir}/cangjie-big.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/cangjie-big.db
 
 %files cantonese
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/cantonese.*
-%{ibus_tables_dir}/cantonese.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/cantonese.db
 %{ibus_icons_dir}/cantonhk.*
-%{ibus_tables_dir}/cantonhk.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/cantonhk.db
 %{ibus_icons_dir}/jyutping.*
-%{ibus_tables_dir}/jyutping.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/jyutping.db
 
 %files easy
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/easy-big.*
-%{ibus_tables_dir}/easy-big.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/easy-big.db
 
 %files erbi
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/erbi.*
-%{ibus_tables_dir}/erbi.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/erbi.db
 %{ibus_icons_dir}/erbi-qs.*
-%{ibus_tables_dir}/erbi-qs.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/erbi-qs.db
 
 %files quick
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/quick3.*
-%{ibus_tables_dir}/quick3.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/quick3.db
 %{ibus_icons_dir}/quick5.*
-%{ibus_tables_dir}/quick5.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/quick5.db
 %{ibus_icons_dir}/quick-classic.*
-%{ibus_tables_dir}/quick-classic.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/quick-classic.db
 
 %files scj
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/scj6.*
-%{ibus_tables_dir}/scj6.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/scj6.db
 
 
 %files stroke5
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/stroke5.*
-%{ibus_tables_dir}/stroke5.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/stroke5.db
 
 %files wu
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/wu.*
-%{ibus_tables_dir}/wu.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/wu.db
 
 %files wubi-haifeng
 %defattr(-,root,root,-)
 %doc tables/wubi-haifeng/COPYING tables/wubi-haifeng/README
 %{ibus_icons_dir}/wubi-haifeng86.*
-%{ibus_tables_dir}/wubi-haifeng86.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/wubi-haifeng86.db
 
 %files wubi-jidian
 %defattr(-,root,root,-)
 %{ibus_icons_dir}/wubi-jidian86.*
-%{ibus_tables_dir}/wubi-jidian86.db
+%verify(not size md5 mtime) %{ibus_tables_dir}/wubi-jidian86.db
 
 %files yong
 %defattr(-,root,root,-)

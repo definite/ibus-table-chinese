@@ -8,4 +8,4 @@ REDHAT_BUGZILLA=629212,715707
 - Merged patch from sagara @ github, which address IBus issue 787
 - Make it compatible with cmake-fedora-0.7.0
 - Move the cmake policies to the front
-
+- Suppress the misleading warning from rpm -V
