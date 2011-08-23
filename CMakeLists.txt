@@ -106,7 +106,7 @@ SET(FEDORA_CANDIDATE_PREFERRED 1 CACHE BOOL FEDORA_CANDIDATE_PREFERRED)
 # Set to "True" to build against testing-candidate if possible.
 SET(EPEL_CANDIDATE_PREFERRED 1 CACHE BOOL EPEL_CANDIDATE_PREFERRED)
 RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
-    TAGS ${FEDORA_CURRENT_RELEASE_TAGS} el6)
+    TAGS ${FEDORA_CURRENT_RELEASE_TAGS} )
 
 ####################################################################
 # Stand-alone package (cmake-fedora modules included)
