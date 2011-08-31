@@ -1,3 +1,11 @@
+* Wed Aug 31 2011 Ding-Yi Chen <dchen@redhat.com> - 1.3.4-1
+- Fixed Bug 715707 - FTBFS ibus-table-chinese-1.3.0.20110114-2.fc15
+- Fixed Bug 629212 - bad candidate orders in ibus-table-quick
+- Merged patch from sagara @ github, which address IBus issue 787
+- Make it compatible with cmake-fedora-0.7.994
+- Move the cmake policies to the front
+- Suppress the misleading warning from rpm -V
+
 * Fri Jan 14 2011 Ding-Yi Chen <dchen@redhat.com> - 1.3.0.20110114-1
 - Fix Bug 667877: ibus-table-yinma and ibus-table-xingma have been obsoleted.
 - Now depends on cmake-fedora
