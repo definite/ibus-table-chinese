@@ -86,6 +86,10 @@ PINYIN_MODE = TRUE
 ### according usage frequency of the user.
 DYNAMIC_ADJUST = TRUE
 
+### Whether the first candidate will be committed when number of combination
+### keys reach the maximum of this input method. Defualt is true.
+AUTO_COMMIT = FALSE
+
 LAYOUT = us
 
 ### Define the prompts of each valid input char.
