@@ -56,9 +56,6 @@ LANGUAGES = zh_TW,zh_HK,zh_CN,zh_SG
 ### Prompt string to be displayed in the status area.
 STATUS_PROMPT = CN
 
-### If true then the phrases' frequencies will be adjusted dynamically.
-DYNAMIC_ADJUST = FALSE
-
 ### Use full width punctuation by default
 DEF_FULL_WIDTH_PUNCT = TRUE
 
@@ -86,8 +83,12 @@ USER_CAN_DEFINE_PHRASE = FALSE
 PINYIN_MODE = TRUE
 
 ### If true then the phrases' frequencies will be adjusted dynamically
-### according your using frequency.
+### according usage frequency of the user.
 DYNAMIC_ADJUST = TRUE
+
+### Whether the first candidate will be committed when number of combination
+### keys reach the maximum of this input method. Defualt is true.
+AUTO_COMMIT = FALSE
 
 LAYOUT = us
 
