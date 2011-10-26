@@ -74,6 +74,10 @@ PINYIN_MODE = TRUE
 ### For input methods which do not input phrases, set this to False
 USER_CAN_DEFINE_PHRASE = FALSE
 
+### Whether the first candidate will be committed when number of combination
+### keys reach the maximum of this input method. Defualt is true.
+AUTO_COMMIT = FALSE
+
 LAYOUT = us
 
 ### Define the prompts of each valid input char.
