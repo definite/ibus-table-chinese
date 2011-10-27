@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 2.6)
+
 # CMP0011 should be set here, otherwise policy set in module won't affect
 # here.
 CMAKE_POLICY(SET CMP0011 OLD)
+
+# Default CMAKE_INSTALL_PREFIX should be set before PROJECT()
+SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "Install dir prefix")
 
 ####################################################################
 # Project specific information
@@ -34,14 +38,14 @@ ENDIF(MANAGE_ENVIRONMENT_PATH STREQUAL "NOTFOUND")
 
 INCLUDE(ManageVersion)
 LOAD_RELEASE_FILE("${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt")
-INCLUDE(UseUninstall)
+INCLUDE(ManageUninstall)
 
 ####################################################################
 # Required
 #
 FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(IBUS_TABLE REQUIRED ibus-table>=1.2)
-SET(CMAKE_FEDORA_VER 0.7.994)
+SET(CMAKE_FEDORA_VER 0.8.1)
 
 ####################################################################
 # Building
@@ -101,10 +105,10 @@ USE_MOCK("${RPM_BUILD_SPECS}/project.spec.in")
 MANAGE_RELEASE(${MAINTAINER_SETTING} UPLOAD src ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME})
 # Set to "True" to build against updates-candidate if possible.
 
-SET(FEDORA_CANDIDATE_PREFERRED 1 CACHE BOOL FEDORA_CANDIDATE_PREFERRED)
+#SET(FEDORA_CANDIDATE_PREFERRED 1 CACHE BOOL FEDORA_CANDIDATE_PREFERRED)
 
 # Set to "True" to build against testing-candidate if possible.
-SET(EPEL_CANDIDATE_PREFERRED 1 CACHE BOOL EPEL_CANDIDATE_PREFERRED)
+#SET(EPEL_CANDIDATE_PREFERRED 1 CACHE BOOL EPEL_CANDIDATE_PREFERRED)
 RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
     TAGS ${FEDORA_CURRENT_RELEASE_TAGS} el6)
 
