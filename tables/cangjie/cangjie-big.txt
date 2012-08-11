@@ -30,6 +30,9 @@ NAME.zh_HK = 倉頡大字集
 ### Supported languages of this table
 LANGUAGES = zh_TW,zh_HK,zh_CN,zh_SG
 
+### Default value for the language filter
+LANGUAGE_FILTER = cm3
+
 ### Prompt string to be displayed in the status area.
 STATUS_PROMPT = 中
 

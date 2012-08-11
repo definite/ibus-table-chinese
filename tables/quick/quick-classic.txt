@@ -31,6 +31,9 @@ NAME.zh_HK = 速成古典版
 ### Supported languages of this table
 LANGUAGES = zh_TW,zh_HK,zh_CN,zh_SG
 
+### Default value for the language filter
+LANGUAGE_FILTER = cm3
+
 ### The author of this table
 AUTHOR = Roy Hiu-yeung Chan <roy.h.y.chan@gmail.com>
 
