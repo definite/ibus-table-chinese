@@ -47,7 +47,7 @@ ENDMACRO(GENERATE_FREQ outputFile inputFile)
 
 
 ################################################################
-# CONVERT_ENCODING(workDir outputFile fromEncoding inputFile)
+# CONVERT_ENCODING(outputFile fromEncoding inputFile)
 #
 MACRO(CONVERT_ENCODING outputFile fromEncoding inputFile )
     # Need to strip Unicode BOM (0xfeff)
@@ -62,6 +62,19 @@ MACRO(CONVERT_ENCODING outputFile fromEncoding inputFile )
 	VERBATIM
 	)
 ENDMACRO(CONVERT_ENCODING outputFile fromEncoding inputFile)
+
+################################################################
+# MAKE_TABLE_SOURCE_TXT(outputFile inputFile1 [inputFile2 ....])
+#
+MACRO(MAKE_TABLE_SOURCE_TXT outputFile)
+    ADD_CUSTOM_COMMAND(OUTPUT ${outputFile}
+	COMMAND cat ${ARGN} > ${outputFile}
+	DEPENDS ${ARGN}
+	COMMENT "Making table source ${outputFile}"
+	VERBATIM
+	)
+ENDMACRO(MAKE_TABLE_SOURCE_TXT outputFile)
+
 
 #######################################################################
 # Preprocessing tables
@@ -109,8 +122,8 @@ ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng8
 
 ADD_CUSTOM_TARGET(convert_all ALL)
 
-MACRO(CONVERT_DB targetName pattern)
-    FILE(GLOB_RECURSE _tableList RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${pattern}")
+MACRO(CONVERT_DB targetName)
+    SET(_tableList "")
     FOREACH(_arg ${ARGN})
 	FILE(GLOB_RECURSE _tableAppend RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${_arg}")
 	GET_FILENAME_COMPONENT(_tabAppPath "${_tableAppend}" PATH)
@@ -126,21 +139,20 @@ MACRO(CONVERT_DB targetName pattern)
 	GET_FILENAME_COMPONENT(_tabPath "${_tabFile}" PATH)
 	SET(_tabF "${_tabPath}/${_tabName}.txt")
 	SET(_dbF "${_tabPath}/${_tabName}.db")
-	ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/${_dbF}
+	ADD_CUSTOM_COMMAND(OUTPUT ${_dbF}
 	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabF}
-	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-	    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${_tabF}
+	    DEPENDS ${_tabF}
 	    COMMENT "Building ${_tabName} table"
 	    )
 	LIST(APPEND _dependDb "${_dbF}")
 	IF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.png")
-	    LIST(APPEND _dependIcon "../icons/${_tabName}.png")
+	    LIST(APPEND _dependIcon "${CMAKE_SOURCE_DIR}/icons/${_tabName}.png")
 	ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.svg")
-	    LIST(APPEND _dependIcon "../icons/${_tabName}.svg")
+	    LIST(APPEND _dependIcon "${CMAKE_SOURCE_DIR}/icons/${_tabName}.svg")
 	ELSEIF(EXISTS "${CMAKE_SOUREC_DIR}/icons/${_tabName}.gif")
-	    LIST(APPEND _dependIcon "../icons/${_tabName}.gif")
+	    LIST(APPEND _dependIcon "${CMAKE_SOURCE_DIR}/icons/${_tabName}.gif")
 	ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.jpg")
-	    LIST(APPEND _dependIcon "../icons/${_tabName}.jpg")
+	    LIST(APPEND _dependIcon "${CMAKE_SOURCE_DIR}/icons/${_tabName}.jpg")
 	ENDIF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.png")
     ENDFOREACH(_tabFile ${_tableList})
 
@@ -163,9 +175,8 @@ MACRO(CONVERT_DB targetName pattern)
 	DESTINATION ${DB_INSTALL_DIRECTORY})
     INSTALL(FILES ${_dependIcon}
 	DESTINATION ${ICON_INSTALL_DIRECTORY})
-ENDMACRO(CONVERT_DB dbs targetName pattern)
+ENDMACRO(CONVERT_DB targetName)
 
-CONVERT_DB(array "array/array30.head" "array/array30-big.head")
 CONVERT_DB(cangjie "cangjie/cangjie*.txt")
 CONVERT_DB(cantonese "cantonese/canton*.txt" "cantonese/jyutping*.txt")
 CONVERT_DB(easy "easy/easy*.txt")
