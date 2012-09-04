@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.6.2)
 
 # CMP0011 should be set here, otherwise policy set in module won't affect
 # here.
@@ -6,6 +6,15 @@ CMAKE_POLICY(SET CMP0011 OLD)
 
 # Default CMAKE_INSTALL_PREFIX should be set before PROJECT()
 SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "Install dir prefix")
+
+# Whether to build on fedora
+SET(CMAKE_FEDORA_ENABLE_FEDORA_BUILD "0" CACHE STRING "Enable fedora build")
+
+# Message level M_OFF (4)
+SET(MANAGE_MESSAGE_LEVEL 4 CACHE STRING "Message (Verbose) Level")
+
+# Default support Gnome shell
+SET(GNOME_SHELL 1)
 
 ####################################################################
 # Project specific information
@@ -27,25 +36,45 @@ SET(LICENSE "GPLv3+")
 # Includes
 #
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/Modules ${CMAKE_ROOT}/Modules )
+
+# Create a link if Modules/ does not exists
+IF(EXISTS ${CMAKE_SOURCE_DIR}/cmake-fedora/Modules)
+    IF(NOT EXISTS ${CMAKE_SOURCE_DIR}/Modules)
+	EXECUTE_PROCESS(COMMAND ln -s ${CMAKE_SOURCE_DIR}/cmake-fedora/Modules .)
+    ENDIF(NOT EXISTS ${CMAKE_SOURCE_DIR}/Modules)
+ENDIF(EXISTS ${CMAKE_SOURCE_DIR}/cmake-fedora/Modules)
+
+# Use standard FHS if Fedora build is not enabled
+IF(NOT CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+    IF(CMAKE_SYSTEM_PROCESSOR MATCHES "64")
+	SET(LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib64" CACHE PATH "Library dir")
+    ELSE(CMAKE_SYSTEM_PROCESSOR MATCHES "64")
+	SET(LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib" CACHE PATH "Library dir")
+    ENDIF(CMAKE_SYSTEM_PROCESSOR MATCHES "64")
+    SET(LIBEXEC_DIR "${LIB_DIR}" CACHE PATH "LIBEXEC dir")
+    MESSAGE("*Hi")
+ENDIF(NOT CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+
 INCLUDE(ManageEnvironment RESULT_VARIABLE MANAGE_ENVIRONMENT_PATH)
 IF(MANAGE_ENVIRONMENT_PATH STREQUAL "NOTFOUND")
-    MESSAGE(FATAL_ERROR "ManageEnvironment is not found in $CMAKE_MODULE_PATH,
+    MESSAGE(FATAL_ERROR "ManageEnvironment is not found in CMAKE_MODULE_PATH,
     please:
-    1) install cmake-fedora, or;
-    2) wget -P SOURCES https://fedorahosted.org/releases/c/m/cmake-fedora/cmake-fedora-modules-only-latest.tar.gz
+    1) git submodule init; git submodule update
+    2) or install cmake-fedora/
+    3) wget -P SOURCES https://fedorahosted.org/releases/c/m/cmake-fedora/cmake-fedora-modules-only-latest.tar.gz
     tar zxvf SOURCES/cmake-fedora-modules-only-latest.tar.gz")
 ENDIF(MANAGE_ENVIRONMENT_PATH STREQUAL "NOTFOUND")
 
 INCLUDE(ManageVersion)
-LOAD_RELEASE_FILE("${CMAKE_SOURCE_DIR}/RELEASE-NOTES.txt")
+RELEASE_NOTES_READ_FILE()
 INCLUDE(ManageUninstall)
 
 ####################################################################
 # Required
 #
+
 FIND_PACKAGE(PkgConfig)
 PKG_CHECK_MODULES(IBUS_TABLE REQUIRED ibus-table>=1.2)
-SET(CMAKE_FEDORA_VER 0.8.1)
 
 ####################################################################
 # Building
@@ -70,13 +99,27 @@ INSTALL(FILES ${INSTALL_DOCS}
     DESTINATION "${PRJ_DOC_DIR}")
 
 ####################################################################
+# Source Version Control
+#
+INCLUDE(ManageSourceVersionControl)
+MANAGE_SOURCE_VERSION_CONTROL_GIT()
+
+####################################################################
 # Packing
 #
-SET(MAINTAINER_SETTING "MAINTAINER_SETTING_NO_PACK")
-INCLUDE(PackSource)
-INCLUDE(PackRPM)
+INCLUDE(ManageArchive)
+
+IF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+    INCLUDE(ManageRPM)
+    INCLUDE(ManageReleaseFedora)
+ENDIF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
 INCLUDE(ManageRelease)
-INCLUDE(ManageReleaseOnFedora)
+
+SET(PRJ_IGNORE_FILES_COMMON
+    "/doc/"  "\\\\.spec$" "messages.po$" "\\\\.orig$" "/cmake-fedora/"
+    "/\\\\.cache/"
+    "\\\\.db$"
+    )
 
 SET(PRJ_IGNORE_FILES_COMMON
     "\\\\.spec$" "messages.po$" "\\\\.orig$" "\\\\.db$"
@@ -88,66 +131,36 @@ LIST(APPEND PRJ_IGNORE_FILES_COMMON
     "array30.txt" "array30-big.txt" "wubi-haifeng86.txt"
     )
 
-LIST(APPEND PACK_SOURCE_IGNORE_FILES
-    ${PRJ_IGNORE_FILES_COMMON} "/bin/")
+LIST(APPEND SOURCE_ARCHIVE_IGNORE_FILES
+    ${PRJ_IGNORE_FILES_COMMON} "/bin/" "\\\\.xml$" "\\\\.schemas")
 
-PACK_SOURCE(PACK_SOURCE_FILE_NAME "${RPM_BUILD_SOURCES}")
-PACK_RPM(PRJ_SRPM_FILE_NAME "${RPM_BUILD_SPECS}/project.spec.in"
-    "${PACK_SOURCE_FILE_NAME}")
+IF(RPM_BUILD_SOURCES)
+    SET(SOURCE_ARCHIVE_DIR ${RPM_BUILD_SOURCES})
+ELSE(RPM_BUILD_SOURCES)
+    SET(SOURCE_ARCHIVE_DIR ${CMAKE_BINARY_DIR}/SOURCES)
+ENDIF(RPM_BUILD_SOURCES)
 
-# "Off" Warning is displayed if mock is not installed.
-USE_MOCK("${RPM_BUILD_SPECS}/project.spec.in")
+PACK_SOURCE_ARCHIVE("${SOURCE_ARCHIVE_DIR}")
+IF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+    PACK_RPM()
+    RELEASE_FEDORA(fedora el6)
+    # "Off" Warning is displayed if mock is not installed.
+    RPM_MOCK_BUILD()
+    MANAGE_RELEASE(release_fedora)
+ENDIF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
 
 ####################################################################
 # Hosting and Release
 #
-# "Off" Warning is displayed if ${MAINTAINER_SETTING} does not exist.
-MANAGE_RELEASE(${MAINTAINER_SETTING} UPLOAD src ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME})
 # Set to "True" to build against updates-candidate if possible.
 
-#SET(FEDORA_CANDIDATE_PREFERRED 1 CACHE BOOL FEDORA_CANDIDATE_PREFERRED)
+#INCLUDE(ManageUpload)
+#ADD_CUSTOM_TARGET(upload
+#    COMMENT "Uploading all files"
+#    )
 
-# Set to "True" to build against testing-candidate if possible.
-#SET(EPEL_CANDIDATE_PREFERRED 1 CACHE BOOL EPEL_CANDIDATE_PREFERRED)
-RELEASE_ON_FEDORA("${RPM_BUILD_SRPMS}/${PRJ_SRPM_FILE_NAME}"
-    TAGS ${FEDORA_CURRENT_RELEASE_TAGS} el6)
-
-####################################################################
-# Stand-alone package (cmake-fedora modules included)
-#
-
-SET(CMAKE_FEDORA_MODULE_ONLY_TARBALL
-    cmake-fedora-${CMAKE_FEDORA_VER}-modules-only.tar.gz)
-SET(CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL
-    ${RPM_BUILD_SOURCES}/${CMAKE_FEDORA_MODULE_ONLY_TARBALL})
-
-SET(PACK_SOURCE_STANDALONE ${PROJECT_NAME}-${PRJ_VER}-Source-Standalone)
-
-SET(PACK_SOURCE_STANDALONE_FULL ${RPM_BUILD_SOURCES}/${PACK_SOURCE_STANDALONE}.${PACK_SOURCE_FILE_EXTENSION})
-
-IF(EXISTS ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL})
-    SET(_tmpDir "NO_PACK")
-    SET(_project_tarball_we ${PROJECT_NAME}-${PRJ_VER}-Source)
-    SET(_tmpProjDir ${_tmpDir}/${_project_tarball_we})
-    ADD_CUSTOM_COMMAND(OUTPUT ${PACK_SOURCE_STANDALONE_FULL}
-	COMMAND ${CMAKE_COMMAND} -E make_directory ${_tmpDir}
-	COMMAND tar -C ${_tmpDir} -xzf ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME}
-	COMMAND tar -C ${_tmpProjDir} -xzf ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL}
-	COMMAND tar -C ${_tmpDir} -czf ${PACK_SOURCE_STANDALONE_FULL} ${_project_tarball_we}
-	COMMAND ${CMAKE_COMMAND} -E remove_directory ${_tmpDir}
-	DEPENDS ${RPM_BUILD_SOURCES}/${PACK_SOURCE_FILE_NAME}
-            ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL}
-	VERBATIM
-	)
-
-    ADD_CUSTOM_TARGET(pack_src_standalone
-	DEPENDS ${PACK_SOURCE_STANDALONE_FULL}
-	)
-
-    MANAGE_MAINTAINER_TARGETS_UPLOAD(
-	${PACK_SOURCE_STANDALONE_FULL}
-	FILE_ALIAS standalone )
-ENDIF(EXISTS ${CMAKE_FEDORA_MODULE_ONLY_TARBALL_FULL})
+#MANAGE_UPLOAD_CMD(scp src UPLOAD_FILES ${SOURCE_ARCHIVE_FILE})
+#ADD_DEPENDENCIES(upload upload_src)
 
 ####################################################################
 # Test Suites.

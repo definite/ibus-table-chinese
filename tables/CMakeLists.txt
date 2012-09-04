@@ -31,60 +31,37 @@ IF(AWK_CMD STREQUAL "AWK_CMD-NOTFOUND")
 ENDIF(AWK_CMD STREQUAL "AWK_CMD-NOTFOUND")
 
 
-MACRO(CONVERT_ENCODING workDir outputFile fromEncoding inputFile )
-    SET(_GENERATE_FREQ 0)
-    MESSAGE("Converting ${workDir}/${outputFile}")
-    MESSAGE("  Appending ${workDir}/${inputFile}")
-    EXECUTE_PROCESS(COMMAND ${SED_CMD} -e "s/^[\\xff][\\xfe]//" ${inputFile}
-	OUTPUT_FILE "${outputFile}.tmp"
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
+################################################################
+# GENERATE_FREQ(outputFile inputFile)
+#
+MACRO(GENERATE_FREQ outputFile inputFile)
+    ADD_CUSTOM_COMMAND(OUTPUT ${outputFile}
+	COMMAND ${AWK_CMD} -F "\\t"
+	"{ if (lastLine != $1) {lastLine=$1; freq=1000} else{ freq--}; printf(\"%s\\t%s\\t%d\\n\",$1,$2,freq)}"
+	${inputFile} > ${outputFile}
+	DEPENDS ${inputFile}
+	COMMENT "Generate frequency information for ${outputFile}"
+	VERBATIM
 	)
+ENDMACRO(GENERATE_FREQ outputFile inputFile)
 
-    FOREACH(_arg ${ARGN})
-	IF(_arg STREQUAL "GENERATE_FREQ")
-	    SET(_GENERATE_FREQ 1)
-	ELSE(_arg STREQUAL "GENERATE_FREQ")
-	    MESSAGE("  Appending ${_arg}")
 
-	    # Need to strip Unicode BOM (0xfeff)
-	    EXECUTE_PROCESS(COMMAND ${SED_CMD} -e "s/^[\\xff][\\xfe]//" ${_arg}
-		OUTPUT_FILE "${_arg}.tmp"
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
-		)
-
-	    EXECUTE_PROCESS(COMMAND cat "${outputFile}.tmp" "${_arg}.tmp"
-		OUTPUT_FILE "${outputFile}"
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
-		)
-
-	    EXECUTE_PROCESS(COMMAND cmake -E copy "${outputFile}" "${outputFile}.tmp"
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
-		)
-
-	    FILE(REMOVE "${CMAKE_CURRENT_SOURCE_DIR}/${workDir}/${_arg}.tmp")
-
-	ENDIF(_arg STREQUAL "GENERATE_FREQ")
-    ENDFOREACH(_arg ${ARGN})
-
-    EXECUTE_PROCESS(COMMAND ${ICONV_CMD} -f ${fromEncoding} -t UTF8 "${outputFile}.tmp"
-	COMMAND sed -e "s/\r//"
+################################################################
+# CONVERT_ENCODING(workDir outputFile fromEncoding inputFile)
+#
+MACRO(CONVERT_ENCODING outputFile fromEncoding inputFile )
+    # Need to strip Unicode BOM (0xfeff)
+    ADD_CUSTOM_COMMAND(OUTPUT ${outputFile}
+	COMMAND ${SED_CMD} -e "s/^[\\xff][\\xfe]//" ${inputFile}
+	COMMAND ${ICONV_CMD} -f ${fromEncoding} -t UTF8
+	COMMAND ${SED_CMD} -e "s/\r//"
 	COMMAND ${AWK_CMD} "{print tolower($0)}"
-	COMMAND sort
-	OUTPUT_FILE "${outputFile}"
-	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
+	COMMAND sort > ${outputFile}
+	DEPENDS ${inputFile}
+	COMMENT "Convert encoding from ${fromEncoding} for ${outputFile}"
+	VERBATIM
 	)
-
-    IF(_GENERATE_FREQ)
-	EXECUTE_PROCESS(COMMAND cmake -E copy "${outputFile}" "${outputFile}.tmp"
-	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
-	    )
-	EXECUTE_PROCESS(COMMAND ${AWK_CMD} -F "\\t"  "{ if (lastLine != $1) {lastLine=$1; freq=1000} else{ freq--}; printf(\"%s\\t%s\\t%d\\n\",$1,$2,freq)}" "${outputFile}.tmp"
-	    OUTPUT_FILE "${outputFile}"
-	    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${workDir}
-	    )
-    ENDIF(_GENERATE_FREQ)
-    FILE(REMOVE "${CMAKE_CURRENT_SOURCE_DIR}/${workDir}/${outputFile}.tmp")
-ENDMACRO(CONVERT_ENCODING CONVERT_ENCODING workDir outputFile fromEncoding inputFile)
+ENDMACRO(CONVERT_ENCODING outputFile fromEncoding inputFile)
 
 #######################################################################
 # Preprocessing tables
@@ -141,7 +118,7 @@ MACRO(CONVERT_DB targetName pattern)
 	LIST(APPEND _tableList ${_tableAppend} )
     ENDFOREACH(_arg ${ARGN})
 
-    MESSAGE("_tableList=${_tableList}")
+    M_MSG(${M_INFO1} "_tableList=${_tableList}")
     SET(_dependDb "")
     SET(_dependIcon "")
     FOREACH(_tabFile ${_tableList})
