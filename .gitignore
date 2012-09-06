@@ -14,6 +14,8 @@ CTestTestfile.cmake
 Testing/
 install_manifest.txt
 Makefile
+Modules
+*.freq
 *.gmo
 *.la
 *.lo
@@ -33,6 +35,8 @@ FedPkg
 *.db
 *.utf8
 *.tmp
+tables/array/*.head
+tables/array/*.utf8
 tables/array/array30.txt
 tables/array/array30-big.txt
 tables/wubi-haifeng/wubi-haifeng86.txt

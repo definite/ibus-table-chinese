@@ -82,11 +82,10 @@ MACRO(CONVERT_DB targetName)
     SET(_dependIcon "")
     FOREACH(_tabFile ${ARGN})
 	GET_FILENAME_COMPONENT(_tabName "${_tabFile}" NAME_WE)
-	SET(_tabF "${_tabName}.txt")
 	SET(_dbF "${_tabName}.db")
 	ADD_CUSTOM_COMMAND(OUTPUT ${_dbF}
-	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabF}
-	    DEPENDS ${_tabF}
+	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabFile}
+	    DEPENDS ${_tabFile}
 	    COMMENT "Building ${_tabName} table"
 	    )
 	LIST(APPEND _dependDb "${_dbF}")
@@ -124,17 +123,18 @@ MACRO(CONVERT_DB targetName)
 ENDMACRO(CONVERT_DB targetName)
 
 ADD_SUBDIRECTORY(array)
+ADD_SUBDIRECTORY(cangjie)
+ADD_SUBDIRECTORY(cantonese)
+ADD_SUBDIRECTORY(easy)
+ADD_SUBDIRECTORY(erbi)
+ADD_SUBDIRECTORY(quick)
+ADD_SUBDIRECTORY(scj)
+ADD_SUBDIRECTORY(stroke5)
+ADD_SUBDIRECTORY(wu)
 ADD_SUBDIRECTORY(wubi-haifeng)
+ADD_SUBDIRECTORY(wubi-jidian)
+ADD_SUBDIRECTORY(yong)
 
-CONVERT_DB(cangjie "cangjie/cangjie*.txt")
-CONVERT_DB(cantonese "cantonese/canton*.txt" "cantonese/jyutping*.txt")
-CONVERT_DB(easy "easy/easy*.txt")
-CONVERT_DB(erbi "erbi/erbi*.txt")
-CONVERT_DB(quick "quick/quick*.txt")
-CONVERT_DB(stroke5 "stroke5/stroke*.txt")
-CONVERT_DB(scj "scj/scj*.txt")
-CONVERT_DB(wu "wu/wu*.txt")
-CONVERT_DB(wubi-jidian "wubi-jidian/wubi*.txt")
-CONVERT_DB(yong "yong/yong.txt")
+#CONVERT_DB(yong "yong/yong.txt")
 
 
