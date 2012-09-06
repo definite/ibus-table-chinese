@@ -45,7 +45,6 @@ MACRO(GENERATE_FREQ outputFile inputFile)
 	)
 ENDMACRO(GENERATE_FREQ outputFile inputFile)
 
-
 ################################################################
 # CONVERT_ENCODING(outputFile fromEncoding inputFile)
 #
@@ -53,10 +52,10 @@ MACRO(CONVERT_ENCODING outputFile fromEncoding inputFile )
     # Need to strip Unicode BOM (0xfeff)
     ADD_CUSTOM_COMMAND(OUTPUT ${outputFile}
 	COMMAND ${SED_CMD} -e "s/^[\\xff][\\xfe]//" ${inputFile}
-	COMMAND ${ICONV_CMD} -f ${fromEncoding} -t UTF8
-	COMMAND ${SED_CMD} -e "s/\r//"
-	COMMAND ${AWK_CMD} "{print tolower($0)}"
-	COMMAND sort > ${outputFile}
+	| ${ICONV_CMD} -f ${fromEncoding} -t UTF8
+	| ${SED_CMD} -e "s/\r//"
+	| ${AWK_CMD} "{print tolower($0)}"
+	| sort > ${outputFile}
 	DEPENDS ${inputFile}
 	COMMENT "Convert encoding from ${fromEncoding} for ${outputFile}"
 	VERBATIM
@@ -80,28 +79,6 @@ ENDMACRO(MAKE_TABLE_SOURCE_TXT outputFile)
 # Preprocessing tables
 #
 
-# Array
-CONVERT_ENCODING(array array30_27489.utf8 UTF16 array30_27489.txt GENERATE_FREQ)
-ADD_CUSTOM_COMMAND(OUTPUT array/array30.txt
-    COMMAND cat array30.head.common array30.head array30_27489.utf8 array30.tail > array30.txt
-    DEPENDS array/array30.head.common
-      array/array30.head
-      array/array30_27489.utf8
-      array/array30.tail
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/array
-    VERBATIM
-    )
-
-CONVERT_ENCODING(array array30-big.utf8 UTF16 array30_27489.txt array30_ExtB.txt GENERATE_FREQ)
-ADD_CUSTOM_COMMAND(OUTPUT array/array30-big.txt
-    COMMAND cat array30.head.common array30-big.head array30-big.utf8 array30.tail > array30-big.txt
-    DEPENDS array/array30.head.common
-      array/array30-big.head
-      array/array30-big.utf8
-      array/array30.tail
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/array
-    VERBATIM
-    )
 
 # wubi-haifeng
 # Generate the table tooks a long time
@@ -124,21 +101,12 @@ ADD_CUSTOM_TARGET(convert_all ALL)
 
 MACRO(CONVERT_DB targetName)
     SET(_tableList "")
-    FOREACH(_arg ${ARGN})
-	FILE(GLOB_RECURSE _tableAppend RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${_arg}")
-	GET_FILENAME_COMPONENT(_tabAppPath "${_tableAppend}" PATH)
-	GET_FILENAME_COMPONENT(_tabAppWe "${_tableAppend}" NAME_WE)
-	LIST(APPEND _tableList ${_tableAppend} )
-    ENDFOREACH(_arg ${ARGN})
-
-    M_MSG(${M_INFO1} "_tableList=${_tableList}")
     SET(_dependDb "")
     SET(_dependIcon "")
-    FOREACH(_tabFile ${_tableList})
+    FOREACH(_tabFile ${ARGN})
 	GET_FILENAME_COMPONENT(_tabName "${_tabFile}" NAME_WE)
-	GET_FILENAME_COMPONENT(_tabPath "${_tabFile}" PATH)
-	SET(_tabF "${_tabPath}/${_tabName}.txt")
-	SET(_dbF "${_tabPath}/${_tabName}.db")
+	SET(_tabF "${_tabName}.txt")
+	SET(_dbF "${_tabName}.db")
 	ADD_CUSTOM_COMMAND(OUTPUT ${_dbF}
 	    COMMAND ${CREATE_DB} -n ${_dbF} -s ${_tabF}
 	    DEPENDS ${_tabF}
@@ -154,7 +122,8 @@ MACRO(CONVERT_DB targetName)
 	ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.jpg")
 	    LIST(APPEND _dependIcon "${CMAKE_SOURCE_DIR}/icons/${_tabName}.jpg")
 	ENDIF(EXISTS "${CMAKE_SOURCE_DIR}/icons/${_tabName}.png")
-    ENDFOREACH(_tabFile ${_tableList})
+    ENDFOREACH(_tabFile ${ARGN})
+    M_MSG(${M_INFO1} "[${targetName}] db files=${_dependDb}")
 
     ADD_CUSTOM_TARGET(convert_${targetName}
 	COMMENT "Building ${targetName} table(s)..."
@@ -162,8 +131,8 @@ MACRO(CONVERT_DB targetName)
 	)
 
     ADD_CUSTOM_TARGET(install_${targetName}
-	COMMAND cmake -E copy ${_dependDb} ${DB_INSTALL_DIRECTORY}
-	COMMAND cmake -E copy ${_dependIcon} ${ICON_INSTALL_DIRECTORY}
+	COMMAND install ${_dependDb} ${DB_INSTALL_DIRECTORY}
+	COMMAND install ${_dependIcon} ${ICON_INSTALL_DIRECTORY}
 	COMMENT "Install ${targetName} table and icons"
 	DEPENDS ${_dependDb}
 	)
@@ -176,6 +145,8 @@ MACRO(CONVERT_DB targetName)
     INSTALL(FILES ${_dependIcon}
 	DESTINATION ${ICON_INSTALL_DIRECTORY})
 ENDMACRO(CONVERT_DB targetName)
+
+ADD_SUBDIRECTORY(array)
 
 CONVERT_DB(cangjie "cangjie/cangjie*.txt")
 CONVERT_DB(cantonese "cantonese/canton*.txt" "cantonese/jyutping*.txt")

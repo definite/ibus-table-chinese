@@ -17,7 +17,7 @@ LICENSE =  Freely redistributable without restriction
 ### For example the last modified date of this file.
 ### This number must be less than 2^32.
 ### Just make your table version-able
-SERIAL_NUMBER = 2008A
+SERIAL_NUMBER = 20090101
 
 ### Supported languages of this table
 ### sigle "zh_CN" just be recognized as zh_CN,
@@ -111,3 +111,33 @@ m 7v
 / 0v
 END_CHAR_PROMPTS_DEFINITION
 
+### An unique id to distinguish this table among others.
+### Use uuidgen to generate this kind of id.
+UUID = @UUID@
+
+### ICON can be any format as long as your pygtk can recognized
+### the most widely ones are "png" and "svg", letter one is recommended
+ICON = @ICON_FILE@
+
+### The default name of this table, this is needed
+NAME = @TABLE_NAME_EN@
+
+### The local names of this table, this is optional
+NAME.zh_CN = @TABLE_NAME_ZH@
+NAME.zh_HK = @TABLE_NAME_ZH@
+NAME.zh_TW = @TABLE_NAME_ZH@
+
+### Description
+DESCRIPTION = @DESC@
+
+END_DEFINITION
+
+### Begin Table data.
+### Format of every line whose formated in "input_keys\tphrase\tfreq\n" is an
+### entry.
+### From left to right, the 1st column are the input key combination that you
+### entered via keyboard; the 2nd column are presented character or phrase of
+### the key combination you want; the 3rd column are frequency of the character
+
+### Begin Table data.
+BEGIN_TABLE
