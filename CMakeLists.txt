@@ -121,13 +121,9 @@ SET(PRJ_IGNORE_FILES_COMMON
     "\\\\.db$"
     )
 
-SET(PRJ_IGNORE_FILES_COMMON
-    "\\\\.spec$" "messages.po$" "\\\\.orig$" "\\\\.db$"
-    "/\\\\.cache/" "/Modules/"
-    )
-
 LIST(APPEND PRJ_IGNORE_FILES_COMMON
-    "\\\\.utf8$" "\\\\.tmp$"
+    "\\\\.utf8$" "\\\\.tmp$" "\\\\.freq$"
+    "tables/array/.*\\\\.head$"
     "array30.txt" "array30-big.txt" "wubi-haifeng86.txt"
     )
 

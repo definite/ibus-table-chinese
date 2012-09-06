@@ -1,6 +1,7 @@
-%define ibus_tables_dir %{_datadir}/ibus-table/tables
-%define ibus_icons_dir %{_datadir}/ibus-table/icons
-%define createdb ibus-table-createdb
+%global message_level 6
+%global ibus_tables_dir %{_datadir}/ibus-table/tables
+%global ibus_icons_dir %{_datadir}/ibus-table/icons
+%global createdb ibus-table-createdb
 Name:       @PROJECT_NAME@
 Version:    @PRJ_VER@
 Release:    1%{?dist}
@@ -15,7 +16,6 @@ Source0:    http://ibus.googlecode.com/files/%{name}-%{version}-Source.tar.gz
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  cmake >= 2.6
-BuildRequires:  cmake-fedora >= @CMAKE_FEDORA_VER@
 BuildRequires:  ibus-table-devel >= 1.2
 
 BuildArch:  noarch
@@ -202,8 +202,6 @@ This package includes the Smart Cangjie 6.
 」等功能，而且還能肩負起促進「資訊科技教育、母語教育
 和特殊教育」等多重任務。
 
-
-
 %package stroke5
 Summary: Stroke 5 input method
 Summary(zh_CN): 笔顺五码输入法
@@ -310,7 +308,7 @@ YongMa input method.
 
 %build
 # $RPM_OPT_FLAGS should be  loaded from cmake macro.
-%cmake .
+%cmake -DMANAGE_MESSAGE_LEVEL=%{message_level} -DCMAKE_FEDORA_ENABLE_FEDORA_BUILD=1 .
 %__make VERBOSE=1  %{?_smp_mflags}
 
 %install
