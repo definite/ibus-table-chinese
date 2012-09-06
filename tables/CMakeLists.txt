@@ -74,29 +74,6 @@ MACRO(MAKE_TABLE_SOURCE_TXT outputFile)
 	)
 ENDMACRO(MAKE_TABLE_SOURCE_TXT outputFile)
 
-
-#######################################################################
-# Preprocessing tables
-#
-
-
-# wubi-haifeng
-# Generate the table tooks a long time
-#ADD_CUSTOM_COMMAND(OUTPUT
-#    ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.UTF-8
-#    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/convertTable.sh
-#    COMMENT "Building wubi-haifeng86.UTF-8"
-#    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng
-#    )
-
-ADD_CUSTOM_COMMAND(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.txt
-    COMMAND cat wubi-haifeng86.head wubi-haifeng86.UTF-8 wubi-haifeng86.tail > wubi-haifeng86.txt
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/wubi-haifeng/wubi-haifeng86.UTF-8
-    COMMENT "Building wubi-haifeng86.txt"
-    VERBATIM
-    )
-
 ADD_CUSTOM_TARGET(convert_all ALL)
 
 MACRO(CONVERT_DB targetName)
@@ -147,6 +124,7 @@ MACRO(CONVERT_DB targetName)
 ENDMACRO(CONVERT_DB targetName)
 
 ADD_SUBDIRECTORY(array)
+ADD_SUBDIRECTORY(wubi-haifeng)
 
 CONVERT_DB(cangjie "cangjie/cangjie*.txt")
 CONVERT_DB(cantonese "cantonese/canton*.txt" "cantonese/jyutping*.txt")
@@ -156,7 +134,6 @@ CONVERT_DB(quick "quick/quick*.txt")
 CONVERT_DB(stroke5 "stroke5/stroke*.txt")
 CONVERT_DB(scj "scj/scj*.txt")
 CONVERT_DB(wu "wu/wu*.txt")
-CONVERT_DB(wubi-haifeng "wubi-haifeng/wubi-haifeng86.head")
 CONVERT_DB(wubi-jidian "wubi-jidian/wubi*.txt")
 CONVERT_DB(yong "yong/yong.txt")
 
