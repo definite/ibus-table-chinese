@@ -30,7 +30,6 @@ IF(AWK_CMD STREQUAL "AWK_CMD-NOTFOUND")
     MESSAGE(FATAL_ERROR "awk or gawk is not found!")
 ENDIF(AWK_CMD STREQUAL "AWK_CMD-NOTFOUND")
 
-
 ################################################################
 # GENERATE_FREQ(outputFile inputFile)
 #
