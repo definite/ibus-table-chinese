@@ -1,7 +1,11 @@
 PRJ_VER=1.4.0
-SUMMARY=Table build scripts has been refactored; cmake-fedora is added as submodule
+SUMMARY= Fixed Bug 855250; Fixed Google issue 1405
 BODHI_UPDATE_TYPE=bugfix
-REDHAT_BUGZILLA=
+REDHAT_BUGZILLA=855250
 [Changes]
 - Table build scripts has been refactored.
 - cmake-fedora is added as submodule.
+- Fixed Bug 855250 - Change the default filtering for Quick and Cangjie by
+  merging maxiaojun's repository
+- Fixed Google Issue 1405: failed to build ibus-table-chinese due to missing db files
+
