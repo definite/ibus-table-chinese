@@ -109886,6 +109886,7 @@ ubjq	𨷝	0
 ubjr	𤺹	0
 ubkd	𤶂	0
 ubkg	𤷉	0
+ubkg	·	0
 ubkp	逆取顺守	11700
 ubkr	闻听	1080000
 ubld	𤷪	0
