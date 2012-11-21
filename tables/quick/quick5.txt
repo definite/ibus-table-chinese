@@ -54,6 +54,9 @@ LANGUAGES = zh_TW,zh_HK,zh_CN,zh_SG
 ### Default value for the language filter
 LANGUAGE_FILTER = cm3
 
+### Keys to select candidates
+SELECT_KEYS = 1,2,3,4,5,6,7,8,9
+
 ### Prompt string to be displayed in the status area.
 STATUS_PROMPT = CN
 
