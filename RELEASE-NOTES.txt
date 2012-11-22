@@ -1,4 +1,4 @@
-PRJ_VER=1.4.0
+PRJ_VER=1.4.1
 SUMMARY= Fixed Bug 855250; Fixed Google issue 1405
 BODHI_UPDATE_TYPE=bugfix
 REDHAT_BUGZILLA=855250
@@ -8,4 +8,6 @@ REDHAT_BUGZILLA=855250
 - Fixed Bug 855250 - Change the default filtering for Quick and Cangjie by
   merging maxiaojun's repository
 - Fixed Google Issue 1405: failed to build ibus-table-chinese due to missing db files
+- Merge GitHub Pull request 3: Added the inter punct
+- Merge GitHub Pull request 4: Give Cangjie and Quick users 9 candidates per page
 
