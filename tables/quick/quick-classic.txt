@@ -104,7 +104,7 @@ COMMIT_KEYS = space
 ### The key strokes to forward the inputted string to client.
 ### FORWARD_KEYS = space
 
-### The key strokes to select candidiate phrases.
+### The key strokes to select candidate phrases.
 SELECT_KEYS = 1,2,3,4,5,6,7,8,9
 
 ### The key strokes to page up the lookup table.
@@ -112,8 +112,6 @@ PAGE_UP_KEYS = Shift+less,Page_Up,comma,minus
 
 ### The key strokes to page down the lookup table.
 PAGE_DOWN_KEYS = Shift+greater,Page_Down,period,equal,space
-
-PAGE_SIZE = 9
 
 ### Define the prompts of each valid input char.
 BEGIN_CHAR_PROMPTS_DEFINITION
