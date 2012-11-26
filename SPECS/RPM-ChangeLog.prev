@@ -1,3 +1,13 @@
+* Mon Nov 26 2012 Ding-Yi Chen <dchen@redhat.com> - 1.4.5-1
+- Table build scripts has been refactored.
+- cmake-fedora is added as submodule.
+- Fixed Bug 855250 - Change the default filtering for Quick and Cangjie by
+  merging maxiaojun's repository
+- Fixed Google Issue 1405: failed to build ibus-table-chinese due to missing db files
+- Fixed Google issue 1507: Add CJKV Extension C/D support for Array30
+- Merge GitHub Pull request 3: Added the inter punct
+- Merge GitHub Pull request 4: Give Cangjie and Quick users 9 candidates per page
+
 * Fri Sep 07 2012 Ding-Yi Chen <dchen@redhat.com> - 1.4.0-1
 - Table build scripts has been refactored.
 - cmake-fedora is added as submodule.
