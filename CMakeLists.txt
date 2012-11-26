@@ -122,7 +122,7 @@ SET(PRJ_IGNORE_FILES_COMMON
     )
 
 LIST(APPEND PRJ_IGNORE_FILES_COMMON
-    "\\\\.utf8$" "\\\\.tmp$" "\\\\.freq$"
+    "\\\\.utf8$" "\\\\.tmp$" "\\\\.freq$" "\\\\.tab$"
     "tables/array/.*\\\\.head$"
     "array30.txt" "array30-big.txt" "wubi-haifeng86.txt"
     )
