@@ -13,8 +13,6 @@ Group:      System Environment/Libraries
 URL:        http://code.google.com/p/ibus/
 Source0:    http://ibus.googlecode.com/files/%{name}-%{version}-Source.tar.gz
 
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
 BuildRequires:  cmake >= 2.6
 BuildRequires:  ibus-table-devel >= 1.2
 
@@ -312,15 +310,13 @@ YongMa input method.
 %__make VERBOSE=1  %{?_smp_mflags}
 
 %install
-%__rm -rf $RPM_BUILD_ROOT
 %__make install DESTDIR=$RPM_BUILD_ROOT
 # We install document using %doc
 (cd $RPM_BUILD_ROOT/@PRJ_DOC_DIR@
-    %__rm -rf @PRJ_DOC_LIST@
+    rm -rf @PRJ_DOC_LIST@
 )
 
 %clean
-%__rm -rf $RPM_BUILD_ROOT
 
 %post array
 %{createdb} -i -n %{ibus_tables_dir}/array30.db
@@ -368,18 +364,15 @@ YongMa input method.
 
 
 %files
-%defattr(-,root,root,-)
 %doc @PRJ_DOC_LIST@
 
 %files array
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/array30.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/array30.db
 %{ibus_icons_dir}/array30-big.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/array30-big.db
 
 %files cangjie
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/cangjie3.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/cangjie3.db
 %{ibus_icons_dir}/cangjie5.*
@@ -388,7 +381,6 @@ YongMa input method.
 %verify(not size md5 mtime) %{ibus_tables_dir}/cangjie-big.db
 
 %files cantonese
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/cantonese.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/cantonese.db
 %{ibus_icons_dir}/cantonhk.*
@@ -397,19 +389,16 @@ YongMa input method.
 %verify(not size md5 mtime) %{ibus_tables_dir}/jyutping.db
 
 %files easy
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/easy-big.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/easy-big.db
 
 %files erbi
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/erbi.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/erbi.db
 %{ibus_icons_dir}/erbi-qs.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/erbi-qs.db
 
 %files quick
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/quick3.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/quick3.db
 %{ibus_icons_dir}/quick5.*
@@ -418,34 +407,27 @@ YongMa input method.
 %verify(not size md5 mtime) %{ibus_tables_dir}/quick-classic.db
 
 %files scj
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/scj6.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/scj6.db
 
-
 %files stroke5
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/stroke5.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/stroke5.db
 
 %files wu
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/wu.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/wu.db
 
 %files wubi-haifeng
-%defattr(-,root,root,-)
 %doc tables/wubi-haifeng/COPYING tables/wubi-haifeng/README
 %{ibus_icons_dir}/wubi-haifeng86.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/wubi-haifeng86.db
 
 %files wubi-jidian
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/wubi-jidian86.*
 %verify(not size md5 mtime) %{ibus_tables_dir}/wubi-jidian86.db
 
 %files yong
-%defattr(-,root,root,-)
 %{ibus_icons_dir}/yong.*
 %{ibus_tables_dir}/yong.db
 
