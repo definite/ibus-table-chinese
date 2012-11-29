@@ -39,14 +39,14 @@
 ### 輸入法發明人：朱邦復先生 http://www.cbflabs.com
 ### 碼表維護：倉頡之友.馬來西亞  http://www.chinesecj.com
 
-
-
-
 SCIM_Generic_Table_Phrase_Library_TEXT
 VERSION_1_0
 
 ### Begin Table definition.
 BEGIN_DEFINITION
+
+### License
+LICENSE = GPLv3+
 
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.

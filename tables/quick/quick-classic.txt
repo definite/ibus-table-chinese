@@ -7,6 +7,9 @@ VERSION_1_0
 ### Begin Table definition.
 BEGIN_DEFINITION
 
+### License
+LICENSE = Freely redistributable without restriction
+
 ### Converted from xcin by Roy Chan <roy.chan at debian.org.hk>
 
 ### An unique id to distinguish this table among others.

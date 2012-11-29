@@ -30,12 +30,12 @@ SERIAL_NUMBER = 20081205
 ICON = wubi-jidian86.svg
 
 ### The default name of this table
-NAME = WuBiJidian86
+NAME = WuBi-Jidian (JiShuag) 86
 
 ### The local names of this table
-NAME.zh_CN = 极点五笔86
-NAME.zh_TW = 極點五筆86
-NAME.zh_HK = 極點五筆86
+NAME.zh_CN = 极点五笔（极爽字库）86
+NAME.zh_TW = 極點五筆（極爽字庫）86
+NAME.zh_HK = 極點五筆（極爽字庫）86
 
 ### Supported languages of this table
 LANGUAGES = zh_CN,zh_SG,zh_TW,zh_HK

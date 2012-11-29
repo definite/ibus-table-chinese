@@ -23,6 +23,9 @@ VERSION_1_0
 ### Begin Table definition.
 BEGIN_DEFINITION
 
+### License
+LICENSE = GPLv3+
+
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.
 UUID = bdf5fc1e-63a0-41bd-8e31-3239d67152c0

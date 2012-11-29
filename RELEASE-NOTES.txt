@@ -1,14 +1,7 @@
-PRJ_VER=1.4.5
-SUMMARY= Fixed Bug 855250; Fixed Google issue 1405, 1507
+PRJ_VER=1.4.6
+SUMMARY=
 BODHI_UPDATE_TYPE=bugfix
-REDHAT_BUGZILLA=855250
+REDHAT_BUGZILLA=
 [Changes]
-- Table build scripts has been refactored.
-- cmake-fedora is added as submodule.
-- Fixed Bug 855250 - Change the default filtering for Quick and Cangjie by
-  merging maxiaojun's repository
-- Fixed Google Issue 1405: failed to build ibus-table-chinese due to missing db files
-- Fixed Google issue 1507: Add CJKV Extension C/D support for Array30
-- Merge GitHub Pull request 3: Added the inter punct
-- Merge GitHub Pull request 4: Give Cangjie and Quick users 9 candidates per page
+- Add LICENSE tag for most of the tables.
 

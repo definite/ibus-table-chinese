@@ -20,6 +20,9 @@ VERSION_1_0
 ### Begin Table definition.
 BEGIN_DEFINITION
 
+### License
+LICENSE = Freely redistributable without restriction
+
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.
 UUID = ddac9833-9e7a-46e4-9e84-aeca6cb721c2

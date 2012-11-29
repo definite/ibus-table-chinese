@@ -7,6 +7,9 @@ VERSION_1_0
 ### Begin Table definition.
 BEGIN_DEFINITION
 
+### License
+LICENSE =  GPLv2
+
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.
 UUID = a82d50ad-7995-4db7-9b34-3e9e4e31e4d7
@@ -21,7 +24,7 @@ ICON = jyutping.png
 ### The default name of this table
 NAME = Jyutping
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 粤语拼音
 NAME.zh_TW = 粵語拼音
 NAME.zh_HK = 粵語拼音

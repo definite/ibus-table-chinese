@@ -10,6 +10,9 @@ VERSION_1_0
 ### Begin Table definition.
 BEGIN_DEFINITION
 
+### License
+LICENSE = GPLv2+
+
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.
 UUID = 170d45fe-7fce-4e5b-bd86-f78d2aa8b29e
@@ -24,7 +27,7 @@ ICON = wu.png
 ### The default name of this table
 NAME = Wu
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 吳語注音法
 NAME.zh_TW = 吳語注音法
 NAME.zh_HK = 吳語注音法

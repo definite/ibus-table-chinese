@@ -9,6 +9,9 @@ VERSION_1_0
 ### Begin Table definition.
 BEGIN_DEFINITION
 
+### License
+LICENSE =  MIT
+
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.
 UUID = 33a8f7ff-b05a-4a54-b617-a73cd53583bd
