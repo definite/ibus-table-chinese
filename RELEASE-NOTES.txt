@@ -1,7 +1,8 @@
 PRJ_VER=1.4.6
-SUMMARY=
+SUMMARY=Fixed IBus Google issue 1126
 BODHI_UPDATE_TYPE=bugfix
 REDHAT_BUGZILLA=
 [Changes]
-- Add LICENSE tag for most of the tables.
+- Fixed IBus Google issue 1126: An error in ChineseTableLicenseAuditing
+- Complete LICENSE tag for all of the tables.
 
