@@ -267,9 +267,9 @@ Haifeng Wubi 86.
 
 
 %package wubi-jidian
-Summary: Jidian Wubi input method
-Summary(zh_CN): 极点五笔输入法 极爽字库
-Summary(zh_TW): 極點五筆輸入法 極爽字庫
+Summary: Jidian Wubi 86 input method, JiShuang 6.0
+Summary(zh_CN): 极点五笔86输入法 极爽词库 6.0
+Summary(zh_TW): 極點五筆86輸入法 極爽詞庫 6.0
 Group:          System Environment/Libraries
 License:       Freely redistributable without restriction
 Requires:       %{name} = %{version}-%{release}
