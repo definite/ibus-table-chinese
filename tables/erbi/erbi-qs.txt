@@ -9,6 +9,9 @@ VERSION_1_0
 ### Begin Table definition.
 BEGIN_DEFINITION
 
+### License
+LICENSE =  GPLv2+
+
 ### An unique id to distinguish this table among others.
 ### Use uuidgen to generate this kind of id.
 UUID = cc992910-be17-4342-9631-3759623b94a9
@@ -23,7 +26,7 @@ ICON = erbi-qs.svg
 ### The default name of this table
 NAME = Erbi-QS
 
-### The local names of this table 
+### The local names of this table
 NAME.zh_CN = 二笔-青松
 NAME.zh_TW = 二筆-青松
 NAME.zh_HK = 二筆-青松
@@ -58,7 +61,7 @@ PINYIN_MODE = TRUE
 
 ### If true then the phrases' frequencies will be adjusted dynamically
 ### according your using frequency.
-DYNAMIC_ADJUST = TRUE 
+DYNAMIC_ADJUST = TRUE
 LAYOUT = us
 
 ### Rules to construct user define phrase
