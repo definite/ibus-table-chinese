@@ -48,7 +48,7 @@ AUTO_SELECT = TRUE
 
 ### If true then a multi wildcard will be appended
 ### at the end of inputing string automatically.
-AUTO_WILDCARD = FALSE
+AUTO_WILDCARD = TRUE
 
 ### If true then the result string will be committed to client automatically.
 ### This should be used with AUTO_SELECT = TRUE.
