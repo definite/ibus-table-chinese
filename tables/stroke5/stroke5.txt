@@ -56,7 +56,7 @@ KEYBOARD_LAYOUT = US_Default
 
 ### If true then the first candidate phrase
 ### will be selected automatically during input.
-AUTO_SELECT = TRUE
+AUTO_SELECT = FALSE
 
 ### If true then a multi wildcard will be automatically appended
 ### at the end of input string.
