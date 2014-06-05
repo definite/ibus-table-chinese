@@ -100,7 +100,7 @@ DISCARD_INVALID_KEY = FALSE
 VALID_INPUT_CHARS = nm,./
 
 ### Single wildcard char
-### SINGLE_WILDCARD_CHAR = ?
+SINGLE_WILDCARD_CHAR = ?
 
 ### Multi wildcard char.
 MULTI_WILDCARD_CHAR = *
