@@ -1,7 +1,6 @@
 *.db
 *.freq
 *.gmo
-*.head
 *.la
 *.lo
 *.loT
@@ -22,7 +21,6 @@ CMakeCache.txt
 CMakeFiles/
 CPack*Config.cmake
 CTestTestfile.cmake
-ChangeLog
 FedPkg/
 Makefile
 Modules
