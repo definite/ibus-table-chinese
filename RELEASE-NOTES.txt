@@ -1,8 +1,9 @@
-PRJ_VER=1.4.6
-SUMMARY=Fixed IBus Google issue 1126
+PRJ_VER=1.8.0
+SUMMARY=Update for ibus-table-1.8.0; Fixed Bug 109380
 BODHI_UPDATE_TYPE=bugfix
-REDHAT_BUGZILLA=
+REDHAT_BUGZILLA=1099380
 [Changes]
-- Fixed IBus Google issue 1126: An error in ChineseTableLicenseAuditing
-- Complete LICENSE tag for all of the tables.
+- Update for ibus-table-1.8.0
+- Fixed Bug 1099380 - The stroke5 table should not use 
+  “AUTO_SELECT = TRUE” but “AUTO_SELECT = FALSE” 
 
