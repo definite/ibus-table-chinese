@@ -5,5 +5,4 @@ REDHAT_BUGZILLA=1099380
 [Changes]
 - Update for ibus-table-1.8.0
 - Fixed Bug 1099380 - The stroke5 table should not use 
-  “AUTO_SELECT = TRUE” but “AUTO_SELECT = FALSE” 
-
+  "AUTO_SELECT = TRUE" but "AUTO_SELECT = FALSE"

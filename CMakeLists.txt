@@ -118,43 +118,17 @@ INSTALL(FILES AUTHORS README ChangeLog COPYING DESTINATION ${PRJ_DOC_DIR})
 # Packing
 #
 
-INCLUDE(ManageRPM)
-IF(RPM_BUILD_SOURCES)
-    SET(SOURCE_ARCHIVE_DIR ${RPM_BUILD_SOURCES})
-ELSE(RPM_BUILD_SOURCES)
-    SET(SOURCE_ARCHIVE_DIR ${CMAKE_BINARY_DIR}/SOURCES)
-ENDIF(RPM_BUILD_SOURCES)
-
-
+## Pack Source 
+SET(SOURCE_ARCHIVE_DIR ${CMAKE_BINARY_DIR}/SOURCES CACHE PATH "Source Archive Dir")
 PACK_SOURCE_ARCHIVE("${SOURCE_ARCHIVE_DIR}"
     GITIGNORE ${CMAKE_SOURCE_DIR}/.gitignore
     )
 
-INCLUDE(ManageRelease)
+## Pack RPM
 IF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+    SET(RPM_BUILD_SOURCES ${SOURCE_ARCHIVE_DIR})
     INCLUDE(ManageRPM)
-    PACK_RPM()
-    INCLUDE(ManageReleaseFedora)
-    RELEASE_FEDORA(fedora el6)
-    # "Off" Warning is displayed if mock is not installed.
-    MANAGE_RELEASE(release_fedora)
-ENDIF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
-
-LIST(APPEND SOURCE_ARCHIVE_IGNORE_FILES
-    ${PRJ_IGNORE_FILES_COMMON} "/bin/" "\\\\.xml$" "\\\\.schemas")
-
-IF(RPM_BUILD_SOURCES)
-    SET(SOURCE_ARCHIVE_DIR ${RPM_BUILD_SOURCES})
-ELSE(RPM_BUILD_SOURCES)
-    SET(SOURCE_ARCHIVE_DIR ${CMAKE_BINARY_DIR}/SOURCES)
-ENDIF(RPM_BUILD_SOURCES)
-
-PACK_SOURCE_ARCHIVE("${SOURCE_ARCHIVE_DIR}")
-IF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
-    PACK_RPM()
-    RELEASE_FEDORA(fedora el6)
-    # "Off" Warning is displayed if mock is not installed.
-    MANAGE_RELEASE(release_fedora)
+    PACK_RPM(SPEC_IN "SPECS/project.spec.in")
 ENDIF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
 
 ####################################################################
@@ -169,6 +143,17 @@ ENDIF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
 
 #MANAGE_UPLOAD_CMD(scp src UPLOAD_FILES ${SOURCE_ARCHIVE_FILE})
 #ADD_DEPENDENCIES(upload upload_src)
+
+INCLUDE(ManageRelease)
+IF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+    INCLUDE(ManageReleaseFedora)
+    RELEASE_FEDORA(fedora el6)
+    # "Off" Warning is displayed if mock is not installed.
+    MANAGE_RELEASE(upload release_fedora)
+ELSE(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+    MANAGE_RELEASE(upload)
+ENDIF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
+
 
 ####################################################################
 # Test Suites.
