@@ -31,7 +31,9 @@ SPECS/RPM-ChangeLog
 SRPMS/
 Testing/
 _CPack_Packages/
+array30-big.head
 array30-big.txt
+array30.head
 array30.txt
 cmake_*install.cmake
 debug*s.list
