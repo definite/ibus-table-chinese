@@ -79,7 +79,6 @@ ENDIF(MANAGE_ENVIRONMENT_PATH STREQUAL "NOTFOUND")
 INCLUDE(ManageVersion)
 RELEASE_NOTES_READ_FILE()
 INCLUDE(ManageArchive)
-INCLUDE(ManageDependency)
 INCLUDE(ManageFile)
 INCLUDE(ManageSourceVersionControl)
 INCLUDE(ManageTarget)
@@ -91,6 +90,7 @@ ENABLE_TESTING()
 # Dependencies
 #
 
+INCLUDE(ManageDependency)
 ## Requires
 MANAGE_DEPENDENCY(REQUIRES IBUS-TABLE VER "1.2.0" REQUIRED)
 
@@ -148,9 +148,9 @@ IF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
     INCLUDE(ManageReleaseFedora)
     RELEASE_FEDORA(fedora el6)
     # "Off" Warning is displayed if mock is not installed.
-    MANAGE_RELEASE(upload release_fedora)
+    MANAGE_RELEASE(tag_push release_fedora)
 ELSE(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
-    MANAGE_RELEASE(upload)
+    MANAGE_RELEASE(tag_push)
 ENDIF(CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
 
 
