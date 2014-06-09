@@ -2,7 +2,9 @@
 - Add summary and description translation back.
 
 * Sun Jun 08 2014 Ding-Yi Chen <dchen@redhat.com> - 1.8.0
-- Add summary and description translation back.
+- Update for ibus-table-1.8.0
+- Fixed Bug 1099380 - The stroke5 table should not use 
+  "AUTO_SELECT = TRUE" but "AUTO_SELECT = FALSE"
 
 * Thu Jun 05 2014 Ding-Yi Chen <dchen@redhat.com> - 1.4.6
 - Fixed IBus Google issue 1126: An error in ChineseTableLicenseAuditing
