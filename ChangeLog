@@ -1,3 +1,6 @@
+* Tue Jun 10 2014 Ding-Yi Chen <dchen@redhat.com> - 1.8.2
+- Built for ibus-table-1.8.1
+
 * Sun Jun 08 2014 Ding-Yi Chen <dchen@redhat.com> - 1.8.1
 - Add summary and description translation back.
 
