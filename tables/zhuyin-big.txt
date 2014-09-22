@@ -43,8 +43,11 @@ LANGUAGE_FILTER = cm3
 ### The author of this table
 ### AUTHOR = 
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 注大
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = 中
+STATUS_PROMPT = 注大
 
 ### The Keyboard Layout used by this table. Unset or set to "Unknown" to accept any kind of layouts.
 KEYBOARD_LAYOUT = US_Default

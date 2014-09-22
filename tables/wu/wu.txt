@@ -45,8 +45,11 @@ LANGUAGES = zh_HK,zh_CN,zh_TW,zh_SG
 ### cm4 means to show all characters
 LANGUAGE_FILTER = cm3
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 吳
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = 中
+STATUS_PROMPT = 吳
 
 ### If true then the first candidate phrase
 ### will be selected automatically during inputing.

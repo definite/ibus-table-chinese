@@ -42,8 +42,11 @@ LANGUAGES = zh_CN,zh_TW,zh_HK
 ### cm4 means to show all characters
 LANGUAGE_FILTER = cm2
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 永碼
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = CN
+STATUS_PROMPT = 永碼
 
 ### Use full width punctuation by default
 DEF_FULL_WIDTH_PUNCT = TRUE

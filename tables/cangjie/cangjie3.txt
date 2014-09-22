@@ -59,8 +59,11 @@ LANGUAGE_FILTER = cm3
 ### Keys to select candidates
 SELECT_KEYS = 1,2,3,4,5,6,7,8,9
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 倉㈢
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = CN
+STATUS_PROMPT = 倉㈢
 
 ### If true then the phrases' frequencies will be adjusted dynamically.
 DYNAMIC_ADJUST = TRUE

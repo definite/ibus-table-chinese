@@ -60,8 +60,11 @@ LANGUAGE_FILTER = cm3
 ### The author of this table
 AUTHOR = Woodman Tuen <wmtuen@gmail.com>
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 輕
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = 中
+STATUS_PROMPT = 輕
 
 ### The Keyboard Layout used by this table. Unset or set to "Unknown" to accept any kind of layouts.
 KEYBOARD_LAYOUT = US_Default

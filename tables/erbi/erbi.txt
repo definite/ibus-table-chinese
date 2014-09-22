@@ -44,8 +44,11 @@ LANGUAGES = zh_CN,zh_SG,zh_TW,zh_HK
 ### cm4 means to show all characters
 LANGUAGE_FILTER = cm2
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 贰
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = 中
+STATUS_PROMPT = 贰
 
 ### The Keyboard Layout used by this table. Unset or set to "Unknown" to accept any kind of layouts.
 KEYBOARD_LAYOUT = US_Default

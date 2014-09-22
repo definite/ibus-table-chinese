@@ -47,8 +47,11 @@ LANGUAGE_FILTER = cm3
 ### The author of this table
 AUTHOR = Roy Hiu-yeung Chan <roy.h.y.chan@gmail.com>
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 速
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = 中
+STATUS_PROMPT = 速
 
 ### The Keyboard Layout used by this table. Unset or set to "Unknown" to accept any kind of layouts.
 KEYBOARD_LAYOUT = US_Default

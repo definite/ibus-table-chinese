@@ -38,9 +38,11 @@ LANGUAGE_FILTER = cm3
 ### The author of this table
 AUTHOR = 葉光哲, 廖明德
 
-### Prompt string to be displayed in the status area, CN will be replaced by
-### the gettext tools in runtime as 中.
-STATUS_PROMPT = CN
+### The symbol to be displayed in IM switchers
+SYMBOL = 行列
+
+### Prompt string to be displayed in the status area.
+STATUS_PROMPT = 行列
 
 ### Valid input chars.
 VALID_INPUT_CHARS = abcdefghijklmnopqrstuvwxyz./;,
