@@ -14413,7 +14413,7 @@ leoi	吕	0
 leoi	呂	44
 leoi	唳	0
 leoi	垒	0
-leoi	壘	0
+leoi	壘	198
 leoi	嫘	0
 leoi	寠	0
 leoi	屡	0
@@ -14605,7 +14605,7 @@ leot	䬆	0
 leot	䴶	0
 leot	傈	0
 leot	凓	0
-leot	壘	198
+leot	壘	0
 leot	嵂	0
 leot	律	160
 leot	慄	2
