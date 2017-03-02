@@ -27,6 +27,7 @@ my %mapping_table = (
     # Special cases
     "m"  => "m",
     "ng" => "ng",
+    "zou" => "jo",  # for 做，早
 );
 my %initials = (
     # jyutping => cantonese
