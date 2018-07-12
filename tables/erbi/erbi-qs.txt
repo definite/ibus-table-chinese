@@ -37,8 +37,11 @@ LANGUAGES = zh_CN,zh_SG,zh_TW,zh_HK
 ### The author of this table
 AUTHOR = npwjm <npwjm@163.com>
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 青
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = CN
+STATUS_PROMPT = 青
 
 ### Use full width punctuation by default
 DEF_FULL_WIDTH_PUNCT = TRUE

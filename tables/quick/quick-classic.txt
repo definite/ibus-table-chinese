@@ -34,14 +34,24 @@ NAME.zh_HK = 速成古典版
 ### Supported languages of this table
 LANGUAGES = zh_TW,zh_HK,zh_CN,zh_SG
 
-### Default value for the language filter
+### Default value for the language filter.
+### Only important for Chinese, it can be set to “cm<number>” where
+### <number> can be in the range from 0 to 4. “cm” means “Chinese mode”.
+### cm0 means to show simplified Chinese only
+### cm1 means to show traditional Chinese only
+### cm2 means to show all characters but show simplified Chinese first
+### cm3 means to show all characters but show traditional Chinese first
+### cm4 means to show all characters
 LANGUAGE_FILTER = cm3
 
 ### The author of this table
 AUTHOR = Roy Hiu-yeung Chan <roy.h.y.chan@gmail.com>
 
+### The symbol to be displayed in IM switchers
+SYMBOL = 速
+
 ### Prompt string to be displayed in the status area.
-STATUS_PROMPT = 中
+STATUS_PROMPT = 速
 
 ### The Keyboard Layout used by this table. Unset or set to "Unknown" to accept any kind of layouts.
 KEYBOARD_LAYOUT = US_Default
