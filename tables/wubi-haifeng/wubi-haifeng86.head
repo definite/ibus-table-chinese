@@ -73,6 +73,9 @@ USER_CAN_DEFINE_PHRASE = TRUE
 ### Whether support PinYin Mode, default is true
 PINYIN_MODE = TRUE
 
+### Whether to support suggestion mode, default is false
+SUGGESTION_MODE = TRUE
+
 ### If true then the phrases' frequencies will be adjusted dynamically.
 DYNAMIC_ADJUST = TRUE
 
