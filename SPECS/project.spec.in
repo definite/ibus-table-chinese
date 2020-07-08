@@ -206,7 +206,7 @@ Obsoletes:      ibus-table-stroke5 < 1.3
 Obsoletes:      ibus-table-yinma < 1.3
 
 %description stroke5
-Erbi input method.
+Stroke 5 input method.
 %description -l zh_CN stroke5
 笔顺五码。
 
