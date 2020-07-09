@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.6.2)
 
 # Included scripts do automatic cmake_policy PUSH and POP.
 # OLD: CMake policy in included script will affect the invoker.
-# CMAKE_POLICY(SET CMP0011 OLD)
+CMAKE_POLICY(SET CMP0011 OLD)
 
 # Default CMAKE_INSTALL_PREFIX should be set before PROJECT()
 SET(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "Install dir prefix")
@@ -65,16 +65,17 @@ IF(NOT CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
     SET(LIBEXEC_DIR "${LIB_DIR}" CACHE PATH "LIBEXEC dir")
 ENDIF(NOT CMAKE_FEDORA_ENABLE_FEDORA_BUILD)
 
-INCLUDE(ManageEnvironment RESULT_VARIABLE MANAGE_ENVIRONMENT_PATH)
+INCLUDE(ManageEnvironmentCommon RESULT_VARIABLE MANAGE_ENVIRONMENT_PATH)
 IF(MANAGE_ENVIRONMENT_PATH STREQUAL "NOTFOUND")
-    MESSAGE(FATAL_ERROR "ManageEnvironment is not found in CMAKE_MODULE_PATH,
-    please:
+MESSAGE(FATAL_ERROR "ManageEnvironmentCommon is not found in CMAKE_MODULE_PATH,
+    please do the either:
     1) git submodule init; git submodule update
-    2) or install cmake-fedora/
-    3) wget -P SOURCES https://fedorahosted.org/releases/c/m/cmake-fedora/cmake-fedora-modules-only-latest.tar.gz
+    2) or install cmake-fedora
+    3) or wget -P SOURCES https://fedorahosted.org/releases/c/m/cmake-fedora/cmake-fedora-modules-only-latest.tar.gz
     tar zxvf SOURCES/cmake-fedora-modules-only-latest.tar.gz")
 ENDIF(MANAGE_ENVIRONMENT_PATH STREQUAL "NOTFOUND")
 
+INCLUDE(ManageEnvironment)
 INCLUDE(ManageVersion)
 RELEASE_NOTES_READ_FILE()
 INCLUDE(ManageArchive)
@@ -95,7 +96,7 @@ MANAGE_DEPENDENCY(REQUIRES IBUS-TABLE VER "1.2.0" REQUIRED)
 
 ## Build Requires
 MANAGE_DEPENDENCY(BUILD_REQUIRES CMAKE VER "2.6.2" REQUIRED)
-MANAGE_DEPENDENCY(BUILD_REQUIRES IBUS-TABLE VER "1.2.0" REQUIRED DEVEL)
+MANAGE_DEPENDENCY(BUILD_REQUIRES IBUS-TABLE VER "1.5.0" REQUIRED)
 PRJ_INFO_CMAKE_APPEND(${PRJ_INFO_CMAKE} REQUIRES)
 PRJ_INFO_CMAKE_APPEND(${PRJ_INFO_CMAKE} BUILD_REQUIRES)
 
