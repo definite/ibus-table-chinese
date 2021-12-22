@@ -329,6 +329,9 @@ hw	皇	961014331
 hx	核	734173471
 hy	毫	574508936
 hz	画	914512599
+END_TABLE
+
+BEGIN_TABLE_EXTRA
 i'	单位	3079
 i.		0
 i.	乄	0
@@ -434,6 +437,9 @@ iy	亠	64406
 iy	冫	64406
 iz	钅	708475
 iz	釒	0
+END_TABLE_EXTRA
+
+BEGIN_TABLE
 j'	经济	13598
 j,	九	20743
 j/	经	40581
@@ -739,6 +745,9 @@ tw	躺	399708795
 tx	桶	128298408
 ty	痛	1089634773
 tz	铁	732241266
+END_TABLE
+
+BEGIN_TABLE_EXTRA
 u'	工作	22946
 u,	放	48126
 u.	难	43054
@@ -801,6 +810,9 @@ vw	问题	2407269730
 vx	‘	0
 vy	这样	3191809343
 vz	·	0
+END_TABLE_EXTRA
+
+BEGIN_TABLE
 w'	我们	40560
 w,	娃	2822
 w.	鹜	46
@@ -2586,6 +2598,9 @@ hzi	钬	64406
 hzl	或	2897212496
 hzr	锾	257627
 hzy	镐	7857633
+END_TABLE
+
+BEGIN_TABLE_EXTRA
 i,,	劭	10
 i,.	夃	0
 i,b	劜	0
@@ -4388,6 +4403,9 @@ izv	钍	1481357
 izv	釷	0
 izx	鈢	0
 izz	弌	0
+END_TABLE_EXTRA
+
+BEGIN_TABLE
 j,'	加	51484
 j,b	加班	195
 j,d	加大	561
@@ -6739,6 +6757,9 @@ tzq	铤	3091527
 tzq	铁	732241266
 tzs	钽	64406
 tzv	钍	1481357
+END_TABLE
+
+BEGIN_TABLE_EXTRA
 vs,	㈢	0
 vs.	㈣	0
 vs/	㈤	0
@@ -6799,6 +6820,9 @@ vzw	△	0
 vzx	▲	0
 vzy	￥	0
 vzz	●	0
+END_TABLE_EXTRA
+
+BEGIN_TABLE
 w,v	丸	786
 w/'	毋	411
 w/k	毋	411
@@ -24937,6 +24961,9 @@ hzz/	画纸	17
 hzzf	惑众	1738984
 hzzn	画展	7149158
 hzzz	花枝招展	3864409
+END_TABLE
+
+BEGIN_TABLE_EXTRA
 i,,,	刕	0
 i,,,	劦	0
 i,,;	姦	1
@@ -45284,6 +45311,9 @@ izzl	鎘	0
 izzl	钷	193220
 izzl	钶	0
 izzl	镉	0
+END_TABLE_EXTRA
+
+BEGIN_TABLE
 j,/z	驾	3032
 j,;h	婕	278
 j,b'	加班费	9
@@ -66739,6 +66769,9 @@ tzze	投资总额	1674577
 tzzh	天作之合	0
 tzzj	弹指之间	0
 tzzp	铁证	4637291
+END_TABLE
+
+BEGIN_TABLE_EXTRA
 vsl;	Ⅹ	0
 vsla	Ⅰ	0
 vsld	Ⅲ	0
@@ -66749,6 +66782,9 @@ vslj	Ⅶ	0
 vslk	Ⅷ	0
 vsll	Ⅸ	0
 vsls	Ⅱ	0
+END_TABLE_EXTRA
+
+BEGIN_TABLE
 w,ht	妩	672
 w,lg	娲	180
 w,m,	妩媚	324
@@ -79915,6 +79951,9 @@ zzzx	沾沾自喜	6183055
 zzzx	只争朝夕	1416950
 zzzy	种族主义	1159322
 zzzz	自作主张	3542375
+END_TABLE
+
+BEGIN_TABLE_EXTRA
 iangj	昂	1769
 iangl	盎	183
 ibaij	白	54567
@@ -84328,4 +84367,4 @@ izhuangl	僮	45
 izhuangl	爿	46
 izhuangl	戆	16
 izhuangl	丬	1
-END_TABLE
+END_TABLE_EXTRA
